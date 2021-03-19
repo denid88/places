@@ -1,32 +1,50 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
 }
+
+class App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyFirstWidget(text: 'Stateless widget')
+    );
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print('-Build MyApp state-');
+    print('-Build MyApp-');
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyFirstWidget()
+      home: MySecondWidget()
     );
   }
 }
 
 class MyFirstWidget extends StatelessWidget {
+  final String text;
+  MyFirstWidget({this.text});
+
   @override
   Widget build(BuildContext context) {
-    print('Build MyFirstWidget state!');
+
+    print('Build MyFirstWidget!');
     int _counter = 0;
     print(_counter);
     return Container(
       child: Center(
-        child: Text('Hello!'),
+        child: Text(text),
       ),
     );
   }
@@ -38,6 +56,10 @@ class MySecondWidget extends StatefulWidget {
 }
 
 class _MySecondWidgetState extends State<MySecondWidget> {
+
+  getContent() {
+    return context.runtimeType;
+  }
 
   @override
   void initState() {
@@ -71,7 +93,7 @@ class _MySecondWidgetState extends State<MySecondWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('Build MySecondWidget state!');
+    print('Build MySecondWidget!');
     int _counter = 0;
     print(_counter);
     return Container(
