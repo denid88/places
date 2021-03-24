@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/colors.dart';
 
 class SightListScreen extends StatefulWidget {
-  static const title = 'Список интересных мест';
   @override
   _SightListScreenState createState() => _SightListScreenState();
 }
