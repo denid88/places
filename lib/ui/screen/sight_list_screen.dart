@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/constants/colors.dart';
+import 'package:places/ui/res/colors.dart';
 
 class SightListScreen extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      backgroundColor: backgroundColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(112.0),
         child: Container(
@@ -29,7 +29,7 @@ class _SightListScreenState extends State<SightListScreen> {
                     TextSpan(
                       text: 'С',
                       style: Theme.of(context).textTheme.headline1.copyWith(
-                        color: AppColor.green
+                        color: green
                       ),
                     ),
                     TextSpan(
@@ -38,7 +38,7 @@ class _SightListScreenState extends State<SightListScreen> {
                     TextSpan(
                       text: 'и',
                       style: Theme.of(context).textTheme.headline1.copyWith(
-                        color: AppColor.yellow
+                        color: yellow
                       ),
                     ),
                     TextSpan(
