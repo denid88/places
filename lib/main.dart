@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 
 void main() {
@@ -10,13 +11,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'App',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
       debugShowCheckedModeBanner: false,
-      home: SightListScreen()
+      theme: defaultTheme,
+      home: SightListScreen(),
     );
   }
 }
-
-
