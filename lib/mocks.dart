@@ -5,7 +5,7 @@ final List mocks = [
     name: 'Святогорская лавра',
     lat: 49.0281534,
     lng: 37.5653275,
-    url: 'http://school-tur.com/wp-content/uploads/2019/04/tmp-1469104888-1366x546.jpg',
+    url: 'https://etnosvit.com/wp-content/uploads/2019/03/Svyatogorskaya-lavra.jpg',
     details: 'Свято-Успенская Святогорская лавра является значительным духовным центром православной паствы всего востока современной Украины',
     type: 'монастырь'
   ),
