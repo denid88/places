@@ -51,7 +51,7 @@ class _SightListScreenState extends State<SightListScreen> {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
-            children: mocks.map((s) => SightCard(sight: s)).toList(),
+            children: mocks.map<Widget>((s) => SightCard(sight: s)).toList(),
           ),
         ),
       ),
