@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:places/mocks.dart';
 import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/screen/sight_card.dart';
 
 class SightListScreen extends StatefulWidget {
   @override
@@ -12,13 +16,16 @@ class _SightListScreenState extends State<SightListScreen> {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(112.0),
+        preferredSize: kIsWeb ?
+          const Size.fromHeight(130.0) : const Size.fromHeight(112.0),
         child: Container(
           color: Theme.of(context).backgroundColor,
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0, bottom: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: kIsWeb ?
+              CrossAxisAlignment.center :
+              CrossAxisAlignment.start,
             children: [
               RichText(
                 maxLines: 2,
@@ -27,30 +34,27 @@ class _SightListScreenState extends State<SightListScreen> {
                   style: Theme.of(context).textTheme.headline1,
                   children: [
                     TextSpan(
-                      text: 'С',
-                      style: Theme.of(context).textTheme.headline1.copyWith(
-                        color: green
-                      ),
+                      text: 'Список ${kIsWeb  ? '' : '\n'}',
                     ),
                     TextSpan(
-                      text: 'писок \n',
+                      text: 'интересных мест',
                     ),
-                    TextSpan(
-                      text: 'и',
-                      style: Theme.of(context).textTheme.headline1.copyWith(
-                        color: yellow
-                      ),
-                    ),
-                    TextSpan(
-                      text: 'нтересных мест',
-                    )
                   ]
                 ),
               ),
             ],
           ),
         ),
-      )
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: mocks.map((s) => SightCard(sight: s)).toList(),
+          ),
+        ),
+      ),
     );
   }
 }

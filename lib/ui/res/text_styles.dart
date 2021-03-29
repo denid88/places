@@ -11,10 +11,16 @@ TextStyle _text = const TextStyle(
 
 //Regular
   textRegular = _text.copyWith(fontWeight: FontWeight.w400),
+  textRegular16 = textRegular.copyWith(fontSize: 16.0, color: grey, height: 1.125),
+  textRegular14 = textRegular.copyWith(fontSize: 14.0, color: cardDescription),
 
 //Medium
   textMedium = _text.copyWith(fontWeight: FontWeight.w500),
+  textMedium16 = textMedium.copyWith(fontSize: 16.0, color: grey),
+  textMedium14 = textMedium.copyWith(fontSize: 14.0),
 
 //Bold
   textBold = _text.copyWith(fontWeight: FontWeight.w700),
+  textBold14 = textBold.copyWith(fontSize: 14.0, color: grey),
+  textBold24 = textBold.copyWith(fontSize: 24.0, color: grey),
   textBold32 = textBold.copyWith(fontSize: 32.0, height: 1.125);

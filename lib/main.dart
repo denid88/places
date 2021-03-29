@@ -12,7 +12,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'App',
       debugShowCheckedModeBanner: false,
-      theme: defaultTheme,
+      theme: theme,
       home: SightListScreen(),
     );
   }
