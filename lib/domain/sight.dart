@@ -7,6 +7,7 @@ class Sight {
   final String url;
   final String details;
   final String type;
+
   const Sight({
     @required this.name,
     @required this.lat,
