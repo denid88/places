@@ -25,77 +25,88 @@ class SightCard extends StatelessWidget {
         constraints: BoxConstraints(
           maxWidth: 768.0,
         ),
-        child: Container(
-          margin: const EdgeInsets.only(bottom: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: 96.0,
+        child: AspectRatio(
+          aspectRatio: 3 / 2,
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: 96.0,
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(16.0),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: grey,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(16.0),
+                          topLeft: Radius.circular(16.0),
+                        ),
+                        image: DecorationImage(
+                          image: NetworkImage(sight.url),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            sight.type,
+                            style: TextStyle(color: white),
+                          ),
+                          Container(
+                            width: 20.0,
+                            height: 20.0,
+                            child: Icon(Icons.favorite, color: white),
+                          )
+                        ],
+                      )
+                    ),
+                  ),
                 ),
-                child: Container(
+                SizedBox(height: 10.0),
+                Container(
                   padding: const EdgeInsets.all(16.0),
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: grey,
+                    color: cardBackground,
                     borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(16.0),
-                      topLeft: Radius.circular(16.0),
-                    ),
-                    image: DecorationImage(
-                      image: NetworkImage(sight.url),
-                      fit: BoxFit.cover,
+                      bottomRight: Radius.circular(16.0),
+                      bottomLeft: Radius.circular(16.0),
                     ),
                   ),
-                  child: Row(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        sight.type,
-                        style: TextStyle(color: white),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 2.0),
+                        child: Text(
+                          sight.name,
+                          maxLines: 2,
+                          style: Theme.of(context).textTheme.subtitle1
+                        ),
                       ),
-                      Container(
-                        width: 20.0,
-                        height: 20.0,
-                        child: Icon(Icons.favorite, color: white),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width / 2
+                        ),
+                        child: Text(
+                          sight.details,
+                          style: Theme.of(context).textTheme.bodyText2,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       )
                     ],
-                  )
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: cardBackground,
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(16.0),
-                    bottomLeft: Radius.circular(16.0),
                   ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 2.0),
-                      child: Text(
-                        sight.name,
-                        maxLines: 2,
-                        style: Theme.of(context).textTheme.subtitle1
-                      ),
-                    ),
-                    Text(
-                      sight.details,
-                      style: Theme.of(context).textTheme.bodyText2,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    )
-                  ],
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
