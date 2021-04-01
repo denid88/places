@@ -12,38 +12,64 @@ class SightDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(360.0),
-        child: Container(
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
-          decoration: BoxDecoration(
-            color: grey,
-            image: DecorationImage(
-              image: NetworkImage(sight.url),
-              fit: BoxFit.cover,
+        preferredSize: const Size.fromHeight(364.0),
+        child: Stack(
+          children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: 390.0
+              ),
+              child: Container(
+                width: double.infinity,
+                child: Image.network(
+                  sight.url,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null ?
+                        loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                          : null,
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) =>
+                    Center(
+                      child: Text('Some errors occurred!')
+                    ),
+                )
+              ),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: white,
+            Container(
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: white,
+                      ),
+                      width: 32.0,
+                      height: 32.0,
+                      child: Padding(
+                          padding: const EdgeInsets.only(left: 4.0),
+                          child: Icon(Icons.arrow_back_ios, size: 14.0)
+                      ),
+                    ),
                   ),
-                  width: 32.0,
-                  height: 32.0,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: Icon(Icons.arrow_back_ios, size: 14.0)
-                  ),
-                ),
-              )
-            ],
-          ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       body: Container(
