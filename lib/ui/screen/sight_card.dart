@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/screen/sight_details.dart';
 
@@ -88,7 +89,7 @@ class SightCard extends StatelessWidget {
                             child: Container(
                               width: 20.0,
                               height: 20.0,
-                              child: SvgPicture.asset('res/icons/heart.svg'),
+                              child: SvgPicture.asset(sightCardFavoriteIconURL),
                             ),
                           ),
                         ],
