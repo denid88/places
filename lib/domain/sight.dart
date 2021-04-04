@@ -7,6 +7,8 @@ class Sight {
   final String url;
   final String details;
   final String type;
+  final String date;
+  final bool isVisited;
 
   const Sight({
     @required this.name,
@@ -14,6 +16,8 @@ class Sight {
     @required this.lng,
     @required this.url,
     @required this.details,
-    @required this.type
+    @required this.type,
+    @required this.date,
+    this.isVisited = false
   });
 }
