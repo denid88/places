@@ -3,9 +3,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/colors.dart';
-import 'package:places/ui/screen/sight_card.dart';
+import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/widget/common/bottom_navigation_bar_widget.dart';
+import 'package:places/ui/widget/common/sight_card.dart';
+
 
 class SightListScreen extends StatefulWidget {
+  static const firstLineTitle = 'Список ${kIsWeb  ? '' : '\n'}';
+  static const secondLineTitle = 'интересных мест';
+
+  final int activeIndex;
+  final Function changeScreen;
+
+  const SightListScreen({
+    @required this.activeIndex,
+    @required this.changeScreen
+  });
   @override
   _SightListScreenState createState() => _SightListScreenState();
 }
@@ -17,10 +30,11 @@ class _SightListScreenState extends State<SightListScreen> {
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
         preferredSize: kIsWeb ?
-          const Size.fromHeight(130.0) : const Size.fromHeight(112.0),
+          const Size.fromHeight(sightListScreenAppBarWebH) :
+          const Size.fromHeight(sightListScreenAppBarMobileH),
         child: Container(
           color: Theme.of(context).backgroundColor,
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0, bottom: 16.0),
+          padding: sightListScreenAppBarPadding,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: kIsWeb ?
@@ -34,10 +48,10 @@ class _SightListScreenState extends State<SightListScreen> {
                   style: Theme.of(context).textTheme.headline1,
                   children: [
                     TextSpan(
-                      text: 'Список ${kIsWeb  ? '' : '\n'}',
+                      text: SightListScreen.firstLineTitle,
                     ),
                     TextSpan(
-                      text: 'интересных мест',
+                      text: SightListScreen.secondLineTitle,
                     ),
                   ]
                 ),
@@ -49,12 +63,16 @@ class _SightListScreenState extends State<SightListScreen> {
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: sightListScreenContainerPadding,
           child: Column(
             children: mocks.map<Widget>((s) => SightCard(sight: s)).toList(),
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBarWidget(
+        activeIndex: widget.activeIndex,
+        changeScreen: widget.changeScreen
+      )
     );
   }
 }
