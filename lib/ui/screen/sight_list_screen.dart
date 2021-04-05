@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'file:///D:/denis/Development/places/lib/ui/widget/common/sight_card.dart';
-import 'file:///D:/denis/Development/places/lib/ui/widget/common/bottom_navigation_bar_widget.dart';
+import 'package:places/ui/widget/common/bottom_navigation_bar_widget.dart';
+import 'package:places/ui/widget/common/sight_card.dart';
+
 
 class SightListScreen extends StatefulWidget {
   static const firstLineTitle = 'Список ${kIsWeb  ? '' : '\n'}';
