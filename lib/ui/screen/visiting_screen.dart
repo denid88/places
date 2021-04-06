@@ -28,8 +28,8 @@ class VisitingScreen extends StatelessWidget {
   final Function changeScreen;
 
   const VisitingScreen({
-    @required this.activeIndex,
-    @required this.changeScreen
+    required this.activeIndex,
+    required this.changeScreen
   });
 
   @override

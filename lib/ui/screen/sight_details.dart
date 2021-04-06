@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
@@ -6,7 +5,7 @@ import 'package:places/ui/res/colors.dart';
 class SightDetails extends StatelessWidget {
   final Sight sight;
   SightDetails({
-    @required this.sight
+    required this.sight
   });
   @override
   Widget build(BuildContext context) {
@@ -25,15 +24,13 @@ class SightDetails extends StatelessWidget {
                   sight.url,
                   fit: BoxFit.cover,
                   loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) { return child; }
+
                     return Center(
                       child: CircularProgressIndicator(
                         value: loadingProgress.expectedTotalBytes != null ?
-                        loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
-                          : null,
+                        loadingProgress.cumulativeBytesLoaded / num.parse('${loadingProgress.expectedTotalBytes}') : null,
                       ),
                     );
                   },
@@ -99,7 +96,7 @@ class SightDetails extends StatelessWidget {
               SizedBox(height: 24.0),
               Text(
                 sight.details,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(color: grey)
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(color: grey)
               ),
               SizedBox(height: 24.0),
               Center(

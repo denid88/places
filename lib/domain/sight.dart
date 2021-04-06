@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Sight {
   final String name;
   final double lat;
@@ -11,13 +9,13 @@ class Sight {
   final bool isVisited;
 
   const Sight({
-    @required this.name,
-    @required this.lat,
-    @required this.lng,
-    @required this.url,
-    @required this.details,
-    @required this.type,
-    @required this.date,
+    required this.name,
+    required this.lat,
+    required this.lng,
+    required this.url,
+    required this.details,
+    required this.type,
+    required this.date,
     this.isVisited = false
   });
 }

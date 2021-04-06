@@ -9,9 +9,9 @@ class TabViewVisitingWidget extends StatelessWidget {
   final List<SightCard> sightList;
 
   const TabViewVisitingWidget({
-    @required this.emptyImage,
-    @required this.emptyText,
-    @required this.sightList
+    required this.emptyImage,
+    required this.emptyText,
+    required this.sightList
   });
 
   @override

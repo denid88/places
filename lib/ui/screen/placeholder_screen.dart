@@ -6,8 +6,8 @@ class PlaceHolderScreen extends StatelessWidget {
   final Function changeScreen;
 
   const PlaceHolderScreen({
-    @required this.activeIndex,
-    @required this.changeScreen
+    required this.activeIndex,
+    required this.changeScreen
   });
 
   @override

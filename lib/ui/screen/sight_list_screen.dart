@@ -16,8 +16,8 @@ class SightListScreen extends StatefulWidget {
   final Function changeScreen;
 
   const SightListScreen({
-    @required this.activeIndex,
-    @required this.changeScreen
+    required this.activeIndex,
+    required this.changeScreen
   });
   @override
   _SightListScreenState createState() => _SightListScreenState();

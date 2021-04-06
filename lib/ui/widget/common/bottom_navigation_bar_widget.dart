@@ -16,8 +16,8 @@ class BottomNavigationBarWidget extends StatefulWidget {
   final Function changeScreen;
 
   const BottomNavigationBarWidget({
-    @required this.activeIndex,
-    @required this.changeScreen
+    required this.activeIndex,
+    required this.changeScreen
   });
 
   @override
@@ -26,7 +26,7 @@ class BottomNavigationBarWidget extends StatefulWidget {
 }
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
-  int _selectedIndex;
+  late int _selectedIndex;
 
   @override
   void initState() {

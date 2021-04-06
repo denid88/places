@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:places/domain/sight.dart';
@@ -18,7 +17,7 @@ class SightCard extends StatelessWidget {
   final SightType type;
 
   const SightCard({
-    @required this.sight,
+    required this.sight,
     this.type = SightType.basic
   });
 
@@ -62,14 +61,14 @@ class SightCard extends StatelessWidget {
                             sight.url,
                             fit: BoxFit.cover,
                             loadingBuilder: (BuildContext context, Widget child,
-                                ImageChunkEvent loadingProgress) {
+                                ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) {
                                 return child;
                               }
                               return Center(
                                 child: CircularProgressIndicator(
                                   value: loadingProgress.expectedTotalBytes != null ?
-                                  loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                                  loadingProgress.cumulativeBytesLoaded / num.parse('${loadingProgress.expectedTotalBytes}')
                                       : null,
                                 ),
                               );
@@ -188,7 +187,7 @@ class SightCard extends StatelessWidget {
                         child: Text(
                           '$planCardText ${sight.date}',
                           style: Theme.of(context).
-                            textTheme.bodyText2.copyWith(color: green),
+                            textTheme.bodyText2!.copyWith(color: green),
                         ),
                       ) : type == SightType.visited && sight.date.isNotEmpty ?
                       Padding(

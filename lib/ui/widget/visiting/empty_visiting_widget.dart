@@ -11,8 +11,8 @@ class EmptyVisitingWidget extends StatelessWidget {
   final String emptyText;
 
   const EmptyVisitingWidget({
-    @required this.emptyImage,
-    @required this.emptyText
+    required this.emptyImage,
+    required this.emptyText
   });
 
   @override

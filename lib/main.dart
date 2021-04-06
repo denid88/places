@@ -15,8 +15,8 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
 
-  int _activeScreen;
-  List<Widget> _screens;
+  late int _activeScreen;
+  late List<Widget> _screens;
 
   void changeActiveScreen(int index) {
     setState(() {
