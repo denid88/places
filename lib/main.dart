@@ -41,7 +41,9 @@ class _AppState extends State<App> {
     return MaterialApp(
       title: 'App',
       debugShowCheckedModeBanner: false,
-      theme: theme,
+      themeMode: ThemeMode.light,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: _screens[_activeScreen],
     );
   }

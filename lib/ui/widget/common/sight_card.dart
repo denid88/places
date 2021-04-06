@@ -164,7 +164,7 @@ class SightCard extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: cardBackground,
+                  color: Theme.of(context).cardTheme.color,
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(16.0),
                     bottomLeft: Radius.circular(16.0),

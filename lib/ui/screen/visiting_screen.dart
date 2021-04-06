@@ -37,7 +37,6 @@ class VisitingScreen extends StatelessWidget {
     return DefaultTabController(
       length: _tabs.length,
       child: Scaffold(
-        backgroundColor: backgroundColor,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(visitingScreenAppBarH),
           child: AppBar(
@@ -55,20 +54,14 @@ class VisitingScreen extends StatelessWidget {
               width: double.infinity,
               height: visitingScreenTabsH,
               decoration: BoxDecoration(
-                color: tabBarBackgroundColor,
+                color: Theme.of(context).brightness == Brightness.light ?
+                  ltTabBarBackgroundColor :
+                  dtTabBarBackgroundColor,
                 borderRadius: BorderRadius.circular(
                   visitingScreenTabsBorderRadius
                 ),
               ),
               child: TabBar(
-                labelColor: white,
-                unselectedLabelColor: tabBarNonActiveColor,
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    visitingScreenTabsBorderRadius
-                  ), // Creates border
-                  color: dark
-                ),
                 tabs: List<Tab>.from(_tabs.map((t) => Tab(child: Text(t))))
               ),
             ),

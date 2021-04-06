@@ -53,7 +53,7 @@ class SightDetails extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: white,
+                        color: Theme.of(context).backgroundColor,
                       ),
                       width: 32.0,
                       height: 32.0,
@@ -96,7 +96,7 @@ class SightDetails extends StatelessWidget {
               SizedBox(height: 24.0),
               Text(
                 sight.details,
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(color: grey)
+                style: Theme.of(context).textTheme.bodyText1
               ),
               SizedBox(height: 24.0),
               Center(
@@ -109,7 +109,7 @@ class SightDetails extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
-                      color: green,
+                      color: Theme.of(context).accentColor,
                     ),
                     child: Center(
                       child: Text(
@@ -124,7 +124,7 @@ class SightDetails extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 24.0, bottom: 8.0),
                 width: double.infinity,
                 height: 1.0,
-                color: hr
+                color: Theme.of(context).dividerColor
               ),
               Row(
                 children: [
@@ -132,7 +132,7 @@ class SightDetails extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_today, color: cardDescription),
+                        Icon(Icons.calendar_today, color: ltCardDescription),
                         SizedBox(width: 8.0),
                         Text('Запланировать')
                       ],

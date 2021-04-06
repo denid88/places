@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/widget/common/bottom_navigation_bar_widget.dart';
 import 'package:places/ui/widget/common/sight_card.dart';
@@ -27,7 +26,6 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
       appBar: PreferredSize(
         preferredSize: kIsWeb ?
           const Size.fromHeight(sightListScreenAppBarWebH) :
