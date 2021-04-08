@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/widget/button/base_back_button.dart';
+import 'package:places/ui/widget/button/base_elevated_button.dart';
+import 'package:places/ui/widget/button/base_text_button.dart';
 
 class SightDetails extends StatelessWidget {
   final Sight sight;
@@ -43,28 +47,7 @@ class SightDetails extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                      width: 32.0,
-                      height: 32.0,
-                      child: Padding(
-                          padding: const EdgeInsets.only(left: 4.0),
-                          child: Icon(Icons.arrow_back_ios, size: 14.0)
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              child: BaseBackButton()
             ),
           ],
         ),
@@ -98,27 +81,12 @@ class SightDetails extends StatelessWidget {
                 sight.details,
                 style: Theme.of(context).textTheme.bodyText1
               ),
-              SizedBox(height: 24.0),
-              Center(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: 48.0,
-                    maxWidth: 360.0,
-                  ),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Theme.of(context).accentColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'построить маршрут'.toUpperCase(),
-                        style: TextStyle(color: white)
-                      ),
-                    ),
-                  ),
-                ),
+              BaseElevatedButton(
+                action: () { print('Маршрут построен!'); },
+                text: 'Построить маршрут',
+                textIsUppercase: true,
+                icon: emptyVisitingURL,
+                topOffset: 24.0
               ),
               Container(
                 margin: const EdgeInsets.only(top: 24.0, bottom: 8.0),
@@ -129,27 +97,22 @@ class SightDetails extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.calendar_today, color: ltCardDescription),
-                        SizedBox(width: 8.0),
-                        Text('Запланировать')
-                      ],
-                    ),
+                    child: BaseTextButton(
+                      action: () { print('Запланировано что то'); },
+                      text: 'Запланировать',
+                      disabled: true,
+                      icon: calendarIconURL,
+                    )
                   ),
                   Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.favorite),
-                        SizedBox(width: 8.0),
-                        Text('В Избранное', style: TextStyle(color: grey))
-                      ],
-                    ),
+                    child: BaseTextButton(
+                      action: () { print('Добавлено в избранное'); },
+                      text: 'В Избранное',
+                      icon: favoriteIconURL,
+                    )
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),

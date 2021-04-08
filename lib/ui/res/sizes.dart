@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 /*
 * App sizes
 */
+const double noElevation = 0.0,
+      elButtonBorderRadius = 12.0;
 
 /*
 * Sight List Screen

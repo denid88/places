@@ -5,6 +5,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/screen/sight_details.dart';
+import 'package:places/ui/widget/button/base_action_button.dart';
 
 enum SightType { basic, plan, visited }
 
@@ -91,67 +92,33 @@ class SightCard extends StatelessWidget {
                             sight.type,
                             style: TextStyle(color: white),
                           ),
-                          type == SightType.basic ? GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            onTap: () {
-                              print('Add to favorite');
-                            },
-                            child: Container(
-                              width: 20.0,
-                              height: 20.0,
-                              child: SvgPicture.asset(favoriteIconURL),
-                            ),
-                          ) : type == SightType.plan ? Row(
+                          type == SightType.basic ?
+                            BaseActionButton(
+                              icon: favoriteIconURL,
+                              action: () { print('Добавлено в избранное'); }
+                            ) : type == SightType.plan ? Row(
                             children: [
-                              GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  print('Add to calendar');
-                                },
-                                child: Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  child: SvgPicture.asset(calendarIconURL),
-                                ),
+                              BaseActionButton(
+                                icon: calendarIconURL,
+                                action: () { print('Добавлено в календарь'); }
                               ),
                               SizedBox(width: 20.0),
-                              GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  print('Remove');
-                                },
-                                child: Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  child: SvgPicture.asset(removeIconURL),
-                                ),
-                              )
+                              BaseActionButton(
+                                icon: removeIconURL,
+                                action: () { print('Удалить'); }
+                              ),
                             ],
                           ) : type == SightType.visited ? Row(
                             children: [
-                              GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  print('Add to calendar');
-                                },
-                                child: Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  child: SvgPicture.asset(shareIconURL),
-                                ),
+                              BaseActionButton(
+                                icon: shareIconURL,
+                                action: () { print('Поделиться'); }
                               ),
                               SizedBox(width: 20.0),
-                              GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  print('Remove');
-                                },
-                                child: Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  child: SvgPicture.asset(removeIconURL),
-                                ),
-                              )
+                              BaseActionButton(
+                                icon: removeIconURL,
+                                action: () { print('Удалить'); }
+                              ),
                             ],
                           ) : SizedBox.shrink()
                         ],

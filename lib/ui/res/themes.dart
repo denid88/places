@@ -20,7 +20,7 @@ ThemeData lightTheme = ThemeData(
   accentColor: green,
   dividerColor: hr,
   appBarTheme: AppBarTheme(
-    elevation: 0.0,
+    elevation: noElevation,
     backgroundColor: ltBackgroundColor,
     iconTheme: IconThemeData(
       color: grey
@@ -41,12 +41,31 @@ ThemeData lightTheme = ThemeData(
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: white,
-    elevation: 0.0,
+    elevation: noElevation,
     type: BottomNavigationBarType.fixed,
     showSelectedLabels: false,
     showUnselectedLabels: false,
     selectedItemColor: darkGrey,
     unselectedItemColor: grey
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(green),
+      elevation: MaterialStateProperty.all<double>(noElevation),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(elButtonBorderRadius),
+        )
+      )
+    )
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      overlayColor: MaterialStateProperty.all<Color>(greenWithOpacity50),
+      textStyle: MaterialStateProperty.all<TextStyle>(
+        ltTextRegular14.copyWith(color: lightGreyWithOpacity56)
+      )
+    )
   )
 );
 
@@ -67,7 +86,7 @@ ThemeData darkTheme = ThemeData(
   accentColor: lightGreen,
   dividerColor: hr,
   appBarTheme: AppBarTheme(
-    elevation: 0.0,
+    elevation: noElevation,
     backgroundColor: dtBackgroundColor,
     iconTheme: IconThemeData(
       color: white
@@ -88,11 +107,30 @@ ThemeData darkTheme = ThemeData(
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: dtBackgroundColor,
-    elevation: 0.0,
+    elevation: noElevation,
     type: BottomNavigationBarType.fixed,
     showSelectedLabels: false,
     showUnselectedLabels: false,
     selectedItemColor: white,
     unselectedItemColor: lightGrey
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(lightGreen),
+      elevation: MaterialStateProperty.all<double>(noElevation),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(elButtonBorderRadius),
+        )
+      )
+    )
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      overlayColor: MaterialStateProperty.all<Color>(lightGreenWithOpacity50),
+      textStyle: MaterialStateProperty.all<TextStyle>(
+        dtTextRegular14.copyWith(color: lightGreyWithOpacity56)
+      )
+    )
   )
 );
