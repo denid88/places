@@ -5,11 +5,13 @@ class BaseBackButton extends StatelessWidget {
   final double size;
   final double iconSize;
   final double radius;
+  final Color background;
 
   const BaseBackButton({
     this.size = 32.0,
     this.iconSize = 14.0,
-    this.radius = 10.0
+    this.radius = 10.0,
+    required this.background
   });
 
   @override
@@ -17,7 +19,7 @@ class BaseBackButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
-        color: Theme.of(context).backgroundColor,
+        color: background,
       ),
       width: size,
       height: size,

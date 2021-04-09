@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/themes.dart';
-import 'package:places/ui/screen/placeholder_screen.dart';
-import 'package:places/ui/screen/sight_list_screen.dart';
-import 'package:places/ui/screen/visiting_screen.dart';
+import 'package:places/ui/screens/placeholder_screen.dart';
+import 'package:places/ui/screens/sight_list_screen.dart';
+import 'package:places/ui/screens/visiting_screen.dart';
 
 void main() {
   runApp(App());
@@ -41,7 +41,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       title: 'App',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       theme: lightTheme,
       darkTheme: darkTheme,
       home: _screens[_activeScreen],

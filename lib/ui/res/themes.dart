@@ -66,6 +66,18 @@ ThemeData lightTheme = ThemeData(
         ltTextRegular14.copyWith(color: lightGreyWithOpacity56)
       )
     )
+  ),
+  sliderTheme: SliderThemeData(
+    trackHeight: 2.0,
+    thumbColor: white,
+    activeTrackColor: green,
+    overlayColor: lightGreenWithOpacity50,
+    inactiveTrackColor: lightGreyWithOpacity56,
+    rangeTrackShape: RectangularRangeSliderTrackShape(),
+    rangeThumbShape: RoundRangeSliderThumbShape(
+      enabledThumbRadius: 8.0,
+      elevation: 2.0,
+    )
   )
 );
 
@@ -90,7 +102,7 @@ ThemeData darkTheme = ThemeData(
     backgroundColor: dtBackgroundColor,
     iconTheme: IconThemeData(
       color: white
-    )
+    ),
   ),
   tabBarTheme: TabBarTheme(
     labelColor: grey,
@@ -131,6 +143,18 @@ ThemeData darkTheme = ThemeData(
       textStyle: MaterialStateProperty.all<TextStyle>(
         dtTextRegular14.copyWith(color: lightGreyWithOpacity56)
       )
+    )
+  ),
+  sliderTheme: SliderThemeData(
+    trackHeight: 2.0,
+    thumbColor: white,
+    activeTrackColor: lightGreen,
+    overlayColor: lightGreenWithOpacity50,
+    inactiveTrackColor: lightGreyWithOpacity56,
+    rangeTrackShape: RectangularRangeSliderTrackShape(),
+    rangeThumbShape: RoundRangeSliderThumbShape(
+      enabledThumbRadius: 8.0,
+      elevation: 2.0,
     )
   )
 );

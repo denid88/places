@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/widget/common/bottom_navigation_bar_widget.dart';
+import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
 
 class PlaceHolderScreen extends StatelessWidget {
   final int activeIndex;

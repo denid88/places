@@ -3,9 +3,9 @@ import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/widget/common/bottom_navigation_bar_widget.dart';
-import 'package:places/ui/widget/common/sight_card.dart';
-import 'package:places/ui/widget/visiting/tab_view_visiting_widget.dart';
+import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
+import 'package:places/ui/widgets/common/sight_card.dart';
+import 'package:places/ui/widgets/visiting/tab_view_visiting_widget.dart';
 
 class VisitingScreen extends StatelessWidget {
 

@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
-import 'package:places/ui/screen/sight_details.dart';
-import 'package:places/ui/widget/button/base_action_button.dart';
+import 'package:places/ui/screens/sight_details.dart';
+import 'package:places/ui/widgets/button/base_action_button.dart';
 
 enum SightType { basic, plan, visited }
 

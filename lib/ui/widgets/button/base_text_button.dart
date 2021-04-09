@@ -15,6 +15,8 @@ class BaseTextButton extends StatelessWidget {
   final double bottomOffset;
   final String icon;
   final double iconSize;
+  final Color color;
+  final FontWeight fontWeight;
 
   const BaseTextButton({
     required this.action,
@@ -25,7 +27,9 @@ class BaseTextButton extends StatelessWidget {
     this.topOffset = 0.0,
     this.bottomOffset = 0.0,
     this.icon = '',
-    this.iconSize = 20.0
+    this.iconSize = 20.0,
+    this.color = Colors.transparent,
+    this.fontWeight = FontWeight.w400
   });
 
   @override
@@ -67,15 +71,17 @@ class BaseTextButton extends StatelessWidget {
                     child: SvgPicture.asset(
                       icon,
                       width: iconSize,
-                      color: Theme.of(context).brightness == Brightness.light ?
-                        grey : white
+                      color: color == Colors.transparent ?
+                        Theme.of(context).brightness == Brightness.light ?
+                        grey : white : color
                     ),
                   ) : SizedBox.shrink(),
                   Text(
                     text,
-                    style: TextStyle(color:
+                    style: TextStyle(color: color == Colors.transparent ?
                       Theme.of(context).brightness == Brightness.light ?
-                        grey : white
+                        grey : white : color,
+                      fontWeight: fontWeight
                     ),
                   )
                 ],

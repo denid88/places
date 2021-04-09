@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/assets.dart';
-import 'package:places/ui/res/colors.dart';
-import 'package:places/ui/widget/button/base_back_button.dart';
-import 'package:places/ui/widget/button/base_elevated_button.dart';
-import 'package:places/ui/widget/button/base_text_button.dart';
+import 'package:places/ui/widgets/button/base_back_button.dart';
+import 'package:places/ui/widgets/button/base_elevated_button.dart';
+import 'package:places/ui/widgets/button/base_text_button.dart';
 
 class SightDetails extends StatelessWidget {
   final Sight sight;
@@ -47,7 +46,9 @@ class SightDetails extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
-              child: BaseBackButton()
+              child: BaseBackButton(
+                background: Theme.of(context).backgroundColor
+              )
             ),
           ],
         ),
