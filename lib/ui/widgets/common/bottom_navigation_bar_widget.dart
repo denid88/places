@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:places/ui/res/assets.dart';
-import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 
 const List<Map<String, dynamic>> _bottomNavigationBarItems = [
@@ -16,8 +15,8 @@ class BottomNavigationBarWidget extends StatefulWidget {
   final Function changeScreen;
 
   const BottomNavigationBarWidget({
-    @required this.activeIndex,
-    @required this.changeScreen
+    required this.activeIndex,
+    required this.changeScreen
   });
 
   @override
@@ -26,7 +25,7 @@ class BottomNavigationBarWidget extends StatefulWidget {
 }
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
-  int _selectedIndex;
+  late int _selectedIndex;
 
   @override
   void initState() {
@@ -40,19 +39,16 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       constraints: BoxConstraints(minHeight: bottomNavigationBarMinHeight),
       child: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
               width: bottomNavigationBarBorderWidth,
-              color: bottomNavigationBarBorderColor
+              color: Theme.of(context).dividerColor
             ),
           ),
         ),
         child: BottomNavigationBar(
           currentIndex: _selectedIndex,
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
           items: List<BottomNavigationBarItem>.from(
             _bottomNavigationBarItems.asMap().entries.map((entry) {
               int index = entry.key;
@@ -60,7 +56,9 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             return BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   value['icon'],
-                  color: index == _selectedIndex ? darkGrey : grey,
+                  color: index == _selectedIndex ?
+                    Theme.of(context).bottomNavigationBarTheme.selectedItemColor :
+                    Theme.of(context).bottomNavigationBarTheme.unselectedItemColor
                 ),
                 tooltip: value['tooltip'],
                 label: value['label']

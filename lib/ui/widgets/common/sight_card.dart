@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
-import 'package:places/ui/screen/sight_details.dart';
+import 'package:places/ui/screens/sight_details.dart';
+import 'package:places/ui/widgets/button/base_action_button.dart';
 
 enum SightType { basic, plan, visited }
 
@@ -18,7 +17,7 @@ class SightCard extends StatelessWidget {
   final SightType type;
 
   const SightCard({
-    @required this.sight,
+    required this.sight,
     this.type = SightType.basic
   });
 
@@ -62,14 +61,14 @@ class SightCard extends StatelessWidget {
                             sight.url,
                             fit: BoxFit.cover,
                             loadingBuilder: (BuildContext context, Widget child,
-                                ImageChunkEvent loadingProgress) {
+                                ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) {
                                 return child;
                               }
                               return Center(
                                 child: CircularProgressIndicator(
                                   value: loadingProgress.expectedTotalBytes != null ?
-                                  loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                                  loadingProgress.cumulativeBytesLoaded / num.parse('${loadingProgress.expectedTotalBytes}')
                                       : null,
                                 ),
                               );
@@ -92,67 +91,33 @@ class SightCard extends StatelessWidget {
                             sight.type,
                             style: TextStyle(color: white),
                           ),
-                          type == SightType.basic ? GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            onTap: () {
-                              print('Add to favorite');
-                            },
-                            child: Container(
-                              width: 20.0,
-                              height: 20.0,
-                              child: SvgPicture.asset(favoriteIconURL),
-                            ),
-                          ) : type == SightType.plan ? Row(
+                          type == SightType.basic ?
+                            BaseActionButton(
+                              icon: favoriteIconURL,
+                              action: () { print('Добавлено в избранное'); }
+                            ) : type == SightType.plan ? Row(
                             children: [
-                              GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  print('Add to calendar');
-                                },
-                                child: Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  child: SvgPicture.asset(calendarIconURL),
-                                ),
+                              BaseActionButton(
+                                icon: calendarIconURL,
+                                action: () { print('Добавлено в календарь'); }
                               ),
                               SizedBox(width: 20.0),
-                              GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  print('Remove');
-                                },
-                                child: Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  child: SvgPicture.asset(removeIconURL),
-                                ),
-                              )
+                              BaseActionButton(
+                                icon: removeIconURL,
+                                action: () { print('Удалить'); }
+                              ),
                             ],
                           ) : type == SightType.visited ? Row(
                             children: [
-                              GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  print('Add to calendar');
-                                },
-                                child: Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  child: SvgPicture.asset(shareIconURL),
-                                ),
+                              BaseActionButton(
+                                icon: shareIconURL,
+                                action: () { print('Поделиться'); }
                               ),
                               SizedBox(width: 20.0),
-                              GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  print('Remove');
-                                },
-                                child: Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  child: SvgPicture.asset(removeIconURL),
-                                ),
-                              )
+                              BaseActionButton(
+                                icon: removeIconURL,
+                                action: () { print('Удалить'); }
+                              ),
                             ],
                           ) : SizedBox.shrink()
                         ],
@@ -165,7 +130,7 @@ class SightCard extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: cardBackground,
+                  color: Theme.of(context).cardTheme.color,
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(16.0),
                     bottomLeft: Radius.circular(16.0),
@@ -188,7 +153,7 @@ class SightCard extends StatelessWidget {
                         child: Text(
                           '$planCardText ${sight.date}',
                           style: Theme.of(context).
-                            textTheme.bodyText2.copyWith(color: green),
+                            textTheme.bodyText2!.copyWith(color: green),
                         ),
                       ) : type == SightType.visited && sight.date.isNotEmpty ?
                       Padding(

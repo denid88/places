@@ -11,8 +11,8 @@ class EmptyVisitingWidget extends StatelessWidget {
   final String emptyText;
 
   const EmptyVisitingWidget({
-    @required this.emptyImage,
-    @required this.emptyText
+    required this.emptyImage,
+    required this.emptyText
   });
 
   @override
@@ -23,12 +23,12 @@ class EmptyVisitingWidget extends StatelessWidget {
       children: [
         SvgPicture.asset(
           emptyImage,
-          color: empty
+          color: ltEmpty
         ),
         SizedBox(height: 30.0),
         Text(
           emptyString,
-          style: textMedium18Light,
+          style: ltTextMedium18Light,
         ),
         SizedBox(height: 8.0),
         SizedBox(
@@ -36,7 +36,7 @@ class EmptyVisitingWidget extends StatelessWidget {
           child: Text(
             emptyText,
             textAlign: TextAlign.center,
-            style: textRegular14Light
+            style: ltTextRegular14Light
           ),
         ),
       ],
