@@ -55,17 +55,17 @@ ThemeData lightTheme = ThemeData(
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(elButtonBorderRadius),
-        )
-      )
-    )
+        ),
+      ),
+    ),
   ),
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       overlayColor: MaterialStateProperty.all<Color>(greenWithOpacity50),
       textStyle: MaterialStateProperty.all<TextStyle>(
         ltTextRegular14.copyWith(color: lightGreyWithOpacity56)
-      )
-    )
+      ),
+    ),
   ),
   sliderTheme: SliderThemeData(
     trackHeight: 2.0,
@@ -77,8 +77,8 @@ ThemeData lightTheme = ThemeData(
     rangeThumbShape: RoundRangeSliderThumbShape(
       enabledThumbRadius: 8.0,
       elevation: 2.0,
-    )
-  )
+    ),
+  ),
 );
 
 ThemeData darkTheme = ThemeData(
@@ -133,17 +133,17 @@ ThemeData darkTheme = ThemeData(
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(elButtonBorderRadius),
-        )
-      )
-    )
+        ),
+      ),
+    ),
   ),
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       overlayColor: MaterialStateProperty.all<Color>(lightGreenWithOpacity50),
       textStyle: MaterialStateProperty.all<TextStyle>(
         dtTextRegular14.copyWith(color: lightGreyWithOpacity56)
-      )
-    )
+      ),
+    ),
   ),
   sliderTheme: SliderThemeData(
     trackHeight: 2.0,
@@ -155,6 +155,6 @@ ThemeData darkTheme = ThemeData(
     rangeThumbShape: RoundRangeSliderThumbShape(
       enabledThumbRadius: 8.0,
       elevation: 2.0,
-    )
-  )
+    ),
+  ),
 );

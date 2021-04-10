@@ -6,6 +6,11 @@ import 'package:flutter/material.dart';
 const double filterScreenAppBarH = appBarH;
 
 /*
+* Settings screen
+*/
+const double settingsScreenAppBarH = appBarH;
+
+/*
 * Sight List Screen
 */
 const double sightListScreenAppBarMobileH = 227.0,
