@@ -126,9 +126,12 @@ class _SightListScreenState extends State<SightListScreen> {
                       borderRadius: BorderRadius.circular(12.0)
                     ),
                     filled: true,
-                    fillColor: lightGrey,
+                    fillColor: Theme.of(context).cardTheme.color,
                     focusColor: lightGrey,
                     hintText: 'Поиск',
+                    hintStyle: TextStyle(
+                      color: lightGreyWithOpacity56
+                    )
                   ),
                 ),
               ),

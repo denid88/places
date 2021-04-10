@@ -6,7 +6,5 @@ arePointsNear(Coords checkPoint, Coords centerPoint, double m) {
   double kx = cos(pi * centerPoint.lat / 180.0) * ky;
   double dx = (centerPoint.lng - checkPoint.lng).abs() * kx;
   double dy = (centerPoint.lat - checkPoint.lat).abs() * ky;
-  print(sqrt(dx * dx + dy * dy));
-  print(m / 1000);
   return sqrt(dx * dx + dy * dy) <= (m / 1000).round();
 }

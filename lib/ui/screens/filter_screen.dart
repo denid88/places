@@ -36,7 +36,6 @@ class _FilterScreenState extends State<FilterScreen> {
     _currentRangeValues = const RangeValues(100, 5000);
     final sortedList = widget.list.where((e) {
       final checkPoint = Coords(lat: e.lat, lng: e.lng);
-      print(arePointsNear(checkPoint, currentGeo, _currentRangeValues.end));
       return arePointsNear(checkPoint, currentGeo, _currentRangeValues.end);
     }).toList();
     _defaultList = sortedList
@@ -45,7 +44,6 @@ class _FilterScreenState extends State<FilterScreen> {
         'type': e,
         'status': false
       }).toList();
-
   }
 
   void filterChange(args) {
@@ -85,7 +83,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   _currentRangeValues = const RangeValues(100, 5000);
                   final sortedList = widget.list.where((e) {
                     final checkPoint = Coords(lat: e.lat, lng: e.lng);
-                    print(arePointsNear(checkPoint, currentGeo, _currentRangeValues.end));
                     return arePointsNear(checkPoint, currentGeo, _currentRangeValues.end);
                   }).toList();
                   _defaultList = sortedList
@@ -171,21 +168,20 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                         onChanged: (RangeValues values) {
                           setState(() {
+                            _filteredList = [];
                             _currentRangeValues = values;
+                            final sortedList = widget.list.where((e) {
+                              final checkPoint = Coords(lat: e.lat, lng: e.lng);
+                              return arePointsNear(checkPoint, currentGeo, _currentRangeValues.end);
+                            }).toList();
+
+                            _defaultList = sortedList
+                                .map<String>((s) => s.type).toSet().toList()
+                                .map<Map<String, dynamic>>((e) => {
+                              'type': e,
+                              'status': false
+                            }).toList();
                           });
-
-                          final sortedList = widget.list.where((e) {
-                            final checkPoint = Coords(lat: e.lat, lng: e.lng);
-                            print(arePointsNear(checkPoint, currentGeo, _currentRangeValues.end));
-                            return arePointsNear(checkPoint, currentGeo, _currentRangeValues.end);
-                          }).toList();
-
-                          _defaultList = sortedList
-                              .map<String>((s) => s.type).toSet().toList()
-                              .map<Map<String, dynamic>>((e) => {
-                            'type': e,
-                            'status': false
-                          }).toList();
                         },
                       ),
                     )
