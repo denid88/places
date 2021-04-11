@@ -10,6 +10,7 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screens/filter_screen.dart';
+import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
 import 'package:places/ui/widgets/common/sight_card.dart';
 
@@ -139,15 +140,36 @@ class _SightListScreenState extends State<SightListScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: sightListScreenContainerPadding,
-          child: Column(
-            children: _filteredList.map<Widget>((s) =>
-              SightCard(sight: s)).toList(),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              padding: sightListScreenContainerPadding,
+              child: Column(
+                children: _filteredList.map<Widget>((s) =>
+                    SightCard(sight: s)).toList(),
+              ),
+            ),
           ),
-        ),
+          Positioned(
+            bottom: 16.0,
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: BaseElevatedButton(
+                action: () {},
+                text: 'новое место',
+                textIsUppercase: true,
+                icon: plusIconURL,
+                iconSize: 16.0,
+                width: 177.0,
+                height: 48.0,
+                borderRadius: 24.0,
+                gradientEnable: true,
+              ),
+            )
+          )
+        ],
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
         activeIndex: widget.activeIndex,

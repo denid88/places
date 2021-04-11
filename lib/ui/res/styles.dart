@@ -4,7 +4,14 @@ import 'package:places/ui/res/colors.dart';
 /*
 * Styles sets
 */
-
+const LinearGradient baseBackgroundLinear = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [
+    yellow,
+    green
+  ],
+);
 /*
 * Card Styles
 */
@@ -27,7 +34,7 @@ OutlineInputBorder defaultBorderStyle = OutlineInputBorder(
 /*
 * Settings Items Styles
 */
-BoxDecoration borderBottom = BoxDecoration(
+const BoxDecoration borderBottom = BoxDecoration(
   border: Border(
     bottom: BorderSide(
       color: hr,
