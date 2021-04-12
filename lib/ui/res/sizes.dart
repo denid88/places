@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+
+/*
+* Add Sight Screen
+*/
+const double addSightScreenAppBarH = appBarH;
 /*
 * Filter Screen
 */

@@ -6,8 +6,9 @@ import 'package:places/ui/res/styles.dart';
 
 class BaseElevatedButton extends StatelessWidget {
 
-  final Function action;
+  final dynamic action;
   final String text;
+  final FontWeight textFontWeight;
   final bool textIsUppercase;
   final String icon;
   final double iconSize;
@@ -23,6 +24,7 @@ class BaseElevatedButton extends StatelessWidget {
   const BaseElevatedButton({
     required this.action,
     required this.text,
+    this.textFontWeight = FontWeight.w700,
     this.textIsUppercase = false,
     this.icon = '',
     this.iconSize = 20.0,
@@ -55,14 +57,22 @@ class BaseElevatedButton extends StatelessWidget {
             style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
               backgroundColor: gradientEnable ?
                 MaterialStateProperty.all<Color>(Colors.transparent) :
-                MaterialStateProperty.all<Color>(backgroundColor),
+                MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.pressed))
+                    return green.withOpacity(0.56);
+                  else if (states.contains(MaterialState.disabled))
+                    return lightGrey;
+                  return green; // Use the component's default.
+                },
+              ),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
               ),
             ),
-            onPressed: () => action(),
+            onPressed: action,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -77,7 +87,11 @@ class BaseElevatedButton extends StatelessWidget {
                   ) : SizedBox.shrink(),
                 Text(
                   textIsUppercase ? text.toUpperCase() : text,
-                  style: TextStyle(color: white)
+                  style: TextStyle(
+                    color: action != null ? white : lightGreyWithOpacity56,
+                    fontWeight: textFontWeight,
+                    letterSpacing: .75
+                  )
                 ),
               ],
             ),

@@ -9,6 +9,7 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screens/add_sight_screen.dart';
 import 'package:places/ui/screens/filter_screen.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
@@ -157,7 +158,17 @@ class _SightListScreenState extends State<SightListScreen> {
             width: MediaQuery.of(context).size.width,
             child: Center(
               child: BaseElevatedButton(
-                action: () {},
+                action: () async {
+                  final newSight = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddSightScreen()),
+                  );
+                  if (newSight != null) {
+                    setState(() {
+                      _filteredList.add(newSight);
+                    });
+                  }
+                },
                 text: 'новое место',
                 textIsUppercase: true,
                 icon: plusIconURL,

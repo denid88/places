@@ -12,6 +12,10 @@ const LinearGradient baseBackgroundLinear = LinearGradient(
     green
   ],
 );
+
+const TextStyle baseLabelStyle = TextStyle(
+  color: hr
+);
 /*
 * Card Styles
 */
@@ -27,6 +31,13 @@ BorderRadius cardTopBorderRadius = BorderRadius.only(
 OutlineInputBorder defaultBorderStyle = OutlineInputBorder(
   borderSide: BorderSide(
     color: Colors.transparent,
+  ),
+  borderRadius: BorderRadius.circular(12.0)
+);
+
+OutlineInputBorder lightGreyBorderStyle = OutlineInputBorder(
+  borderSide: BorderSide(
+    color: lightGreyWithOpacity56,
   ),
   borderRadius: BorderRadius.circular(12.0)
 );
