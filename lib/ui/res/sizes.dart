@@ -18,8 +18,8 @@ const double settingsScreenAppBarH = appBarH;
 /*
 * Sight List Screen
 */
-const double sightListScreenAppBarMobileH = 227.0,
-  sightListScreenAppBarWebH = 204.0;
+const double sightListScreenAppBarMobileH = appBarH,
+  sightListScreenAppBarWebH = appBarH;
 const EdgeInsets sightListScreenAppBarPadding =
 EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0, bottom: 16.0),
   sightListScreenContainerPadding = _containerPaddingH16;
