@@ -6,6 +6,14 @@ import 'package:places/ui/res/colors.dart';
 */
 
 /*
+* Card Styles
+*/
+BorderRadius cardBorderRadius = BorderRadius.circular(16.0);
+BorderRadius cardTopBorderRadius = BorderRadius.only(
+  topRight: Radius.circular(16.0),
+  topLeft: Radius.circular(16.0),
+);
+/*
 * Filter TextField Styles
 */
 

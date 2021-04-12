@@ -33,7 +33,7 @@ class SightDetails extends StatelessWidget {
                     return Center(
                       child: CircularProgressIndicator(
                         value: loadingProgress.expectedTotalBytes != null ?
-                        loadingProgress.cumulativeBytesLoaded / num.parse('${loadingProgress.expectedTotalBytes}') : null,
+                        loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! : null,
                       ),
                     );
                   },
