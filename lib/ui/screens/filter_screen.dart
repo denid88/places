@@ -192,7 +192,9 @@ class _FilterScreenState extends State<FilterScreen> {
             BaseElevatedButton(
               topOffset: 8.0,
               bottomOffset: 8.0,
-              action: () {},
+              action: () {
+                Navigator.of(context).pop(_filteredList);
+              },
               text: _filteredList.isNotEmpty ?
                 'показать (${_filteredList.length})' : 'показать',
               textIsUppercase: true,

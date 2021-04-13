@@ -16,13 +16,23 @@ class SearchBar extends StatefulWidget {
   final Color suffixIconColor;
   final double suffixSize;
   final dynamic suffixIconAction;
+  final dynamic focusNode;
+  final dynamic textEditingController;
+  final bool subtractEnabled;
+  final dynamic onChangedHandler;
+  final dynamic onEditingCompleteHandler;
 
   const SearchBar({
     this.disabled = false,
     this.suffixIcon = '',
     this.suffixSize = 18.0,
     this.suffixIconColor = Colors.transparent,
-    this.suffixIconAction
+    this.suffixIconAction,
+    this.focusNode,
+    this.textEditingController,
+    this.subtractEnabled = false,
+    this.onChangedHandler,
+    this.onEditingCompleteHandler
   });
 
   @override
@@ -42,12 +52,26 @@ class _SearchBarState extends State<SearchBar> {
       width: double.infinity,
       child: MiddleWareBar(
         action: () {
-          print('middleware');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SightSearchScreen()),
+          );
         },
         middlewareValue: widget.disabled,
         widget: TextField(
+          autofocus: !widget.disabled,
+          focusNode: widget.focusNode,
+          controller: widget.textEditingController,
           readOnly: widget.disabled,
           style: ltTextRegular16,
+          onChanged: (value) {
+            widget.onChangedHandler(value);
+          },
+          onEditingComplete: () {
+            widget.onEditingCompleteHandler();
+            widget.focusNode.unfocus();
+            widget.textEditingController.clear();
+          },
           decoration: InputDecoration(
             prefixIcon: Container(
               margin: const EdgeInsets.only(left: 15.0, right: 14.0),
@@ -57,7 +81,7 @@ class _SearchBarState extends State<SearchBar> {
                 color: lightGreyWithOpacity56,
               ),
             ),
-            suffixIcon: widget.suffixIcon.isNotEmpty ? InkWell(
+            suffixIcon: InkWell(
               onTap: widget.suffixIconAction,
               child: Container(
                 margin: const EdgeInsets.only(right: 15.0),
@@ -67,7 +91,7 @@ class _SearchBarState extends State<SearchBar> {
                   color: widget.suffixIconColor,
                 ),
               ),
-            ) : null,
+            ),
             suffixIconConstraints: BoxConstraints(
                 minWidth: 20.0
             ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/data.dart';
+import 'package:places/domain/history.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screens/placeholder_screen.dart';
 import 'package:places/ui/screens/settings_screen.dart';
@@ -10,9 +12,19 @@ import 'domain/theme.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeModel(),
-      child: App()
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ThemeModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Data(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => History(),
+        ),
+      ],
+      child: App(),
     )
   );
 }

@@ -23,9 +23,7 @@ class MiddleWareBar extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
-                color: Colors.red
               ),
-              margin: const EdgeInsets.only(right: 40.0),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
             ),
