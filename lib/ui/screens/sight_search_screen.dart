@@ -179,6 +179,16 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 } :
                 () {
                 _searchController.clear();
+                setState(() {
+                  _showSuggestion = false;
+                  _showNotFound = false;
+                });
+                Provider.of<History>(context, listen: false).history.isEmpty ?
+                setState(() {
+                  _showEmpty = true;
+                }) : setState(() {
+                  _showHistory = true;
+                });
               },
               focusNode: _focusNode,
               textEditingController: _searchController,
