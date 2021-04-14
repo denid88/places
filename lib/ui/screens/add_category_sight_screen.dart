@@ -14,7 +14,7 @@ class _AddCategorySightScreenState extends State<AddCategorySightScreen> {
 
   static const String _title = 'Категория';
   static const List<Categories> _categories = [
-    Categories.cafe,
+    Categories.lake,
     Categories.church,
     Categories.mountain,
     Categories.restaurant,
