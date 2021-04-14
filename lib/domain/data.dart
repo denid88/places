@@ -25,7 +25,10 @@ class Data extends ChangeNotifier {
     final duplicate =
       _wishesList.singleWhereOrNull((s) => s.name == sight.name);
     if (duplicate == null) {
-      _wishesList.add(sight);
+     _data = _data.map((s) => s.name == sight.name ?
+        s.copyWith(isFavorite: true) : s).toList();
+      final changedSight = sight.copyWith(isFavorite: true);
+      _wishesList.add(changedSight);
       notifyListeners();
     }
   }
@@ -34,12 +37,15 @@ class Data extends ChangeNotifier {
     final duplicate =
       _visitedList.singleWhereOrNull((s) => s.name == sight.name);
     if (duplicate == null) {
+      final changedSight = sight.copyWith(isVisited: true);
       _visitedList.add(sight);
       notifyListeners();
     }
   }
 
   removeFromListWishes(String name) {
+    _data = _data.map((s) => s.name == name ?
+      s.copyWith(isFavorite: false) : s).toList();
     _wishesList.removeWhere((s) => s.name == name);
     notifyListeners();
   }

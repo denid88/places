@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:places/ui/res/colors.dart';
 
 class BaseActionButton extends StatelessWidget {
 
@@ -21,7 +22,10 @@ class BaseActionButton extends StatelessWidget {
       child: Container(
         width: size,
         height: size,
-        child: icon.isNotEmpty ? SvgPicture.asset(icon) : SizedBox.shrink(),
+        child: icon.isNotEmpty ? SvgPicture.asset(
+          icon,
+          color: white,
+        ) : SizedBox.shrink(),
       ),
     );
   }

@@ -4,13 +4,13 @@ import 'package:places/domain/data.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/screens/sight_details.dart';
 import 'package:places/ui/widgets/button/base_action_button.dart';
 import 'package:provider/provider.dart';
 
-enum SightType { basic, plan, visited }
 
 class SightCard extends StatelessWidget {
 
@@ -99,7 +99,8 @@ class SightCard extends StatelessWidget {
                           ),
                           type == SightType.basic ?
                           BaseActionButton(
-                            icon: favoriteIconURL,
+                            icon: sight.isFavorite ?
+                              favoriteDarkIconURL : favoriteIconURL,
                             action: () {
                               Provider.of<Data>(context, listen: false)
                                 .addToWishes(sight);

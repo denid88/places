@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/data.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
 import 'package:places/ui/widgets/common/sight_card.dart';
