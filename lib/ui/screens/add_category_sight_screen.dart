@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/utils/text_utils.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
 
 class AddCategorySightScreen extends StatefulWidget {
@@ -11,17 +13,17 @@ class AddCategorySightScreen extends StatefulWidget {
 class _AddCategorySightScreenState extends State<AddCategorySightScreen> {
 
   static const String _title = 'Категория';
-  static const List<String> _categories = [
-    'Озеро',
-    'Монастырь',
-    'Гора',
-    'Ресторан',
-    'Отель',
-    'Парк',
-    'Кафе'
+  static const List<Categories> _categories = [
+    Categories.cafe,
+    Categories.church,
+    Categories.mountain,
+    Categories.restaurant,
+    Categories.hotel,
+    Categories.park,
+    Categories.cafe
   ];
 
-  String checked = '';
+  Categories? checked;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,7 @@ class _AddCategorySightScreenState extends State<AddCategorySightScreen> {
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                            children: [
                              Text(
-                               c,
+                               convertEnumCategoriesToString(c),
                                style: TextStyle(
                                  color: Theme.of(context).brightness == Brightness.light ?
                                   darkGrey : white
@@ -96,8 +98,9 @@ class _AddCategorySightScreenState extends State<AddCategorySightScreen> {
               child: BaseElevatedButton(
                 topOffset: 8.0,
                 bottomOffset: 8.0,
-                action: checked.isEmpty ? null : () {
-                  Navigator.of(context).pop(checked);
+                action: checked == null ? null : () {
+                  Navigator.of(context)
+                    .pop(convertEnumCategoriesToString(checked!));
                 },
                 text: 'Сохранить',
                 textIsUppercase: true,
