@@ -7,6 +7,7 @@ import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/button/base_text_button.dart';
 import 'package:places/ui/widgets/input/base_input.dart';
 import 'package:places/ui/widgets/input/dropdown_add_sight_input.dart';
+import 'package:places/ui/widgets/input/images_add_sight.dart';
 
 import 'add_category_sight_screen.dart';
 
@@ -95,6 +96,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    ImagesAddSight(),
                     DropdownAddSightInput(
                       label: 'Категории',
                       hint: _defaultDropdownHint,
