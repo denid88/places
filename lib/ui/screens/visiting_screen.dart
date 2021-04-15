@@ -70,7 +70,6 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     sightList: Provider.of<Data>(context, listen: true)
                       .data.where((s) => s.isFavorite).map<SightCard>((s) =>
                         SightCard(
-                          key: ValueKey(s.name),
                           sight: s,
                           type: SightType.plan,
                         )
@@ -82,7 +81,6 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     sightList: Provider.of<Data>(context, listen: true)
                       .data.where((s) => s.isVisited).map<SightCard>((s) =>
                         SightCard(
-                          key: ValueKey(s.name),
                           sight: s,
                           type: SightType.visited
                         ),
