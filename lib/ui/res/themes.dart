@@ -78,7 +78,7 @@ ThemeData lightTheme = ThemeData(
       enabledThumbRadius: 8.0,
       elevation: 2.0,
     ),
-  ),
+  )
 );
 
 ThemeData darkTheme = ThemeData(

@@ -4,7 +4,18 @@ import 'package:places/ui/res/colors.dart';
 /*
 * Styles sets
 */
+const LinearGradient baseBackgroundLinear = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [
+    yellow,
+    green
+  ],
+);
 
+const TextStyle baseLabelStyle = TextStyle(
+  color: hr
+);
 /*
 * Card Styles
 */
@@ -24,10 +35,17 @@ OutlineInputBorder defaultBorderStyle = OutlineInputBorder(
   borderRadius: BorderRadius.circular(12.0)
 );
 
+OutlineInputBorder lightGreyBorderStyle = OutlineInputBorder(
+  borderSide: BorderSide(
+    color: lightGreyWithOpacity56,
+  ),
+  borderRadius: BorderRadius.circular(12.0)
+);
+
 /*
 * Settings Items Styles
 */
-BoxDecoration borderBottom = BoxDecoration(
+const BoxDecoration borderBottom = BoxDecoration(
   border: Border(
     bottom: BorderSide(
       color: hr,

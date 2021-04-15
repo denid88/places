@@ -1,0 +1,1 @@
+enum Categories { lake, church, mountain, restaurant, hotel, park, cafe }
