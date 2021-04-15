@@ -28,4 +28,5 @@ const String favoriteIconURL = '$base/$icons/heart.svg',
       sportIconURL = '$base/$icons/sport.svg',
       infoIconURL = '$base/$icons/info.svg',
       plusIconURL = '$base/$icons/plus.svg',
-      subtractIconURL = '$base/$icons/subtract.svg';
+      subtractIconURL = '$base/$icons/subtract.svg',
+      trashIconURL = '$base/$icons/trash.svg';

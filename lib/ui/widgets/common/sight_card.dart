@@ -5,10 +5,11 @@ import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/enums.dart';
-import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/screens/sight_details.dart';
 import 'package:places/ui/widgets/button/base_action_button.dart';
+import 'package:places/ui/widgets/common/sight_card_dismissible_background.dart';
+import 'package:places/ui/widgets/common/sight_card_dismissible_sec_background.dart';
 import 'package:provider/provider.dart';
 
 
@@ -29,18 +30,33 @@ class SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey(sight.name),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: 768.0,
-        ),
-        child: Card(
-          elevation: noElevation,
-          shape: RoundedRectangleBorder(
-            borderRadius: cardBorderRadius,
-          ),
-          margin: const EdgeInsets.only(bottom: 16.0),
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: 768.0,
+      ),
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 16.0),
+        child: Dismissible(
+          key: ValueKey(sight.name),
+          direction: type == SightType.basic ?
+            DismissDirection.none : DismissDirection.endToStart,
+          background: SightCardDismissibleBackground(),
+          secondaryBackground: SightCardDismissibleSecBackground(),
+          onDismissed: type == SightType.basic ? null : (DismissDirection direction) {
+            if (direction == DismissDirection.endToStart) {
+              if (type == SightType.plan) {
+                Provider.of<Data>(context, listen: false)
+                  .removeFromListWishes(sight.name);
+              } else if (type == SightType.visited) {
+                Provider.of<Data>(context, listen: false)
+                  .removeFromListVisited(sight.name);
+              }
+            }
+          },
+          confirmDismiss: (DismissDirection direction) async {
+            return  direction == DismissDirection.endToStart;
+          },
           child: InkWell(
             onTap: () async {
               await Navigator.push(
@@ -53,7 +69,7 @@ class SightCard extends StatelessWidget {
             borderRadius: cardBorderRadius,
             splashColor: splashCard,
             child: ClipRRect(
-              borderRadius: cardTopBorderRadius,
+              borderRadius: BorderRadius.circular(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -143,6 +159,12 @@ class SightCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(16.0),
                     width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(16.0),
+                        bottomLeft: Radius.circular(16.0),
+                      )
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

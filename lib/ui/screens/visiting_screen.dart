@@ -71,8 +71,8 @@ class _VisitingScreenState extends State<VisitingScreen> {
                       .data.where((s) => s.isFavorite).map<SightCard>((s) =>
                         SightCard(
                           sight: s,
-                          type: SightType.plan,
-                        )
+                          type: SightType.plan
+                        ),
                     ).toList()
                   ),
                   TabViewVisitingWidget(

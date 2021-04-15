@@ -24,13 +24,13 @@ class Data extends ChangeNotifier {
       notifyListeners();
   }
 
-  removeFromListWishes(String name) {
+  void removeFromListWishes(String name) {
     _data = _data.map((s) => s.name == name ?
       s.copyWith(isFavorite: false) : s).toList();
     notifyListeners();
   }
 
-  removeFromListVisited(String name) {
+  void removeFromListVisited(String name) {
     _data = _data.map((s) => s.name == name ?
       s.copyWith(isVisited: false) : s).toList();
     notifyListeners();
