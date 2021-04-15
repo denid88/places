@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/domain/data.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/screens/sight_details.dart';
 import 'package:places/ui/widgets/button/base_action_button.dart';
+import 'package:provider/provider.dart';
 
-enum SightType { basic, plan, visited }
 
 class SightCard extends StatelessWidget {
 
@@ -17,10 +19,14 @@ class SightCard extends StatelessWidget {
 
   final Sight sight;
   final SightType type;
+  final Function? remove;
+  final Key? key;
 
   const SightCard({
     required this.sight,
-    this.type = SightType.basic
+    this.type = SightType.basic,
+    this.remove,
+    this.key
   });
 
   @override
@@ -30,6 +36,7 @@ class SightCard extends StatelessWidget {
         maxWidth: 768.0,
       ),
       child: Card(
+        key: key,
         elevation: noElevation,
         shape: RoundedRectangleBorder(
           borderRadius: cardBorderRadius,
@@ -92,8 +99,12 @@ class SightCard extends StatelessWidget {
                           ),
                           type == SightType.basic ?
                           BaseActionButton(
-                              icon: favoriteIconURL,
-                              action: () { print('Добавлено в избранное'); }
+                            icon: sight.isFavorite ?
+                              favoriteDarkIconURL : favoriteIconURL,
+                            action: () {
+                              Provider.of<Data>(context, listen: false)
+                                .addToWishes(sight);
+                            }
                           ) : type == SightType.plan ? Row(
                             children: [
                               BaseActionButton(
@@ -103,7 +114,10 @@ class SightCard extends StatelessWidget {
                               SizedBox(width: 20.0),
                               BaseActionButton(
                                 icon: removeIconURL,
-                                action: () { print('Удалить'); }
+                                action: () {
+                                  Provider.of<Data>(context, listen: false)
+                                    .removeFromListWishes(sight.name);
+                                }
                               ),
                             ],
                           ) : type == SightType.visited ? Row(
@@ -115,7 +129,10 @@ class SightCard extends StatelessWidget {
                               SizedBox(width: 20.0),
                               BaseActionButton(
                                 icon: removeIconURL,
-                                action: () { print('Удалить'); }
+                                action: () {
+                                  Provider.of<Data>(context, listen: false)
+                                    .removeFromListVisited(sight.name);
+                                }
                               ),
                             ],
                           ) : SizedBox.shrink()
