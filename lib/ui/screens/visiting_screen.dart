@@ -68,7 +68,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     emptyImage: emptyVisitingWantURL,
                     emptyText: 'Отмечайте понравившиеся места и они появиятся здесь.',
                     sightList: Provider.of<Data>(context, listen: true)
-                      .wishesList.map<SightCard>((s) =>
+                      .data.where((s) => s.isFavorite).map<SightCard>((s) =>
                         SightCard(
                           key: ValueKey(s.name),
                           sight: s,
@@ -80,7 +80,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     emptyImage: emptyVisitingURL,
                     emptyText: 'Завершите маршрут, чтобы место попало сюда.',
                     sightList: Provider.of<Data>(context, listen: true)
-                      .visitedList.map<SightCard>((s) =>
+                      .data.where((s) => s.isVisited).map<SightCard>((s) =>
                         SightCard(
                           key: ValueKey(s.name),
                           sight: s,
