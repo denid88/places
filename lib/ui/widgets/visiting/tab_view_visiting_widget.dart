@@ -6,7 +6,7 @@ class TabViewVisitingWidget extends StatelessWidget {
 
   final String emptyImage;
   final String emptyText;
-  final List<SightCard> sightList;
+  final List<Widget> sightList;
 
   const TabViewVisitingWidget({
     required this.emptyImage,

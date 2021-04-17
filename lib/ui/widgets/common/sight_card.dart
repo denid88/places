@@ -13,7 +13,7 @@ import 'package:places/ui/widgets/common/sight_card_dismissible_sec_background.d
 import 'package:provider/provider.dart';
 
 
-class SightCard extends StatelessWidget {
+class SightCard extends StatefulWidget {
 
   static const String planCardText = 'Запланировано на';
   static const String visitedCardText = 'Цель достигнута';
@@ -29,6 +29,11 @@ class SightCard extends StatelessWidget {
   });
 
   @override
+  _SightCardState createState() => _SightCardState();
+}
+
+class _SightCardState extends State<SightCard> {
+  @override
   Widget build(BuildContext context) {
 
     return ConstrainedBox(
@@ -38,19 +43,23 @@ class SightCard extends StatelessWidget {
       child: Card(
         margin: const EdgeInsets.only(bottom: 16.0),
         child: Dismissible(
-          key: ValueKey(sight.name),
-          direction: type == SightType.basic ?
+          key: ValueKey(widget.sight.name),
+          direction: widget.type == SightType.basic ?
             DismissDirection.none : DismissDirection.endToStart,
           background: SightCardDismissibleBackground(),
           secondaryBackground: SightCardDismissibleSecBackground(),
-          onDismissed: type == SightType.basic ? null : (DismissDirection direction) {
+          dismissThresholds: {
+            DismissDirection.endToStart: 0.2,
+          },
+          onDismissed: widget.type == SightType.basic ? null : (DismissDirection direction) {
             if (direction == DismissDirection.endToStart) {
-              if (type == SightType.plan) {
+
+              if (widget.type == SightType.plan) {
                 Provider.of<Data>(context, listen: false)
-                  .removeFromListWishes(sight.name);
-              } else if (type == SightType.visited) {
+                  .removeFromListWishes(widget.sight.name);
+              } else if (widget.type == SightType.visited) {
                 Provider.of<Data>(context, listen: false)
-                  .removeFromListVisited(sight.name);
+                  .removeFromListVisited(widget.sight.name);
               }
             }
           },
@@ -62,7 +71,7 @@ class SightCard extends StatelessWidget {
               await Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => SightDetails(
-                  sight: sight,
+                  sight: widget.sight,
                 )),
               );
             },
@@ -81,7 +90,7 @@ class SightCard extends StatelessWidget {
                         ),
                         width: double.infinity,
                         child: Image.network(
-                          sight.url,
+                          widget.sight.url,
                           fit: BoxFit.cover,
                           loadingBuilder: (BuildContext context, Widget child,
                               ImageChunkEvent? loadingProgress) {
@@ -109,18 +118,20 @@ class SightCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              sight.type,
+                              widget.sight.type,
                               style: TextStyle(color: white),
                             ),
-                            type == SightType.basic ?
+                            widget.type == SightType.basic ?
                             BaseActionButton(
-                              icon: sight.isFavorite ?
+                              icon: widget.sight.isFavorite ?
                                 favoriteDarkIconURL : favoriteIconURL,
                               action: () {
-                                Provider.of<Data>(context, listen: false)
-                                  .addToWishes(sight);
+                                if (!widget.sight.isFavorite) {
+                                  Provider.of<Data>(context, listen: false)
+                                    .addToWishes(widget.sight);
+                                }
                               }
-                            ) : type == SightType.plan ? Row(
+                            ) : widget.type == SightType.plan ? Row(
                               children: [
                                 BaseActionButton(
                                   icon: calendarIconURL,
@@ -131,11 +142,11 @@ class SightCard extends StatelessWidget {
                                   icon: removeIconURL,
                                   action: () {
                                     Provider.of<Data>(context, listen: false)
-                                      .removeFromListWishes(sight.name);
+                                      .removeFromListWishes(widget.sight.name);
                                   }
                                 ),
                               ],
-                            ) : type == SightType.visited ? Row(
+                            ) : widget.type == SightType.visited ? Row(
                               children: [
                                 BaseActionButton(
                                   icon: shareIconURL,
@@ -146,7 +157,7 @@ class SightCard extends StatelessWidget {
                                   icon: removeIconURL,
                                   action: () {
                                     Provider.of<Data>(context, listen: false)
-                                      .removeFromListVisited(sight.name);
+                                      .removeFromListVisited(widget.sight.name);
                                   }
                                 ),
                               ],
@@ -171,30 +182,30 @@ class SightCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 2.0),
                           child: Text(
-                            sight.name,
+                            widget.sight.name,
                             maxLines: 2,
                             style: Theme.of(context).textTheme.subtitle1
                           ),
                         ),
-                        type == SightType.plan && sight.date.isNotEmpty  ?
+                        widget.type == SightType.plan && widget.sight.date.isNotEmpty  ?
                         Padding(
                           padding: const EdgeInsets.only(bottom: 16.0),
                           child: Text(
-                            '$planCardText ${sight.date}',
+                            '${SightCard.planCardText} ${widget.sight.date}',
                             style: Theme.of(context).
                             textTheme.bodyText2!.copyWith(color: green),
                           ),
-                        ) : type == SightType.visited && sight.date.isNotEmpty ?
+                        ) : widget.type == SightType.visited && widget.sight.date.isNotEmpty ?
                         Padding(
                           padding: const EdgeInsets.only(bottom: 16.0),
                           child: Text(
-                            '$visitedCardText ${sight.date}',
+                            '${SightCard.visitedCardText} ${widget.sight.date}',
                             style: Theme.of(context).
                             textTheme.bodyText2,
                           ),
                         ) : SizedBox.shrink(),
                         Text(
-                          sight.details,
+                          widget.sight.details,
                           style: Theme.of(context).textTheme.bodyText2,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
