@@ -9,10 +9,12 @@ class DraggableCard extends StatefulWidget {
 
   final Sight sight;
   final SightType type;
+  final bool dismissibleEnable;
 
   const DraggableCard({
     required this.sight,
-    required this.type
+    required this.type,
+    this.dismissibleEnable = false
   });
 
   @override
@@ -79,13 +81,14 @@ class _DraggableCardState extends State<DraggableCard> {
           ),
           child: SightCard(
             sight: widget.sight,
-            type: widget.type
+            type: widget.type,
           ),
         ),
         child: _isDrag ?
         SizedBox.shrink() : SightCard(
           sight: widget.sight,
-          type: widget.type
+          type: widget.type,
+          dismissibleEnable: widget.dismissibleEnable,
         ),
       )
     );

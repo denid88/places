@@ -4,10 +4,10 @@ import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
 import 'package:places/ui/widgets/common/draggable_card.dart';
-import 'package:places/ui/widgets/common/sight_card.dart';
-import 'package:places/ui/widgets/visiting/tab_view_visiting_widget.dart';
+import 'package:places/ui/widgets/visiting/empty_visiting_widget.dart';
 import 'package:provider/provider.dart';
 
 class VisitingScreen extends StatefulWidget {
@@ -28,17 +28,6 @@ class VisitingScreen extends StatefulWidget {
 }
 
 class _VisitingScreenState extends State<VisitingScreen> {
-
-  bool isDragWishes = false;
-  CardDirection _acceptDirection = CardDirection.none;
-  String _cardName = '';
-
-  void _draggableResponse (String name, CardDirection direction) {
-    setState(() {
-      _acceptDirection = direction;
-      _cardName = name;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,32 +59,53 @@ class _VisitingScreenState extends State<VisitingScreen> {
                 ),
               ),
               child: TabBar(
-                tabs: List<Tab>.from(VisitingScreen._tabs.map((t) => Tab(child: Text(t))))
+                tabs: List<Tab>.from(VisitingScreen._tabs.map((t) =>
+                  Tab(child: Text(t))))
               ),
             ),
             Expanded(
               child: Container(
                 padding: visitingScreenContainerPadding,
-                child: TabBarView(children: [
-                  TabViewVisitingWidget(
-                    emptyImage: emptyVisitingWantURL,
-                    emptyText: 'Отмечайте понравившиеся места и они появиятся здесь.',
-                    sightList: Provider.of<Data>(context, listen: true)
-                      .favorites.map<Widget>((s) =>
-                        DraggableCard(sight: s, type: SightType.plan)
-                    ).toList()
-                  ),
-                  TabViewVisitingWidget(
-                    emptyImage: emptyVisitingURL,
-                    emptyText: 'Завершите маршрут, чтобы место попало сюда.',
-                    sightList: Provider.of<Data>(context, listen: true)
-                      .visited.map<Widget>((s) =>
-                        DraggableCard(sight: s, type: SightType.visited)
-                    ).toList(),
-                  )
-                ])
-              )
-            )
+                child: TabBarView(
+                  children: [
+                    Provider.of<Data>(context, listen: true).favorites.isNotEmpty ?
+                      ListView.builder(
+                        physics: defaultScrollPhysics,
+                        itemCount: Provider.of<Data>(context, listen: true)
+                          .favorites.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return DraggableCard(
+                            sight: Provider.of<Data>(context, listen: true)
+                              .favorites[index],
+                            type: SightType.plan,
+                            dismissibleEnable: true
+                          );
+                        }
+                      ) : EmptyVisitingWidget(
+                        emptyImage: emptyVisitingWantURL,
+                        emptyText: 'Отмечайте понравившиеся места и они появиятся здесь.',
+                      ),
+                    Provider.of<Data>(context, listen: true).visited.isNotEmpty ?
+                      ListView.builder(
+                        physics: defaultScrollPhysics,
+                        itemCount: Provider.of<Data>(context, listen: true)
+                          .visited.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return DraggableCard(
+                            sight: Provider.of<Data>(context, listen: true)
+                              .visited[index],
+                            type: SightType.visited,
+                            dismissibleEnable: true
+                          );
+                        }
+                      ) : EmptyVisitingWidget(
+                        emptyImage: emptyVisitingURL,
+                        emptyText: 'Завершите маршрут, чтобы место попало сюда.',
+                      )
+                  ]
+                ),
+              ),
+            ),
           ],
         ),
         bottomNavigationBar: BottomNavigationBarWidget(

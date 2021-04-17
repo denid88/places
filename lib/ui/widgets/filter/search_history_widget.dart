@@ -18,10 +18,9 @@ class SearchHistoryWidget extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
         child: Provider.of<History>(context, listen: true).history.isEmpty ?
-        SearchHistoryEmptyWidget() : SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
+          SearchHistoryEmptyWidget() :
+          ListView(
+            physics: defaultScrollPhysics,
             children: [
               Text(
                 label.toUpperCase(),
@@ -30,8 +29,8 @@ class SearchHistoryWidget extends StatelessWidget {
               Column(
                 children: Provider.of<History>(context, listen: true).history
                   .map<Widget>((item) =>
-                    SearchHistoryItemWidget(searchQuery: item)
-                  ).toList(),
+                    SearchHistoryItemWidget(searchQuery: item),
+                ).toList(),
               ),
               BaseTextButton(
                 width: 140.0,
@@ -41,10 +40,9 @@ class SearchHistoryWidget extends StatelessWidget {
                 action: () =>
                   Provider.of<History>(context, listen: false)
                     .removeAllHistory(),
-              )
+              ),
             ],
           ),
-        ),
       ),
     );
   }
