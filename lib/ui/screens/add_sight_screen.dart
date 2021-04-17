@@ -209,6 +209,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   lat: double.parse(_latitudeController.text),
                   lng: double.parse(_longitudeController.text),
                   url: 'https://wallpapercave.com/wp/wp4059147.jpg',
+                  gallery: [],
                   details: _descriptionController.text,
                   type: _selectedCategory,
                   date: '${DateTime.now()}'

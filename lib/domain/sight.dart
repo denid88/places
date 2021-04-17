@@ -3,6 +3,7 @@ class Sight {
   final double lat;
   final double lng;
   final String url;
+  final List<String> gallery;
   final String details;
   final String type;
   final String date;
@@ -14,6 +15,7 @@ class Sight {
     required this.lat,
     required this.lng,
     required this.url,
+    required this.gallery,
     required this.details,
     required this.type,
     required this.date,
@@ -26,6 +28,7 @@ class Sight {
     lat,
     lng,
     url,
+    gallery,
     details,
     type,
     date,
@@ -36,6 +39,7 @@ class Sight {
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
       url: url ?? this.url,
+      gallery: gallery ?? this.gallery,
       details: details ?? this.details,
       type: type ?? this.type,
       date: date ?? this.date,

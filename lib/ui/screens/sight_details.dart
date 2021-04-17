@@ -1,15 +1,57 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/assets.dart';
+import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/widgets/button/base_back_button.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/button/base_text_button.dart';
+import 'package:places/ui/widgets/common/base_image.dart';
 
-class SightDetails extends StatelessWidget {
+class SightDetails extends StatefulWidget {
+
   final Sight sight;
+
   SightDetails({
     required this.sight
   });
+
+  @override
+  _SightDetailsState createState() => _SightDetailsState();
+}
+
+class _SightDetailsState extends State<SightDetails> {
+
+  int _currentIndexIndicator = 0;
+
+  PageController _pageController = PageController();
+
+  void _initAutoPageChange() {
+    Timer.periodic(Duration(seconds: 5), (timer) {
+      if (_currentIndexIndicator < widget.sight.gallery.length - 1) {
+        _pageController.nextPage(
+          duration: defaultDuration, curve: Curves.ease
+        );
+      } else {
+        _currentIndexIndicator = 0;
+        _pageController.animateToPage(
+          0,
+          duration: defaultDuration,
+          curve: Curves.ease
+        );
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initAutoPageChange();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,25 +65,57 @@ class SightDetails extends StatelessWidget {
               ),
               child: Container(
                 width: double.infinity,
-                child: Image.network(
-                  sight.url,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) { return child; }
-
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null ?
-                        loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! : null,
+                child: widget.sight.gallery.isEmpty ?
+                  BaseImage(url: widget.sight.url) :
+                  Stack(
+                    children: [
+                      PageView.builder(
+                        controller: _pageController,
+                        onPageChanged: (int value) {
+                          setState(() {
+                            _currentIndexIndicator = value;
+                          });
+                        },
+                        physics: AlwaysScrollableScrollPhysics(),
+                        itemCount: widget.sight.gallery.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return BaseImage(url: widget.sight.gallery[index]);
+                        }
                       ),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) =>
-                    Center(
-                      child: Text('Some errors occurred!')
-                    ),
-                )
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 8.0,
+                          child: Row(
+                            children: List.generate(widget.sight.gallery.length,
+                              (index) => Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    _pageController.animateToPage(
+                                      index,
+                                      duration: defaultDuration,
+                                      curve: Curves.ease
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 8.0,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color: _currentIndexIndicator == index ?
+                                        lowBlack : Colors.transparent,
+                                      borderRadius: BorderRadius.circular(8.0)
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ),
+                          ),
+                        )
+                      )
+                    ],
+                  ),
               ),
             ),
             Container(
@@ -60,14 +134,14 @@ class SightDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                sight.name,
+                widget.sight.name,
                 style: Theme.of(context).textTheme.headline2
               ),
               SizedBox(height: 2.0),
               Row(
                 children: [
                   Text(
-                    sight.type,
+                    widget.sight.type,
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   SizedBox(width: 16.0),
@@ -79,7 +153,7 @@ class SightDetails extends StatelessWidget {
               ),
               SizedBox(height: 24.0),
               Text(
-                sight.details,
+                widget.sight.details,
                 style: Theme.of(context).textTheme.bodyText1
               ),
               BaseElevatedButton(

@@ -60,3 +60,8 @@ const BoxDecoration borderBottom = BoxDecoration(
 */
 final ScrollPhysics defaultScrollPhysics = Platform.isAndroid ?
   const ClampingScrollPhysics() : const BouncingScrollPhysics();
+
+/*
+* Animation
+*/
+const Duration defaultDuration = Duration(milliseconds: 500);
