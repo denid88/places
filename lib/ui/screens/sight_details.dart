@@ -29,19 +29,24 @@ class _SightDetailsState extends State<SightDetails> {
 
   PageController _pageController = PageController();
 
+  ScrollController _scrollController = ScrollController();
+
   void _initAutoPageChange() {
     Timer.periodic(Duration(seconds: 5), (timer) {
-      if (_currentIndexIndicator < widget.sight.gallery.length - 1) {
+
+      if (_currentIndexIndicator < widget.sight.gallery.length - 1 && _scrollController.hasClients) {
         _pageController.nextPage(
           duration: defaultDuration, curve: Curves.ease
         );
       } else {
         _currentIndexIndicator = 0;
-        _pageController.animateToPage(
-          0,
-          duration: defaultDuration,
-          curve: Curves.ease
-        );
+        if (_scrollController.hasClients) {
+          _pageController.animateToPage(
+            0,
+            duration: defaultDuration,
+            curve: Curves.ease
+          );
+        }
       }
     });
   }
@@ -56,6 +61,7 @@ class _SightDetailsState extends State<SightDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: [
           SliverAppBar(
             floating: true,

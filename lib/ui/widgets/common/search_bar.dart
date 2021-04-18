@@ -25,7 +25,7 @@ class SearchBar extends StatefulWidget {
   const SearchBar({
     this.disabled = false,
     this.suffixIcon = '',
-    this.suffixSize = 18.0,
+    this.suffixSize = 20.0,
     this.suffixIconColor = Colors.transparent,
     this.suffixIconAction,
     this.focusNode,

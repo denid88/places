@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OnBoard extends ChangeNotifier {
-  bool _enabled = true;
+  bool _enabled = false;
 
   bool get enabled => _enabled;
 
