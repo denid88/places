@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/data.dart';
 import 'package:places/domain/history.dart';
+import 'package:places/domain/onboard.dart';
 import 'package:places/ui/res/themes.dart';
+import 'package:places/ui/screens/onboarding_screen.dart';
 import 'package:places/ui/screens/placeholder_screen.dart';
 import 'package:places/ui/screens/settings_screen.dart';
 import 'package:places/ui/screens/sight_list_screen.dart';
@@ -23,6 +25,9 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => History(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => OnBoard()
+        )
       ],
       child: App(),
     )
@@ -65,7 +70,8 @@ class _AppState extends State<App> {
       themeMode: Provider.of<ThemeModel>(context, listen: true).mode,
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: _screens[_activeScreen],
+      home: Provider.of<OnBoard>(context, listen: true).enabled ?
+        OnBoardingScreen() : _screens[_activeScreen],
     );
   }
 }

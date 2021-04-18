@@ -7,11 +7,13 @@ class BaseActionButton extends StatelessWidget {
   final String icon;
   final Function? action;
   final double size;
+  final Color color;
 
   const BaseActionButton({
     required this.icon,
     required this.action,
-    this.size = 20.0
+    this.size = 20.0,
+    this.color = Colors.white
   }) : assert(action != null, 'Probably you forgot to add action!!!');
 
   @override
@@ -24,7 +26,7 @@ class BaseActionButton extends StatelessWidget {
         height: size,
         child: icon.isNotEmpty ? SvgPicture.asset(
           icon,
-          color: white,
+          color: color,
         ) : SizedBox.shrink(),
       ),
     );
