@@ -44,8 +44,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   void initState() {
     super.initState();
     _focusNode.addListener(focusNodeHandler);
-    _filteredList = Provider.of<Data>(context, listen: false).data;
-    Provider.of<History>(context, listen: false).history.isEmpty ?
+    _filteredList = context.read<Data>().data;
+    context.read<History>().history.isEmpty ?
       setState(() {
         _showEmpty = true;
       }) : setState(() {
@@ -115,7 +115,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 );
 
                 if (foundSight != null) {
-                  Provider.of<History>(context, listen: false)
+                  context.read<History>()
                     .addHistoryItem(foundSight.name);
                   final result = Navigator.push(
                     context,
@@ -127,7 +127,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                     _showNotFound = false;
                     _showSuggestion = false;
                   });
-                  Provider.of<History>(context, listen: false).history.isEmpty ?
+                  context.read<History>().history.isEmpty ?
                     setState(() {
                       _showEmpty = true;
                     }) : setState(() {
@@ -152,7 +152,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               suffixIconAction: suffixFilterEnabled ?
                 () async {
                   print('Переход в фильтр');
-                  final data = Provider.of<Data>(context, listen: false).data;
+                  final data = context.read<Data>().data;
                   final appliedFilterList = await Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -163,13 +163,13 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   if (appliedFilterList != null) {
                     _filteredList = appliedFilterList;
                   } else {
-                    _filteredList = Provider.of<Data>(context, listen: false).data;
+                    _filteredList = context.read<Data>().data;
                   }
                   setState(() {
                     _showSuggestion = false;
                     _showNotFound = false;
                   });
-                  Provider.of<History>(context, listen: false).history.isEmpty ?
+                  context.read<History>().history.isEmpty ?
                   setState(() {
                     _showEmpty = true;
                   }) : setState(() {
@@ -183,7 +183,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   _showSuggestion = false;
                   _showNotFound = false;
                 });
-                Provider.of<History>(context, listen: false).history.isEmpty ?
+                context.read<History>().history.isEmpty ?
                 setState(() {
                   _showEmpty = true;
                 }) : setState(() {

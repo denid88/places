@@ -17,7 +17,7 @@ class SearchHistoryWidget extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
-        child: Provider.of<History>(context, listen: true).history.isEmpty ?
+        child: context.watch<History>().history.isEmpty ?
         SearchHistoryEmptyWidget() : SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +28,7 @@ class SearchHistoryWidget extends StatelessWidget {
                 style: baseLabelStyle
               ),
               Column(
-                children: Provider.of<History>(context, listen: true).history
+                children: context.watch<History>().history
                   .map<Widget>((item) =>
                     SearchHistoryItemWidget(searchQuery: item)
                   ).toList(),
@@ -39,7 +39,7 @@ class SearchHistoryWidget extends StatelessWidget {
                 color: Theme.of(context).accentColor,
                 fontWeight: FontWeight.w700,
                 action: () =>
-                  Provider.of<History>(context, listen: false)
+                  context.read<History>()
                     .removeAllHistory(),
               )
             ],

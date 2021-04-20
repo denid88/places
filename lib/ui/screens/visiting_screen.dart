@@ -80,7 +80,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
                   TabViewVisitingWidget(
                     emptyImage: emptyVisitingWantURL,
                     emptyText: 'Отмечайте понравившиеся места и они появиятся здесь.',
-                    sightList: Provider.of<Data>(context, listen: true)
+                    sightList: context.watch<Data>()
                       .favorites.map<Widget>((s) =>
                         DraggableCard(sight: s, type: SightType.plan)
                     ).toList()
@@ -88,7 +88,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
                   TabViewVisitingWidget(
                     emptyImage: emptyVisitingURL,
                     emptyText: 'Завершите маршрут, чтобы место попало сюда.',
-                    sightList: Provider.of<Data>(context, listen: true)
+                    sightList: context.watch<Data>()
                       .visited.map<Widget>((s) =>
                         DraggableCard(sight: s, type: SightType.visited)
                     ).toList(),
