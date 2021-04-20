@@ -9,8 +9,6 @@ import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/screens/sight_details.dart';
 import 'package:places/ui/widgets/button/base_action_button.dart';
 import 'package:places/ui/widgets/common/dissmisibble_card.dart';
-import 'package:places/ui/widgets/common/sight_card_dismissible_background.dart';
-import 'package:places/ui/widgets/common/sight_card_dismissible_sec_background.dart';
 import 'package:provider/provider.dart';
 
 
