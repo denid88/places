@@ -56,9 +56,9 @@ class _SightListScreenState extends State<SightListScreen> {
                 children: [
                   ListView.builder(
                     physics: defaultScrollPhysics,
-                    itemCount: Provider.of<Data>(context, listen: true).data.length,
+                    itemCount: context.watch<Data>().data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return SightCard(sight: Provider.of<Data>(context, listen: true).data[index]);
+                      return SightCard(sight: context.watch<Data>().data[index]);
                     }
                   ),
                   Positioned(
@@ -74,7 +74,7 @@ class _SightListScreenState extends State<SightListScreen> {
                             ),
                           );
                           if (newSight != null) {
-                            Provider.of<Data>(context, listen: false)
+                            context.read<Data>()
                               .add(newSight);
                           }
                         },

@@ -110,7 +110,7 @@ class _SightCardState extends State<SightCard> {
                                     favoriteDarkIconURL : favoriteIconURL,
                                     action: () {
                                       if (!widget.sight.isFavorite) {
-                                        Provider.of<Data>(context, listen: false)
+                                        context.read<Data>()
                                             .addToWishes(widget.sight);
                                       }
                                     }
@@ -124,7 +124,7 @@ class _SightCardState extends State<SightCard> {
                                     BaseActionButton(
                                         icon: removeIconURL,
                                         action: () {
-                                          Provider.of<Data>(context, listen: false)
+                                          context.read<Data>()
                                               .removeFromListWishes(widget.sight.name);
                                         }
                                     ),
@@ -139,7 +139,7 @@ class _SightCardState extends State<SightCard> {
                                     BaseActionButton(
                                         icon: removeIconURL,
                                         action: () {
-                                          Provider.of<Data>(context, listen: false)
+                                          context.read<Data>()
                                               .removeFromListVisited(widget.sight.name);
                                         }
                                     ),
