@@ -5,6 +5,7 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
+import 'package:places/ui/widgets/common/draggable_card.dart';
 import 'package:places/ui/widgets/common/sight_card.dart';
 import 'package:places/ui/widgets/visiting/tab_view_visiting_widget.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,18 @@ class VisitingScreen extends StatefulWidget {
 }
 
 class _VisitingScreenState extends State<VisitingScreen> {
+
+  bool isDragWishes = false;
+  CardDirection _acceptDirection = CardDirection.none;
+  String _cardName = '';
+
+  void _draggableResponse (String name, CardDirection direction) {
+    setState(() {
+      _acceptDirection = direction;
+      _cardName = name;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -67,25 +80,17 @@ class _VisitingScreenState extends State<VisitingScreen> {
                   TabViewVisitingWidget(
                     emptyImage: emptyVisitingWantURL,
                     emptyText: 'Отмечайте понравившиеся места и они появиятся здесь.',
-                    sightList: Provider.of<Data>(context, listen: true)
-                      .data.where((s) => s.isFavorite).map<SightCard>((s) =>
-                        SightCard(
-                          key: ValueKey(s.name),
-                          sight: s,
-                          type: SightType.plan,
-                        )
+                    sightList: context.watch<Data>()
+                      .favorites.map<Widget>((s) =>
+                        DraggableCard(sight: s, type: SightType.plan)
                     ).toList()
                   ),
                   TabViewVisitingWidget(
                     emptyImage: emptyVisitingURL,
                     emptyText: 'Завершите маршрут, чтобы место попало сюда.',
-                    sightList: Provider.of<Data>(context, listen: true)
-                      .data.where((s) => s.isVisited).map<SightCard>((s) =>
-                        SightCard(
-                          key: ValueKey(s.name),
-                          sight: s,
-                          type: SightType.visited
-                        ),
+                    sightList: context.watch<Data>()
+                      .visited.map<Widget>((s) =>
+                        DraggableCard(sight: s, type: SightType.visited)
                     ).toList(),
                   )
                 ])

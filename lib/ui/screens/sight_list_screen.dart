@@ -57,7 +57,7 @@ class _SightListScreenState extends State<SightListScreen> {
                     child: Container(
                       width: double.infinity,
                       child: Column(
-                        children: Provider.of<Data>(context, listen: true)
+                        children: context.watch<Data>()
                           .data
                           .map<Widget>((s) => SightCard(sight: s))
                           .toList(),
@@ -77,7 +77,7 @@ class _SightListScreenState extends State<SightListScreen> {
                             ),
                           );
                           if (newSight != null) {
-                            Provider.of<Data>(context, listen: false)
+                            context.read<Data>()
                               .add(newSight);
                           }
                         },

@@ -37,7 +37,11 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   cardTheme: CardTheme(
-    color: ltCardBackground
+    color: ltCardBackground,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16.0),
+    ),
+    elevation: noElevation
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: white,
@@ -115,7 +119,11 @@ ThemeData darkTheme = ThemeData(
     ),
   ),
   cardTheme: CardTheme(
-    color: dtCardBackground
+    color: dtCardBackground,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16.0),
+    ),
+    elevation: noElevation
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: dtBackgroundColor,

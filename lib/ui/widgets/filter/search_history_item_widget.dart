@@ -42,7 +42,7 @@ class SearchHistoryItemWidget extends StatelessWidget {
               iconSize: 16.0,
               color: lightGrey2,
               onPressed: () =>
-                Provider.of<History>(context, listen: false)
+                context.read<History>()
                   .removeHistoryItem(searchQuery),
             )
           ],

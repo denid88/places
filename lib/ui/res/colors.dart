@@ -42,6 +42,7 @@ const Color white = _white,
   lowBlack = _lowBlack,
   middleBlack = _middleBlack,
   splashCard = _lightGrey3,
+  red = _red,
   yellow = _yellow;
 
 /*
@@ -64,4 +65,5 @@ const Color _white = Colors.white,
   _lightGrey2 = Color(0xFF7C7E92),
   _lightGrey2WithOpacity56 = Color(0x567C7E92),
   _lightGrey3 = Color(0x50C4C4C4),
-  _lightGrey = Color(0xFFF5F5F5);
+  _lightGrey = Color(0xFFF5F5F5),
+  _red = Color(0xFFEF4343);
