@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:places/mocks.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screens/filter_screen.dart';
 import 'package:places/ui/screens/sight_search_screen.dart';
 import 'package:places/ui/widgets/common/middleware_bar.dart';
 

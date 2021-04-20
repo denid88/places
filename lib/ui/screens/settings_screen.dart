@@ -32,7 +32,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    themeMode = Provider.of<ThemeModel>(context, listen: true).mode == ThemeMode.light ?
+    themeMode = context.watch<ThemeModel>().mode == ThemeMode.light ?
       false : true;
   }
 
@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Text(
                       'Тёмная тема',
                       style: TextStyle(
-                        color: Provider.of<ThemeModel>(context, listen: true).mode == ThemeMode.light ?
+                        color: context.watch<ThemeModel>().mode == ThemeMode.light ?
                           lowBlack : white
                       ),
                     ),
@@ -75,7 +75,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         });
                         final currentMode = themeMode ?
                           ThemeMode.dark : ThemeMode.light;
-                        Provider.of<ThemeModel>(context, listen: false).changeTheme(currentMode);
+                        context.read<ThemeModel>().changeTheme(currentMode);
                       }
                     )
                   ],
@@ -90,7 +90,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Text(
                       'Смотреть туториал',
                       style: TextStyle(
-                        color: Provider.of<ThemeModel>(context, listen: true).mode == ThemeMode.light ?
+                        color: context.watch<ThemeModel>().mode == ThemeMode.light ?
                           lowBlack : white
                       ),
                     ),

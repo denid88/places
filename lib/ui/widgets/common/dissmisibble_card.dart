@@ -40,16 +40,16 @@ class _DismissibleCardState extends State<DismissibleCard> {
         if (direction == DismissDirection.endToStart) {
 
           if (widget.type == SightType.plan) {
-            Provider.of<Data>(context, listen: false)
+            context.read<Data>()
               .removeFromListWishes(widget.sight.name);
           } else if (widget.type == SightType.visited) {
-            Provider.of<Data>(context, listen: false)
+            context.read<Data>()
               .removeFromListVisited(widget.sight.name);
           }
         }
       },
       confirmDismiss: (DismissDirection direction) async {
-        return  direction == DismissDirection.endToStart;
+        return direction == DismissDirection.endToStart;
       },
       child: widget.child,
     ) : widget.child;
