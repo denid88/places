@@ -49,7 +49,7 @@ class _DismissibleCardState extends State<DismissibleCard> {
         }
       },
       confirmDismiss: (DismissDirection direction) async {
-        return  direction == DismissDirection.endToStart;
+        return direction == DismissDirection.endToStart;
       },
       child: widget.child,
     ) : widget.child;

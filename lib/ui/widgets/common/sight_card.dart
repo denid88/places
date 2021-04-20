@@ -43,21 +43,21 @@ class _SightCardState extends State<SightCard> {
       ),
       child: Card(
         margin: const EdgeInsets.only(bottom: 16.0),
-          child: DismissibleCard(
-            sight: widget.sight,
-            type: widget.type,
-            enabled: widget.dismissibleEnable,
-            child: InkWell(
-              onTap: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SightDetails(
-                    sight: widget.sight,
-                  )),
-                );
-              },
-              borderRadius: cardBorderRadius,
-              splashColor: splashCard,
+          child: InkWell(
+            borderRadius: cardBorderRadius,
+            splashColor: splashCard,
+            onTap: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SightDetails(
+                  sight: widget.sight,
+                )),
+              );
+            },
+            child: DismissibleCard(
+              sight: widget.sight,
+              type: widget.type,
+              enabled: widget.dismissibleEnable,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16.0),
                 child: Column(
