@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/data.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/screens/add_sight_screen.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
@@ -53,16 +54,12 @@ class _SightListScreenState extends State<SightListScreen> {
             Expanded(
               child: Stack(
                 children: [
-                  SingleChildScrollView(
-                    child: Container(
-                      width: double.infinity,
-                      child: Column(
-                        children: context.watch<Data>()
-                          .data
-                          .map<Widget>((s) => SightCard(sight: s))
-                          .toList(),
-                      ),
-                    ),
+                  ListView.builder(
+                    physics: defaultScrollPhysics,
+                    itemCount: context.watch<Data>().data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return SightCard(sight: context.watch<Data>().data[index]);
+                    }
                   ),
                   Positioned(
                     bottom: 16.0,

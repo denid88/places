@@ -8,8 +8,7 @@ import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/screens/sight_details.dart';
 import 'package:places/ui/widgets/button/base_action_button.dart';
-import 'package:places/ui/widgets/common/sight_card_dismissible_background.dart';
-import 'package:places/ui/widgets/common/sight_card_dismissible_sec_background.dart';
+import 'package:places/ui/widgets/common/dissmisibble_card.dart';
 import 'package:provider/provider.dart';
 
 
@@ -21,11 +20,13 @@ class SightCard extends StatefulWidget {
   final Sight sight;
   final SightType type;
   final Function? remove;
+  final dismissibleEnable;
 
   const SightCard({
     required this.sight,
     this.type = SightType.basic,
     this.remove,
+    this.dismissibleEnable = false
   });
 
   @override
@@ -42,31 +43,9 @@ class _SightCardState extends State<SightCard> {
       ),
       child: Card(
         margin: const EdgeInsets.only(bottom: 16.0),
-        child: Dismissible(
-          key: ValueKey(widget.sight.name),
-          direction: widget.type == SightType.basic ?
-            DismissDirection.none : DismissDirection.endToStart,
-          background: SightCardDismissibleBackground(),
-          secondaryBackground: SightCardDismissibleSecBackground(),
-          dismissThresholds: {
-            DismissDirection.endToStart: 0.2,
-          },
-          onDismissed: widget.type == SightType.basic ? null : (DismissDirection direction) {
-            if (direction == DismissDirection.endToStart) {
-
-              if (widget.type == SightType.plan) {
-                context.read<Data>()
-                  .removeFromListWishes(widget.sight.name);
-              } else if (widget.type == SightType.visited) {
-                context.read<Data>()
-                  .removeFromListVisited(widget.sight.name);
-              }
-            }
-          },
-          confirmDismiss: (DismissDirection direction) async {
-            return  direction == DismissDirection.endToStart;
-          },
           child: InkWell(
+            borderRadius: cardBorderRadius,
+            splashColor: splashCard,
             onTap: () async {
               await Navigator.push(
                 context,
@@ -75,150 +54,152 @@ class _SightCardState extends State<SightCard> {
                 )),
               );
             },
-            borderRadius: cardBorderRadius,
-            splashColor: splashCard,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        constraints: BoxConstraints(
-                          maxHeight: 96.0,
-                        ),
-                        width: double.infinity,
-                        child: Image.network(
-                          widget.sight.url,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes != null ?
-                                loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                  : null,
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) =>
-                            Center(
-                              child: Text('Some errors occurred!')
+            child: DismissibleCard(
+              sight: widget.sight,
+              type: widget.type,
+              enabled: widget.dismissibleEnable,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Stack(
+                        children: [
+                          Container(
+                            constraints: BoxConstraints(
+                              maxHeight: 96.0,
                             ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              widget.sight.type,
-                              style: TextStyle(color: white),
-                            ),
-                            widget.type == SightType.basic ?
-                            BaseActionButton(
-                              icon: widget.sight.isFavorite ?
-                                favoriteDarkIconURL : favoriteIconURL,
-                              action: () {
-                                if (!widget.sight.isFavorite) {
-                                  context.read<Data>()
-                                    .addToWishes(widget.sight);
+                            width: double.infinity,
+                            child: Image.network(
+                              widget.sight.url,
+                              fit: BoxFit.cover,
+                              loadingBuilder: (BuildContext context, Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
                                 }
-                              }
-                            ) : widget.type == SightType.plan ? Row(
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes != null ?
+                                    loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Center(
+                                      child: Text('Some errors occurred!')
+                                  ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                BaseActionButton(
-                                  icon: calendarIconURL,
-                                  action: () { print('Добавлено в календарь'); }
+                                Text(
+                                  widget.sight.type,
+                                  style: TextStyle(color: white),
                                 ),
-                                SizedBox(width: 20.0),
+                                widget.type == SightType.basic ?
                                 BaseActionButton(
-                                  icon: removeIconURL,
-                                  action: () {
-                                    context.read<Data>()
-                                      .removeFromListWishes(widget.sight.name);
-                                  }
-                                ),
+                                    icon: widget.sight.isFavorite ?
+                                    favoriteDarkIconURL : favoriteIconURL,
+                                    action: () {
+                                      if (!widget.sight.isFavorite) {
+                                        context.read<Data>()
+                                            .addToWishes(widget.sight);
+                                      }
+                                    }
+                                ) : widget.type == SightType.plan ? Row(
+                                  children: [
+                                    BaseActionButton(
+                                        icon: calendarIconURL,
+                                        action: () { print('Добавлено в календарь'); }
+                                    ),
+                                    SizedBox(width: 20.0),
+                                    BaseActionButton(
+                                        icon: removeIconURL,
+                                        action: () {
+                                          context.read<Data>()
+                                              .removeFromListWishes(widget.sight.name);
+                                        }
+                                    ),
+                                  ],
+                                ) : widget.type == SightType.visited ? Row(
+                                  children: [
+                                    BaseActionButton(
+                                        icon: shareIconURL,
+                                        action: () { print('Поделиться'); }
+                                    ),
+                                    SizedBox(width: 20.0),
+                                    BaseActionButton(
+                                        icon: removeIconURL,
+                                        action: () {
+                                          context.read<Data>()
+                                              .removeFromListVisited(widget.sight.name);
+                                        }
+                                    ),
+                                  ],
+                                ) : SizedBox.shrink()
                               ],
-                            ) : widget.type == SightType.visited ? Row(
-                              children: [
-                                BaseActionButton(
-                                  icon: shareIconURL,
-                                  action: () { print('Поделиться'); }
-                                ),
-                                SizedBox(width: 20.0),
-                                BaseActionButton(
-                                  icon: removeIconURL,
-                                  action: () {
-                                    context.read<Data>()
-                                      .removeFromListVisited(widget.sight.name);
-                                  }
-                                ),
-                              ],
-                            ) : SizedBox.shrink()
-                          ],
-                        ),
+                            ),
+                          ),
+                        ]
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16.0),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(16.0),
+                            bottomLeft: Radius.circular(16.0),
+                          )
                       ),
-                    ]
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(16.0),
-                        bottomLeft: Radius.circular(16.0),
-                      )
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 2.0),
+                            child: Text(
+                                widget.sight.name,
+                                maxLines: 2,
+                                style: Theme.of(context).textTheme.subtitle1
+                            ),
+                          ),
+                          widget.type == SightType.plan && widget.sight.date.isNotEmpty  ?
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: Text(
+                              '${SightCard.planCardText} ${widget.sight.date}',
+                              style: Theme.of(context).
+                              textTheme.bodyText2!.copyWith(color: green),
+                            ),
+                          ) : widget.type == SightType.visited && widget.sight.date.isNotEmpty ?
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: Text(
+                              '${SightCard.visitedCardText} ${widget.sight.date}',
+                              style: Theme.of(context).
+                              textTheme.bodyText2,
+                            ),
+                          ) : SizedBox.shrink(),
+                          Text(
+                            widget.sight.details,
+                            style: Theme.of(context).textTheme.bodyText2,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 2.0),
-                          child: Text(
-                            widget.sight.name,
-                            maxLines: 2,
-                            style: Theme.of(context).textTheme.subtitle1
-                          ),
-                        ),
-                        widget.type == SightType.plan && widget.sight.date.isNotEmpty  ?
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: Text(
-                            '${SightCard.planCardText} ${widget.sight.date}',
-                            style: Theme.of(context).
-                            textTheme.bodyText2!.copyWith(color: green),
-                          ),
-                        ) : widget.type == SightType.visited && widget.sight.date.isNotEmpty ?
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: Text(
-                            '${SightCard.visitedCardText} ${widget.sight.date}',
-                            style: Theme.of(context).
-                            textTheme.bodyText2,
-                          ),
-                        ) : SizedBox.shrink(),
-                        Text(
-                          widget.sight.details,
-                          style: Theme.of(context).textTheme.bodyText2,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
     );
   }
 }

@@ -43,7 +43,6 @@ class Data extends ChangeNotifier {
       notifyListeners();
   }
 
-
   void removeFromListVisited(String name) {
     _data = _data.map((s) => s.name == name ?
       s.copyWith(isVisited: false) : s).toList();

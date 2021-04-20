@@ -9,10 +9,12 @@ class DraggableCard extends StatefulWidget {
 
   final Sight sight;
   final SightType type;
+  final bool dismissibleEnable;
 
   const DraggableCard({
     required this.sight,
-    required this.type
+    required this.type,
+    this.dismissibleEnable = false
   });
 
   @override
@@ -30,13 +32,10 @@ class _DraggableCardState extends State<DraggableCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onVerticalDragDown: (DragDownDetails details) {
-        setState(() {
-          _startPosition = details.globalPosition.dy;
-        });
+      onLongPressStart: (details) {
+        _startPosition = details.globalPosition.dy;
       },
-      child: Draggable(
-        affinity: Axis.vertical,
+      child: LongPressDraggable(
         key: ValueKey(widget.sight.name),
         data: widget.sight.name,
         onDragStarted: () {
@@ -79,13 +78,14 @@ class _DraggableCardState extends State<DraggableCard> {
           ),
           child: SightCard(
             sight: widget.sight,
-            type: widget.type
+            type: widget.type,
           ),
         ),
         child: _isDrag ?
         SizedBox.shrink() : SightCard(
           sight: widget.sight,
-          type: widget.type
+          type: widget.type,
+          dismissibleEnable: widget.dismissibleEnable,
         ),
       )
     );

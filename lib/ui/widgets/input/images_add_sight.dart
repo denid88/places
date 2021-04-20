@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/widgets/input/image_add_widget.dart';
 import 'package:places/ui/widgets/input/mock_image.dart';
 
@@ -40,19 +41,23 @@ class _ImagesAddSightState extends State<ImagesAddSight> {
       width: MediaQuery.of(context).size.width,
       height: 72.0,
       margin: const EdgeInsets.only(bottom: 24.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: _addImage,
-              child: ImageControlWidget()
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: _addImage,
+            child: ImageControlWidget()
+          ),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              physics: defaultScrollPhysics,
+              itemCount: _listImageWidgets.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _listImageWidgets[index];
+              },
             ),
-            Row(
-              children: _listImageWidgets,
-            )
-          ]
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -117,7 +117,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 if (foundSight != null) {
                   context.read<History>()
                     .addHistoryItem(foundSight.name);
-                  final result = Navigator.push(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => SightDetails(sight: foundSight),

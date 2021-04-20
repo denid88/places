@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 
@@ -53,3 +54,9 @@ const BoxDecoration borderBottom = BoxDecoration(
     ),
   ),
 );
+
+/*
+* Effect
+*/
+final ScrollPhysics defaultScrollPhysics = Platform.isAndroid ?
+  const ClampingScrollPhysics() : const BouncingScrollPhysics();
