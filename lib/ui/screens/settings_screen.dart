@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/domain/onboard.dart';
 import 'package:places/domain/theme.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
@@ -95,8 +96,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
-                      child: BaseActionButton(icon: infoIconURL, action: () {
-                        print('Показать туториал');
+                      child: BaseActionButton(
+                        icon: infoIconURL,
+                        color: Theme.of(context).accentColor,
+                        action: () {
+                        Provider.of<OnBoard>(context, listen: false)
+                          .changeOnBoardState(true);
                       })
                     )
                   ],
