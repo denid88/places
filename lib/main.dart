@@ -67,7 +67,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       title: 'App',
       debugShowCheckedModeBanner: false,
-      themeMode: Provider.of<ThemeModel>(context, listen: true).mode,
+      themeMode: context.watch<ThemeModel>().mode,
       theme: lightTheme,
       darkTheme: darkTheme,
       home: Provider.of<OnBoard>(context, listen: true).enabled ?

@@ -68,14 +68,14 @@ class _VisitingScreenState extends State<VisitingScreen> {
                 padding: visitingScreenContainerPadding,
                 child: TabBarView(
                   children: [
-                    Provider.of<Data>(context, listen: true).favorites.isNotEmpty ?
+                    context.watch<Data>().favorites.isNotEmpty ?
                       ListView.builder(
                         physics: defaultScrollPhysics,
-                        itemCount: Provider.of<Data>(context, listen: true)
+                        itemCount: context.watch<Data>()
                           .favorites.length,
                         itemBuilder: (BuildContext context, int index) {
                           return DraggableCard(
-                            sight: Provider.of<Data>(context, listen: true)
+                            sight: context.watch<Data>()
                               .favorites[index],
                             type: SightType.plan,
                             dismissibleEnable: true
@@ -85,14 +85,14 @@ class _VisitingScreenState extends State<VisitingScreen> {
                         emptyImage: emptyVisitingWantURL,
                         emptyText: 'Отмечайте понравившиеся места и они появиятся здесь.',
                       ),
-                    Provider.of<Data>(context, listen: true).visited.isNotEmpty ?
+                    context.watch<Data>().visited.isNotEmpty ?
                       ListView.builder(
                         physics: defaultScrollPhysics,
-                        itemCount: Provider.of<Data>(context, listen: true)
+                        itemCount: context.watch<Data>()
                           .visited.length,
                         itemBuilder: (BuildContext context, int index) {
                           return DraggableCard(
-                            sight: Provider.of<Data>(context, listen: true)
+                            sight: context.watch<Data>()
                               .visited[index],
                             type: SightType.visited,
                             dismissibleEnable: true

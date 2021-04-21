@@ -32,13 +32,10 @@ class _DraggableCardState extends State<DraggableCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onVerticalDragDown: (DragDownDetails details) {
-        setState(() {
-          _startPosition = details.globalPosition.dy;
-        });
+      onLongPressStart: (details) {
+        _startPosition = details.globalPosition.dy;
       },
-      child: Draggable(
-        affinity: Axis.vertical,
+      child: LongPressDraggable(
         key: ValueKey(widget.sight.name),
         data: widget.sight.name,
         onDragStarted: () {
@@ -65,9 +62,9 @@ class _DraggableCardState extends State<DraggableCard> {
 
           if (_cardDirection != CardDirection.none) {
             widget.type == SightType.plan ?
-              Provider.of<Data>(context, listen: false)
+              context.read<Data>()
                 .orderSightFavorite(_selectedCard!, _cardDirection) :
-              Provider.of<Data>(context, listen: false)
+              context.read<Data>()
                 .orderSightVisited(_selectedCard!, _cardDirection);
           }
 

@@ -9,8 +9,6 @@ import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/screens/sight_details.dart';
 import 'package:places/ui/widgets/button/base_action_button.dart';
 import 'package:places/ui/widgets/common/dissmisibble_card.dart';
-import 'package:places/ui/widgets/common/sight_card_dismissible_background.dart';
-import 'package:places/ui/widgets/common/sight_card_dismissible_sec_background.dart';
 import 'package:provider/provider.dart';
 
 
@@ -45,21 +43,21 @@ class _SightCardState extends State<SightCard> {
       ),
       child: Card(
         margin: const EdgeInsets.only(bottom: 16.0),
-          child: DismissibleCard(
-            sight: widget.sight,
-            type: widget.type,
-            enabled: widget.dismissibleEnable,
-            child: InkWell(
-              onTap: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SightDetails(
-                    sight: widget.sight,
-                  )),
-                );
-              },
-              borderRadius: cardBorderRadius,
-              splashColor: splashCard,
+          child: InkWell(
+            borderRadius: cardBorderRadius,
+            splashColor: splashCard,
+            onTap: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SightDetails(
+                  sight: widget.sight,
+                )),
+              );
+            },
+            child: DismissibleCard(
+              sight: widget.sight,
+              type: widget.type,
+              enabled: widget.dismissibleEnable,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16.0),
                 child: Column(
@@ -110,7 +108,7 @@ class _SightCardState extends State<SightCard> {
                                     favoriteDarkIconURL : favoriteIconURL,
                                     action: () {
                                       if (!widget.sight.isFavorite) {
-                                        Provider.of<Data>(context, listen: false)
+                                        context.read<Data>()
                                             .addToWishes(widget.sight);
                                       }
                                     }
@@ -124,7 +122,7 @@ class _SightCardState extends State<SightCard> {
                                     BaseActionButton(
                                         icon: removeIconURL,
                                         action: () {
-                                          Provider.of<Data>(context, listen: false)
+                                          context.read<Data>()
                                               .removeFromListWishes(widget.sight.name);
                                         }
                                     ),
@@ -139,7 +137,7 @@ class _SightCardState extends State<SightCard> {
                                     BaseActionButton(
                                         icon: removeIconURL,
                                         action: () {
-                                          Provider.of<Data>(context, listen: false)
+                                          context.read<Data>()
                                               .removeFromListVisited(widget.sight.name);
                                         }
                                     ),
