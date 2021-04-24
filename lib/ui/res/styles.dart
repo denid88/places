@@ -14,6 +14,16 @@ const LinearGradient baseBackgroundLinear = LinearGradient(
   ],
 );
 
+const LinearGradient splashBackgroundLinear = LinearGradient(
+  begin: Alignment(-2.8, 0),
+  end: Alignment.centerRight,
+  colors: [
+    yellow,
+    green
+  ],
+  tileMode: TileMode.clamp
+);
+
 const TextStyle baseLabelStyle = TextStyle(
   color: hr
 );
