@@ -48,6 +48,7 @@ const Color white = _white,
 /*
 * Colors
 */
+
 const Color _white = Colors.white,
   _green = Color(0xFF4CAF50),
   _lightGreen = Color(0xFF6ADA6F),

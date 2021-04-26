@@ -7,6 +7,7 @@ import 'package:places/ui/screens/onboarding_screen.dart';
 import 'package:places/ui/screens/placeholder_screen.dart';
 import 'package:places/ui/screens/settings_screen.dart';
 import 'package:places/ui/screens/sight_list_screen.dart';
+import 'package:places/ui/screens/splash_screen.dart';
 import 'package:places/ui/screens/visiting_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -70,8 +71,9 @@ class _AppState extends State<App> {
       themeMode: context.watch<ThemeModel>().mode,
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: Provider.of<OnBoard>(context, listen: true).enabled ?
-        OnBoardingScreen() : _screens[_activeScreen],
+      home: SplashScreen()
+      // Provider.of<OnBoard>(context, listen: true).enabled ?
+      //   OnBoardingScreen() : _screens[_activeScreen],
     );
   }
 }
