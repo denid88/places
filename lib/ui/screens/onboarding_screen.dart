@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/onboard.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screens/sight_list_screen.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/button/base_text_button.dart';
 import 'package:places/ui/widgets/onboarding/onboarding_indicator.dart';
@@ -9,6 +10,7 @@ import 'package:places/ui/widgets/onboarding/onboarding_step.dart';
 import 'package:provider/provider.dart';
 
 class OnBoardingScreen extends StatefulWidget {
+  static const routeName = 'onBoardScreen';
   @override
   _OnBoardingScreenState createState() => _OnBoardingScreenState();
 }
@@ -35,6 +37,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     )
   ];
 
+  void skipOnBoardScreen() {
+    context.read<OnBoard>()
+      .changeOnBoardState(false);
+    Navigator.of(context)
+      .pushReplacementNamed(SightListScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,10 +60,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   width: 94.0,
                   color: Theme.of(context).accentColor,
                   fontWeight: FontWeight.w500,
-                  action: () {
-                    Provider.of<OnBoard>(context, listen: false)
-                      .changeOnBoardState(false);
-                  },
+                  action: skipOnBoardScreen,
                   text: 'Пропустить',
                 ),
               ),
@@ -85,10 +91,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           textIsUppercase: true,
                           textFontWeight: FontWeight.w700,
                           text: 'На старт',
-                          action: () {
-                            Provider.of<OnBoard>(context, listen: false)
-                              .changeOnBoardState(false);
-                          }
+                          action: skipOnBoardScreen
                         ),
                       )
                   ) : SizedBox.shrink()
