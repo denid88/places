@@ -13,11 +13,14 @@ import 'package:places/ui/widgets/common/sight_card.dart';
 import 'package:provider/provider.dart';
 
 class SightListScreen extends StatefulWidget {
-  final int activeIndex;
-  final Function changeScreen;
 
-  const SightListScreen(
-      {required this.activeIndex, required this.changeScreen});
+  static const routeName = 'sightList';
+
+  final int activeIndex;
+
+  const SightListScreen({
+    required this.activeIndex
+  });
 
   @override
   _SightListScreenState createState() => _SightListScreenState();
@@ -138,8 +141,7 @@ class _SightListScreenState extends State<SightListScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
-        activeIndex: widget.activeIndex,
-        changeScreen: widget.changeScreen
+        activeIndex: widget.activeIndex
       ),
     );
   }

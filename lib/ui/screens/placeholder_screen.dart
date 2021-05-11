@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
 
 class PlaceHolderScreen extends StatelessWidget {
+  static const routeName = 'placeholderScreen';
+
   final int activeIndex;
-  final Function changeScreen;
 
   const PlaceHolderScreen({
-    required this.activeIndex,
-    required this.changeScreen
+    required this.activeIndex
   });
 
   @override
@@ -17,8 +17,7 @@ class PlaceHolderScreen extends StatelessWidget {
         child: Text('Экран заглушка'),
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
-        activeIndex: activeIndex,
-        changeScreen: changeScreen,
+        activeIndex: activeIndex
       ),
     );
   }

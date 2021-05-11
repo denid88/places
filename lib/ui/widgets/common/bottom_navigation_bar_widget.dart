@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screens/placeholder_screen.dart';
+import 'package:places/ui/screens/settings_screen.dart';
+import 'package:places/ui/screens/sight_list_screen.dart';
+import 'package:places/ui/screens/visiting_screen.dart';
 
 const List<Map<String, dynamic>> _bottomNavigationBarItems = [
   {'icon': listDarkIconURL, 'tooltip': 'List', 'label': ''},
@@ -12,11 +16,9 @@ const List<Map<String, dynamic>> _bottomNavigationBarItems = [
 
 class BottomNavigationBarWidget extends StatefulWidget {
   final int activeIndex;
-  final Function changeScreen;
 
   const BottomNavigationBarWidget({
-    required this.activeIndex,
-    required this.changeScreen
+    required this.activeIndex
   });
 
   @override
@@ -28,8 +30,8 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   late int _selectedIndex;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _selectedIndex = widget.activeIndex;
   }
 
@@ -66,10 +68,15 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             }),
           ),
           onTap: (int index) {
-            setState(() {
-              _selectedIndex = index;
-              widget.changeScreen(index);
-            });
+            if (index == 0) {
+              Navigator.of(context).pushReplacementNamed(SightListScreen.routeName);
+            } else if (index == 1) {
+              Navigator.of(context).pushReplacementNamed(PlaceHolderScreen.routeName);
+            } else if (index == 2) {
+              Navigator.of(context).pushReplacementNamed(VisitingScreen.routeName);
+            } else if (index == 3) {
+              Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
+            }
           }
         ),
       ),

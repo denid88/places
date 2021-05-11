@@ -6,18 +6,19 @@ import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/styles.dart';
+import 'package:places/ui/screens/onboarding_screen.dart';
 import 'package:places/ui/widgets/button/base_action_button.dart';
 import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
 
+  static const routeName = 'settingsScreen';
+
   final int activeIndex;
-  final Function changeScreen;
 
   const SettingsScreen({
-    required this.activeIndex,
-    required this.changeScreen
+    required this.activeIndex
   });
 
   @override
@@ -100,8 +101,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         icon: infoIconURL,
                         color: Theme.of(context).accentColor,
                         action: () {
-                        Provider.of<OnBoard>(context, listen: false)
-                          .changeOnBoardState(true);
+                          Navigator.of(context)
+                            .pushReplacementNamed(OnBoardingScreen.routeName);
                       })
                     )
                   ],
@@ -112,8 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
-        activeIndex: widget.activeIndex,
-        changeScreen: widget.changeScreen
+        activeIndex: widget.activeIndex
       )
     );
   }

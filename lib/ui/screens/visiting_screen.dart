@@ -12,15 +12,15 @@ import 'package:provider/provider.dart';
 
 class VisitingScreen extends StatefulWidget {
 
+  static const routeName = 'visitingScreen';
+
   static const String _title = 'Избранное';
   static const List<String> _tabs = ['Хочу посетить', 'Посетил'];
 
   final int activeIndex;
-  final Function changeScreen;
 
   const VisitingScreen({
-    required this.activeIndex,
-    required this.changeScreen
+    required this.activeIndex
   });
 
   @override
@@ -109,8 +109,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBarWidget(
-          activeIndex: widget.activeIndex,
-          changeScreen: widget.changeScreen,
+          activeIndex: widget.activeIndex
         ),
       ),
     );
