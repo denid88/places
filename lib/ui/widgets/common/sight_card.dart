@@ -47,12 +47,33 @@ class _SightCardState extends State<SightCard> {
             borderRadius: cardBorderRadius,
             splashColor: splashCard,
             onTap: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SightDetails(
-                  sight: widget.sight,
-                )),
-              );
+              showModalBottomSheet<void>(
+              context: context,
+              isScrollControlled: true,
+              isDismissible: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(16.0),
+                  topLeft: Radius.circular(16.0),
+                ),
+              ),
+              builder: (BuildContext context) {
+                  return DraggableScrollableSheet(
+                    initialChildSize: .8, //set this as you want
+                    maxChildSize: .8, //set this as you want
+                    minChildSize: .8, //set this as you want
+                    builder: (context, scrollController) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(16.0),
+                          topLeft: Radius.circular(16.0),
+                        ),
+                        child: SightDetails(
+                          sight: widget.sight,
+                        ),
+                      );
+                    });
+              });
             },
             child: DismissibleCard(
               sight: widget.sight,

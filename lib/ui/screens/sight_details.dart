@@ -83,17 +83,17 @@ class _SightDetailsState extends State<SightDetails> {
                         Stack(
                           children: [
                             PageView.builder(
-                              controller: _pageController,
-                              onPageChanged: (int value) {
-                                setState(() {
-                                  _currentIndexIndicator = value;
-                                });
-                              },
-                              physics: AlwaysScrollableScrollPhysics(),
-                              itemCount: widget.sight.gallery.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return BaseImage(url: widget.sight.gallery[index]);
-                              }
+                                controller: _pageController,
+                                onPageChanged: (int value) {
+                                  setState(() {
+                                    _currentIndexIndicator = value;
+                                  });
+                                },
+                                physics: AlwaysScrollableScrollPhysics(),
+                                itemCount: widget.sight.gallery.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return BaseImage(url: widget.sight.gallery[index]);
+                                }
                             ),
                             Positioned(
                               bottom: 0,
@@ -103,22 +103,22 @@ class _SightDetailsState extends State<SightDetails> {
                                 height: 8.0,
                                 child: Row(
                                   children: List.generate(widget.sight.gallery.length,
-                                    (index) => Expanded(
+                                        (index) => Expanded(
                                       child: GestureDetector(
                                         onTap: () {
                                           _pageController.animateToPage(
-                                            index,
-                                            duration: defaultDuration,
-                                            curve: Curves.ease
+                                              index,
+                                              duration: defaultDuration,
+                                              curve: Curves.ease
                                           );
                                         },
                                         child: Container(
                                           height: 8.0,
                                           width: MediaQuery.of(context).size.width,
                                           decoration: BoxDecoration(
-                                            color: _currentIndexIndicator == index ?
-                                            lowBlack : Colors.transparent,
-                                            borderRadius: BorderRadius.circular(8.0)
+                                              color: _currentIndexIndicator == index ?
+                                              lowBlack : Colors.transparent,
+                                              borderRadius: BorderRadius.circular(8.0)
                                           ),
                                         ),
                                       ),
@@ -134,7 +134,7 @@ class _SightDetailsState extends State<SightDetails> {
                     Container(
                       padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
                       child: BaseBackButton(
-                        background: Theme.of(context).backgroundColor
+                          background: Theme.of(context).backgroundColor
                       ),
                     ),
                   ],
@@ -150,8 +150,8 @@ class _SightDetailsState extends State<SightDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.sight.name,
-                      style: Theme.of(context).textTheme.headline2
+                        widget.sight.name,
+                        style: Theme.of(context).textTheme.headline2
                     ),
                     SizedBox(height: 2.0),
                     Row(
@@ -162,28 +162,28 @@ class _SightDetailsState extends State<SightDetails> {
                         ),
                         SizedBox(width: 16.0),
                         Text(
-                          'закрыто до 9:00',
-                          style: Theme.of(context).textTheme.bodyText2
+                            'закрыто до 9:00',
+                            style: Theme.of(context).textTheme.bodyText2
                         ),
                       ],
                     ),
                     SizedBox(height: 24.0),
                     Text(
-                      widget.sight.details,
-                      style: Theme.of(context).textTheme.bodyText1
+                        widget.sight.details,
+                        style: Theme.of(context).textTheme.bodyText1
                     ),
                     BaseElevatedButton(
-                      action: () { print('Маршрут построен!'); },
-                      text: 'Построить маршрут',
-                      textIsUppercase: true,
-                      icon: emptyVisitingURL,
-                      topOffset: 24.0
+                        action: () { print('Маршрут построен!'); },
+                        text: 'Построить маршрут',
+                        textIsUppercase: true,
+                        icon: emptyVisitingURL,
+                        topOffset: 24.0
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 24.0, bottom: 8.0),
-                      width: double.infinity,
-                      height: 1.0,
-                      color: Theme.of(context).dividerColor
+                        margin: const EdgeInsets.only(top: 24.0, bottom: 8.0),
+                        width: double.infinity,
+                        height: 1.0,
+                        color: Theme.of(context).dividerColor
                     ),
                     Row(
                       children: [
