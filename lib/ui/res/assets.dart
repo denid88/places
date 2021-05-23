@@ -33,5 +33,8 @@ const String favoriteIconURL = '$base/$icons/heart.svg',
       routerIconURL = '$base/$icons/router.svg',
       bagIconURL = '$base/$icons/bag.svg',
       touchIconURL = '$base/$icons/touch.svg',
-      logoIconURL = '$base/$icons/logo.svg';
+      logoIconURL = '$base/$icons/logo.svg',
+      photocameraIconURL = '$base/$icons/photocamera.svg',
+      imageIconURL = '$base/$icons/image.svg',
+      copyIconURL = '$base/$icons/copy.svg';
 

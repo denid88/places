@@ -51,28 +51,71 @@ class _SightCardState extends State<SightCard> {
               context: context,
               isScrollControlled: true,
               isDismissible: true,
+              enableDrag: true,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(16.0),
                   topLeft: Radius.circular(16.0),
                 ),
               ),
+              //backgroundColor: Colors.transparent,
               builder: (BuildContext context) {
-                  return DraggableScrollableSheet(
-                    initialChildSize: .8, //set this as you want
-                    maxChildSize: .8, //set this as you want
-                    minChildSize: .8, //set this as you want
-                    builder: (context, scrollController) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(16.0),
-                          topLeft: Radius.circular(16.0),
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height - 64.0,
+                      child: DraggableScrollableSheet(
+                        expand: true,
+                        initialChildSize: 1,
+                        minChildSize: 1,
+                        builder: (context, scrollController) {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(16.0),
+                              topLeft: Radius.circular(16.0),
+                            ),
+                            child: SightDetails(
+                              sight: widget.sight,
+                            ),
+                          );
+                        }
+                      ),
+                    ),
+                    Positioned(
+                      top: 12.0,
+                      child: Container(
+                        width: 40.0,
+                        height: 4.0,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).backgroundColor,
+                          borderRadius: BorderRadius.circular(8.0)
                         ),
-                        child: SightDetails(
-                          sight: widget.sight,
+                      )
+                    ),
+                    Positioned(
+                      top: 16.0,
+                      right: 16.0,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          width: 40.0,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            color: white,
+                            shape: BoxShape.circle
+                          ),
+                          child: Icon(
+                            Icons.clear,
+                            color: lightGrey2,
+                          ),
                         ),
-                      );
-                    });
+                      )
+                    )
+                  ],
+                );
               });
             },
             child: DismissibleCard(
@@ -125,14 +168,14 @@ class _SightCardState extends State<SightCard> {
                                 ),
                                 widget.type == SightType.basic ?
                                 BaseActionButton(
-                                    icon: widget.sight.isFavorite ?
-                                    favoriteDarkIconURL : favoriteIconURL,
-                                    action: () {
-                                      if (!widget.sight.isFavorite) {
-                                        context.read<Data>()
-                                            .addToWishes(widget.sight);
-                                      }
+                                  icon: widget.sight.isFavorite ?
+                                  favoriteDarkIconURL : favoriteIconURL,
+                                  action: () {
+                                    if (!widget.sight.isFavorite) {
+                                      context.read<Data>()
+                                        .addToWishes(widget.sight);
                                     }
+                                  }
                                 ) : widget.type == SightType.plan ? Row(
                                   children: [
                                     BaseActionButton(
@@ -144,23 +187,23 @@ class _SightCardState extends State<SightCard> {
                                         icon: removeIconURL,
                                         action: () {
                                           context.read<Data>()
-                                              .removeFromListWishes(widget.sight.name);
+                                            .removeFromListWishes(widget.sight.name);
                                         }
                                     ),
                                   ],
                                 ) : widget.type == SightType.visited ? Row(
                                   children: [
                                     BaseActionButton(
-                                        icon: shareIconURL,
-                                        action: () { print('Поделиться'); }
+                                      icon: shareIconURL,
+                                      action: () { print('Поделиться'); }
                                     ),
                                     SizedBox(width: 20.0),
                                     BaseActionButton(
-                                        icon: removeIconURL,
-                                        action: () {
-                                          context.read<Data>()
-                                              .removeFromListVisited(widget.sight.name);
-                                        }
+                                      icon: removeIconURL,
+                                      action: () {
+                                        context.read<Data>()
+                                          .removeFromListVisited(widget.sight.name);
+                                      }
                                     ),
                                   ],
                                 ) : SizedBox.shrink()
