@@ -18,6 +18,7 @@ class BaseElevatedButton extends StatelessWidget {
   final double bottomOffset;
   final double borderRadius;
   final Color backgroundColor;
+  final Color textColor;
   final LinearGradient backgroundGradient;
   final bool gradientEnable;
 
@@ -25,6 +26,7 @@ class BaseElevatedButton extends StatelessWidget {
     required this.action,
     required this.text,
     this.textFontWeight = FontWeight.w700,
+    this.textColor = Colors.white,
     this.textIsUppercase = false,
     this.icon = '',
     this.iconSize = 20.0,
@@ -60,10 +62,10 @@ class BaseElevatedButton extends StatelessWidget {
                 MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
                   if (states.contains(MaterialState.pressed))
-                    return green.withOpacity(0.56);
+                    return backgroundColor.withOpacity(0.56);
                   else if (states.contains(MaterialState.disabled))
                     return lightGrey;
-                  return green; // Use the component's default.
+                  return backgroundColor; // Use the component's default.
                 },
               ),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -88,7 +90,7 @@ class BaseElevatedButton extends StatelessWidget {
                 Text(
                   textIsUppercase ? text.toUpperCase() : text,
                   style: TextStyle(
-                    color: action != null ? white : lightGreyWithOpacity56,
+                    color: action != null ? textColor : lightGreyWithOpacity56,
                     fontWeight: textFontWeight,
                     letterSpacing: .75
                   )

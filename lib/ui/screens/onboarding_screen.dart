@@ -57,7 +57,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: BaseTextButton(
-                  width: 94.0,
+                  width: 100.0,
                   color: Theme.of(context).accentColor,
                   fontWeight: FontWeight.w500,
                   action: skipOnBoardScreen,
@@ -83,17 +83,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   OnBoardingIndicator(active: _currentPage),
                   _currentPage == _onBoardingWidgetList.length - 1 ?
                   Positioned(
-                      bottom: 8.0,
-                      left: 16.0,
-                      right: 16.0,
-                      child: Center(
-                        child: BaseElevatedButton(
-                          textIsUppercase: true,
-                          textFontWeight: FontWeight.w700,
-                          text: 'На старт',
-                          action: skipOnBoardScreen
-                        ),
-                      )
+                    bottom: 8.0,
+                    left: 16.0,
+                    right: 16.0,
+                    child: BaseElevatedButton(
+                      textIsUppercase: true,
+                      textFontWeight: FontWeight.w700,
+                      text: 'На старт',
+                      action: skipOnBoardScreen
+                    )
                   ) : SizedBox.shrink()
                 ],
               ),
