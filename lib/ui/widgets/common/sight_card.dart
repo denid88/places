@@ -6,10 +6,11 @@ import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/res/styles.dart';
-import 'package:places/ui/screens/sight_details.dart';
 import 'package:places/ui/widgets/button/base_action_button.dart';
+import 'package:places/ui/widgets/card/card_details_dialog.dart';
 import 'package:places/ui/widgets/common/dissmisibble_card.dart';
 import 'package:provider/provider.dart';
+import 'package:places/ui/widgets/common/base_image.dart';
 
 
 class SightCard extends StatefulWidget {
@@ -34,6 +35,25 @@ class SightCard extends StatefulWidget {
 }
 
 class _SightCardState extends State<SightCard> {
+
+  void _showModalBottomSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      isDismissible: true,
+      enableDrag: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(16.0),
+          topLeft: Radius.circular(16.0),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return CardDetailsDialog(sight: widget.sight);
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -43,227 +63,136 @@ class _SightCardState extends State<SightCard> {
       ),
       child: Card(
         margin: const EdgeInsets.only(bottom: 16.0),
-          child: InkWell(
-            borderRadius: cardBorderRadius,
-            splashColor: splashCard,
-            onTap: () async {
-              showModalBottomSheet<void>(
-              context: context,
-              isScrollControlled: true,
-              isDismissible: true,
-              enableDrag: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(16.0),
-                  topLeft: Radius.circular(16.0),
-                ),
-              ),
-              //backgroundColor: Colors.transparent,
-              builder: (BuildContext context) {
-                return Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height - 64.0,
-                      child: DraggableScrollableSheet(
-                        expand: true,
-                        initialChildSize: 1,
-                        minChildSize: 1,
-                        builder: (context, scrollController) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(16.0),
-                              topLeft: Radius.circular(16.0),
-                            ),
-                            child: SightDetails(
-                              sight: widget.sight,
-                            ),
-                          );
-                        }
+        child: InkWell(
+          borderRadius: cardBorderRadius,
+          splashColor: splashCard,
+          onTap: () => _showModalBottomSheet(),
+          child: DismissibleCard(
+            sight: widget.sight,
+            type: widget.type,
+            enabled: widget.dismissibleEnable,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(
+                          maxHeight: 96.0,
+                        ),
+                        width: double.infinity,
+                        child: BaseImage(url: widget.sight.url)
                       ),
-                    ),
-                    Positioned(
-                      top: 12.0,
-                      child: Container(
-                        width: 40.0,
-                        height: 4.0,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).backgroundColor,
-                          borderRadius: BorderRadius.circular(8.0)
-                        ),
-                      )
-                    ),
-                    Positioned(
-                      top: 16.0,
-                      right: 16.0,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Container(
-                          width: 40.0,
-                          height: 40.0,
-                          decoration: BoxDecoration(
-                            color: white,
-                            shape: BoxShape.circle
-                          ),
-                          child: Icon(
-                            Icons.clear,
-                            color: lightGrey2,
-                          ),
-                        ),
-                      )
-                    )
-                  ],
-                );
-              });
-            },
-            child: DismissibleCard(
-              sight: widget.sight,
-              type: widget.type,
-              enabled: widget.dismissibleEnable,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Stack(
-                        children: [
-                          Container(
-                            constraints: BoxConstraints(
-                              maxHeight: 96.0,
+                      Container(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.sight.type,
+                              style: TextStyle(color: white),
                             ),
-                            width: double.infinity,
-                            child: Image.network(
-                              widget.sight.url,
-                              fit: BoxFit.cover,
-                              loadingBuilder: (BuildContext context, Widget child,
-                                  ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child;
+                            widget.type == SightType.basic ?
+                            BaseActionButton(
+                              icon: widget.sight.isFavorite ?
+                              favoriteDarkIconURL : favoriteIconURL,
+                              action: () {
+                                if (!widget.sight.isFavorite) {
+                                  context.read<Data>()
+                                    .addToWishes(widget.sight);
                                 }
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes != null ?
-                                    loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                        : null,
-                                  ),
-                                );
-                              },
-                              errorBuilder: (context, error, stackTrace) =>
-                                  Center(
-                                      child: Text('Some errors occurred!')
-                                  ),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              }
+                            ) : widget.type == SightType.plan ? Row(
                               children: [
-                                Text(
-                                  widget.sight.type,
-                                  style: TextStyle(color: white),
-                                ),
-                                widget.type == SightType.basic ?
                                 BaseActionButton(
-                                  icon: widget.sight.isFavorite ?
-                                  favoriteDarkIconURL : favoriteIconURL,
+                                  icon: calendarIconURL,
+                                  action: () { print('Добавлено в календарь'); }
+                                ),
+                                SizedBox(width: 20.0),
+                                BaseActionButton(
+                                  icon: removeIconURL,
                                   action: () {
-                                    if (!widget.sight.isFavorite) {
-                                      context.read<Data>()
-                                        .addToWishes(widget.sight);
-                                    }
+                                    context.read<Data>()
+                                      .removeFromListWishes(widget.sight.name);
                                   }
-                                ) : widget.type == SightType.plan ? Row(
-                                  children: [
-                                    BaseActionButton(
-                                        icon: calendarIconURL,
-                                        action: () { print('Добавлено в календарь'); }
-                                    ),
-                                    SizedBox(width: 20.0),
-                                    BaseActionButton(
-                                        icon: removeIconURL,
-                                        action: () {
-                                          context.read<Data>()
-                                            .removeFromListWishes(widget.sight.name);
-                                        }
-                                    ),
-                                  ],
-                                ) : widget.type == SightType.visited ? Row(
-                                  children: [
-                                    BaseActionButton(
-                                      icon: shareIconURL,
-                                      action: () { print('Поделиться'); }
-                                    ),
-                                    SizedBox(width: 20.0),
-                                    BaseActionButton(
-                                      icon: removeIconURL,
-                                      action: () {
-                                        context.read<Data>()
-                                          .removeFromListVisited(widget.sight.name);
-                                      }
-                                    ),
-                                  ],
-                                ) : SizedBox.shrink()
+                                ),
                               ],
-                            ),
-                          ),
-                        ]
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(16.0),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(16.0),
-                            bottomLeft: Radius.circular(16.0),
-                          )
+                            ) : widget.type == SightType.visited ? Row(
+                              children: [
+                                BaseActionButton(
+                                  icon: shareIconURL,
+                                  action: () { print('Поделиться'); }
+                                ),
+                                SizedBox(width: 20.0),
+                                BaseActionButton(
+                                  icon: removeIconURL,
+                                  action: () {
+                                    context.read<Data>()
+                                      .removeFromListVisited(widget.sight.name);
+                                  }
+                                ),
+                              ],
+                            ) : SizedBox.shrink()
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 2.0),
-                            child: Text(
-                                widget.sight.name,
-                                maxLines: 2,
-                                style: Theme.of(context).textTheme.subtitle1
-                            ),
-                          ),
-                          widget.type == SightType.plan && widget.sight.date.isNotEmpty  ?
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: Text(
-                              '${SightCard.planCardText} ${widget.sight.date}',
-                              style: Theme.of(context).
-                              textTheme.bodyText2!.copyWith(color: green),
-                            ),
-                          ) : widget.type == SightType.visited && widget.sight.date.isNotEmpty ?
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: Text(
-                              '${SightCard.visitedCardText} ${widget.sight.date}',
-                              style: Theme.of(context).
-                              textTheme.bodyText2,
-                            ),
-                          ) : SizedBox.shrink(),
-                          Text(
-                            widget.sight.details,
-                            style: Theme.of(context).textTheme.bodyText2,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
+                    ]
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(16.0),
+                        bottomLeft: Radius.circular(16.0),
+                      )
                     ),
-                  ],
-                ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 2.0),
+                          child: Text(
+                            widget.sight.name,
+                            maxLines: 2,
+                            style: Theme.of(context).textTheme.subtitle1
+                          ),
+                        ),
+                        widget.type == SightType.plan && widget.sight.date.isNotEmpty  ?
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: Text(
+                            '${SightCard.planCardText} ${widget.sight.date}',
+                            style: Theme.of(context).
+                            textTheme.bodyText2!.copyWith(color: green),
+                          ),
+                        ) : widget.type == SightType.visited && widget.sight.date.isNotEmpty ?
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: Text(
+                            '${SightCard.visitedCardText} ${widget.sight.date}',
+                            style: Theme.of(context).
+                            textTheme.bodyText2,
+                          ),
+                        ) : SizedBox.shrink(),
+                        Text(
+                          widget.sight.details,
+                          style: Theme.of(context).textTheme.bodyText2,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         ),
+      ),
     );
   }
 }
