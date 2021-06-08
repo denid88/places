@@ -36,22 +36,39 @@ class SightCard extends StatefulWidget {
 
 class _SightCardState extends State<SightCard> {
 
+  final DateTime _now = DateTime.now();
+  final DateTime _max = DateTime(2050);
+
+  DateTime? _selectedDate;
+
   void _showModalBottomSheet() {
     showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      isDismissible: true,
-      enableDrag: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(16.0),
-          topLeft: Radius.circular(16.0),
+        context: context,
+        isScrollControlled: true,
+        isDismissible: true,
+        enableDrag: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(16.0),
+            topLeft: Radius.circular(16.0),
+          ),
         ),
-      ),
-      builder: (BuildContext context) {
-        return CardDetailsDialog(sight: widget.sight);
-      }
+        builder: (BuildContext context) {
+          return CardDetailsDialog(sight: widget.sight);
+        }
     );
+  }
+
+  void _showDatePicker() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _now,
+      firstDate: _now,
+      lastDate: _max,
+    );
+    setState(() {
+      _selectedDate = picked;
+    });
   }
 
   @override
@@ -109,7 +126,7 @@ class _SightCardState extends State<SightCard> {
                               children: [
                                 BaseActionButton(
                                   icon: calendarIconURL,
-                                  action: () { print('Добавлено в календарь'); }
+                                  action: () => _showDatePicker()
                                 ),
                                 SizedBox(width: 20.0),
                                 BaseActionButton(
