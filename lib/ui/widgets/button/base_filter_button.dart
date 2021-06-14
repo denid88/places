@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/utils/text_utils.dart';
 import 'package:places/ui/utils/icon_utils.dart';
+import 'package:places/ui/utils/sizes_utils.dart';
 
 class BaseFilterButton extends StatelessWidget {
 
@@ -20,7 +21,10 @@ class BaseFilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 40.0, right: 12.0),
+      margin: EdgeInsets.only(
+        bottom: 40.0,
+        right: isScreenSmall(MediaQuery.of(context).size) ? 0.0 : 12.0
+      ),
       width: double.infinity,
       constraints: BoxConstraints(
         maxWidth: 96.0

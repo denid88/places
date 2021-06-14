@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/domain/data.dart';
@@ -38,36 +40,67 @@ class _SightCardState extends State<SightCard> {
 
   final DateTime _now = DateTime.now();
   final DateTime _max = DateTime(2050);
-
-  DateTime? _selectedDate;
+  
+  late DateTime? _selectedMaterialDate;
+  late TimeOfDay? _selectedMaterialTime;
+  late DateTime? _selectedCupertinoDateTime;
 
   void _showModalBottomSheet() {
     showModalBottomSheet<void>(
-        context: context,
-        isScrollControlled: true,
-        isDismissible: true,
-        enableDrag: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(16.0),
-            topLeft: Radius.circular(16.0),
-          ),
+      context: context,
+      isScrollControlled: true,
+      isDismissible: true,
+      enableDrag: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(16.0),
+          topLeft: Radius.circular(16.0),
         ),
-        builder: (BuildContext context) {
-          return CardDetailsDialog(sight: widget.sight);
-        }
+      ),
+      builder: (BuildContext context) {
+        return CardDetailsDialog(sight: widget.sight);
+      }
     );
   }
 
-  void _showDatePicker() async {
+  void _showDateMaterialPicker() async {
     final picked = await showDatePicker(
+      initialDatePickerMode: DatePickerMode.day,
       context: context,
       initialDate: _now,
       firstDate: _now,
       lastDate: _max,
+    ).whenComplete(() => _showTimeMaterialPicker());
+    setState(() {
+      _selectedMaterialDate = picked;
+    });
+  }
+
+  void _showDateCupertinoPicker() async {
+    await showCupertinoModalPopup(
+      context: context,
+      builder: (_) => Container(
+      height: 240.0,
+      color: Color.fromARGB(255, 255, 255, 255),
+      child:
+        CupertinoDatePicker(
+          onDateTimeChanged: (DateTime value) {
+            setState(() {
+              _selectedCupertinoDateTime = value;
+            });
+          },
+        )
+      )
+    );
+  }
+  
+  void _showTimeMaterialPicker() async {
+    final timePicked = await showTimePicker(
+      initialTime: TimeOfDay.fromDateTime(_now),
+      context: context         
     );
     setState(() {
-      _selectedDate = picked;
+      _selectedMaterialTime = timePicked;
     });
   }
 
@@ -126,7 +159,9 @@ class _SightCardState extends State<SightCard> {
                               children: [
                                 BaseActionButton(
                                   icon: calendarIconURL,
-                                  action: () => _showDatePicker()
+                                  action: () => Platform.isIOS ?
+                                    _showDateCupertinoPicker() :
+                                    _showDateMaterialPicker()
                                 ),
                                 SizedBox(width: 20.0),
                                 BaseActionButton(
@@ -169,6 +204,7 @@ class _SightCardState extends State<SightCard> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 2.0),

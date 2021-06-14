@@ -4,6 +4,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/utils/geo_utils.dart';
+import 'package:places/ui/utils/sizes_utils.dart';
 import 'package:places/ui/widgets/button/base_back_button.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/button/base_filter_button.dart';
@@ -121,7 +122,10 @@ class _FilterScreenState extends State<FilterScreen> {
                       )
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isScreenSmall(MediaQuery.of(context).size) ?
+                          0.0 : 24.0
+                      ),
                       child: Wrap(
                         crossAxisAlignment: WrapCrossAlignment.center,
                         alignment: WrapAlignment.start,
