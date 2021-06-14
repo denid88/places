@@ -101,12 +101,19 @@ class _SightListScreenState extends State<SightListScreen> {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              ListView.builder(
+              GridView.builder(
                 physics: defaultScrollPhysics,
                 itemCount: context.watch<Data>().data.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: MediaQuery.of(context).orientation ==
+                      Orientation.landscape ? 2 : 1,
+                    crossAxisSpacing: MediaQuery.of(context).orientation ==
+                      Orientation.landscape ? 18.0 : 0.0,
+                    childAspectRatio: (2 / 1.05),
+                  ),
                 itemBuilder: (BuildContext context, int index) {
                   return SightCard(sight: context.watch<Data>().data[index]);
-                }
+                },
               ),
               Positioned(
                 bottom: 16.0,
