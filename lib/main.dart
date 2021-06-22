@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/utils/api_client.dart';
 import 'package:places/domain/data.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/domain/onboard.dart';
@@ -37,6 +38,16 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+
+  @override
+  void initState() {
+    DioClient()..init().then((dio) async {
+      final users = await dio.get('https://jsonplaceholder.typicode.com/users');
+      print(users);
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
