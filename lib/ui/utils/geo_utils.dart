@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:places/domain/coords.dart';
+import 'package:places/domain/entities/coords.dart';
 
 arePointsNear(Coords checkPoint, Coords centerPoint, double m) {
   double ky = 40000 / 360;

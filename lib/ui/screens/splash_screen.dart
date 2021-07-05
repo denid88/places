@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/domain/onboard.dart';
+import 'package:places/domain/state/onboard.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/screens/onboarding_screen.dart';

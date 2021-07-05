@@ -4,6 +4,8 @@ class ApiInterceptors extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     print('REQUEST[${options.method}] => PATH: ${options.path}');
+    print('OPTIONS');
+    print(options.baseUrl);
     return super.onRequest(options, handler);
   }
   @override

@@ -2,8 +2,8 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:places/domain/data.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/domain/state/data.dart';
+import 'package:places/domain/state/sight.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/enums.dart';

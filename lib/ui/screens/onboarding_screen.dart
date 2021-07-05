@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/onboard.dart';
+import 'package:places/domain/state/onboard.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screens/sight_list_screen.dart';

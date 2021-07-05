@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/history.dart';
+import 'package:places/domain/state/history.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:provider/provider.dart';
 

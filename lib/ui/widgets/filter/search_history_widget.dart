@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/history.dart';
+import 'package:places/domain/state/history.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/widgets/button/base_text_button.dart';
 import 'package:places/ui/widgets/filter/search_history_empty_widget.dart';
