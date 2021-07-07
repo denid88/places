@@ -11,10 +11,9 @@ import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:places/domain/state/theme.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
-  await dotenv.load(fileName: '.env');
+  //await dotenv.load(fileName: '.env');
   runApp(
     MultiProvider(
       providers: [
