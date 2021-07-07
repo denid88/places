@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:places/data/failure/failure.dart';
 import 'package:places/data/interactor/place_interactor_impl.dart';
 import 'package:places/data/respository/place_repository_impl.dart';
 import 'package:places/data/utils/api_client.dart';
@@ -15,8 +12,6 @@ import 'package:places/ui/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:places/domain/state/theme.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart';
-
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -54,14 +49,18 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
-    try {
-      final response = _placeInteractor.getPlaces(3, '');
-      response.then((data) {
-        print(data);
-      });
-    } on Exception catch(e) {
-      print(e);
-    }
+    final response = _placeInteractor.getPlaces(3, '');
+    response.then((data) {
+      print(data);
+    })
+    .catchError((e) {
+      print('Exception');
+
+      if (e is DioError) {
+        print(e.message);
+      }
+
+    });
     super.initState();
   }
 

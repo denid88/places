@@ -1,4 +1,3 @@
-import 'package:places/data/failure/failure.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/domain/interactor/place_interactor.dart';
 import 'package:places/domain/repository/place_repository.dart';

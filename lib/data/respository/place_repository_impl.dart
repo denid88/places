@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:places/data/failure/failure.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/utils/api_client.dart';
 import 'package:places/domain/repository/place_repository.dart';
@@ -22,15 +21,8 @@ class PlaceRepositoryImpl implements PlaceRepository {
 
   @override
   Future<List<Place>> getPlaces(int radius, String category) async {
-    final response = await http.get(
-      Uri(
-        scheme: 'https',
-        host: 'test-backend-flutter.surfstudio.ru',
-        path: '/$placeUrl'
-      )
-    );
-    final list = jsonDecode(response.body) as List;
-    return List<Place>.of(list.map((p) => Place.fromJson(p)));
+    final Response response = await apiClient.dio.post(placeUrl);
+    return response.data.map((p) => Place.fromJson(p)).toList();
   }
 
   @override
