@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/domain/state/sight.dart';
 import 'package:places/ui/widgets/filter/search_history_suggestion_item_widget.dart';
 
 class SearchHistorySuggestionWidget extends StatelessWidget {

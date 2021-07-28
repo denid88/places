@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+class AppColors {
+  static const red = Colors.red;
+}
 
 /*
 * Colors aliases for Light theme

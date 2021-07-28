@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:places/main.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/res/colors.dart';
 
 ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: white,
-  backgroundColor: Colors.white,
+  backgroundColor: AppColors.red,
   brightness: Brightness.light,
   textTheme: TextTheme(
     headline1: ltTextBold32,

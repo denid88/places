@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/domain/state/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/screens/sight_details.dart';
 

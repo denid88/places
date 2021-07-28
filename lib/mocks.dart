@@ -1,4 +1,4 @@
-import 'package:places/domain/sight.dart';
+import 'package:places/domain/state/sight.dart';
 
 final List<Sight> mocks = [
   Sight(
