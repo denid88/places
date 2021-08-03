@@ -75,7 +75,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
                           .favorites.length,
                         itemBuilder: (BuildContext context, int index) {
                           return DraggableCard(
-                            sight: context.watch<Data>()
+                            place: context.watch<Data>()
                               .favorites[index],
                             type: SightType.plan,
                             dismissibleEnable: true
@@ -92,7 +92,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
                           .visited.length,
                         itemBuilder: (BuildContext context, int index) {
                           return DraggableCard(
-                            sight: context.watch<Data>()
+                            place: context.watch<Data>()
                               .visited[index],
                             type: SightType.visited,
                             dismissibleEnable: true

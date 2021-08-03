@@ -8,24 +8,25 @@ ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: white,
   backgroundColor: AppColors.red,
   brightness: Brightness.light,
-  textTheme: TextTheme(
-    headline1: ltTextBold32,
-    headline2: ltTextBold24,
-    headline3: ltTextMedium18,
-    headline4: ltTextBold14,
-    subtitle1: ltTextMedium16,
-    subtitle2: ltTextMedium14,
-    bodyText1: ltTextRegular16,
-    bodyText2: ltTextRegular14
-  ),
+  // textTheme: TextTheme(
+  //   headline1: ltTextBold32,
+  //   headline2: ltTextBold24,
+  //   headline3: ltTextMedium18,
+  //   headline4: ltTextBold14,
+  //   subtitle1: ltTextMedium16,
+  //   subtitle2: ltTextMedium14,
+  //   bodyText1: ltTextRegular16,
+  //   bodyText2: ltTextRegular14
+  // ),
   accentColor: green,
   dividerColor: hr,
   appBarTheme: AppBarTheme(
+    //backwardsCompatibility: false,
     elevation: noElevation,
     backgroundColor: ltBackgroundColor,
     iconTheme: IconThemeData(
       color: grey
-    )
+    ),
   ),
   tabBarTheme: TabBarTheme(
     labelColor: white,

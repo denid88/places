@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/domain/entities/coords.dart';
-import 'package:places/domain/state/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/utils/geo_utils.dart';
@@ -11,7 +11,7 @@ import 'package:places/ui/widgets/button/base_filter_button.dart';
 import 'package:places/ui/widgets/button/base_text_button.dart';
 
 class FilterScreen extends StatefulWidget {
-  final List<Sight> list;
+  final List<Place> list;
   const FilterScreen({
     required this.list
   });
@@ -22,7 +22,7 @@ class FilterScreen extends StatefulWidget {
 
 class _FilterScreenState extends State<FilterScreen> {
 
-  late List<Sight> _filteredList;
+  late List<Place> _filteredList;
   late List<Map<String, dynamic>> _defaultList;
   late RangeValues _currentRangeValues;
   final Coords currentGeo = Coords(
@@ -37,14 +37,15 @@ class _FilterScreenState extends State<FilterScreen> {
     _currentRangeValues = const RangeValues(100, 5000);
     final sortedList = widget.list.where((e) {
       final checkPoint = Coords(lat: e.lat, lng: e.lng);
+      print(arePointsNear(checkPoint, currentGeo, _currentRangeValues.end));
       return arePointsNear(checkPoint, currentGeo, _currentRangeValues.end);
     }).toList();
-    _defaultList = sortedList
-      .map<String>((s) => s.type).toSet().toList()
-      .map<Map<String, dynamic>>((e) => {
-        'type': e,
-        'status': false
-      }).toList();
+    // _defaultList = sortedList
+    //   .map<String>((s) => s.type).toSet().toList()
+    //   .map<Map<String, dynamic>>((e) => {
+    //     'type': e,
+    //     'status': false
+    //   }).toList();
   }
 
   void filterChange(args) {
@@ -56,14 +57,14 @@ class _FilterScreenState extends State<FilterScreen> {
     });
 
     if (args['status']) {
-      setState(() {
-        _filteredList.removeWhere((s) => s.type == args['type']);
-        _filteredList.addAll(widget.list.where((s) => s.type == args['type']));
-      });
+      // setState(() {
+      //   _filteredList.removeWhere((s) => s.type == args['type']);
+      //   _filteredList.addAll(widget.list.where((s) => s.type == args['type']));
+      // });
     } else {
-      setState(() {
-        _filteredList.removeWhere((s) => s.type == args['type']);
-      });
+      // setState(() {
+      //   _filteredList.removeWhere((s) => s.type == args['type']);
+      // });
     }
   }
 
@@ -86,12 +87,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     final checkPoint = Coords(lat: e.lat, lng: e.lng);
                     return arePointsNear(checkPoint, currentGeo, _currentRangeValues.end);
                   }).toList();
-                  _defaultList = sortedList
-                      .map<String>((s) => s.type).toSet().toList()
-                      .map<Map<String, dynamic>>((e) => {
-                    'type': e,
-                    'status': false
-                  }).toList();
+                  // _defaultList = sortedList
+                  //     .map<String>((s) => s.type).toSet().toList()
+                  //     .map<Map<String, dynamic>>((e) => {
+                  //   'type': e,
+                  //   'status': false
+                  // }).toList();
                 });
               },
               text: 'Очистить',
@@ -179,12 +180,12 @@ class _FilterScreenState extends State<FilterScreen> {
                               return arePointsNear(checkPoint, currentGeo, _currentRangeValues.end);
                             }).toList();
 
-                            _defaultList = sortedList
-                                .map<String>((s) => s.type).toSet().toList()
-                                .map<Map<String, dynamic>>((e) => {
-                              'type': e,
-                              'status': false
-                            }).toList();
+                            // _defaultList = sortedList
+                            //     .map<String>((s) => s.type).toSet().toList()
+                            //     .map<Map<String, dynamic>>((e) => {
+                            //   'type': e,
+                            //   'status': false
+                            // }).toList();
                           });
                         },
                       ),

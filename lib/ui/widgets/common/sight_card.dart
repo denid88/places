@@ -1,9 +1,8 @@
 import 'dart:io' show Platform;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/domain/state/data.dart';
-import 'package:places/domain/state/sight.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/enums.dart';
@@ -14,19 +13,18 @@ import 'package:places/ui/widgets/common/dissmisibble_card.dart';
 import 'package:provider/provider.dart';
 import 'package:places/ui/widgets/common/base_image.dart';
 
-
 class SightCard extends StatefulWidget {
 
   static const String planCardText = 'Запланировано на';
   static const String visitedCardText = 'Цель достигнута';
 
-  final Sight sight;
+  final Place place;
   final SightType type;
   final Function? remove;
   final dismissibleEnable;
 
   const SightCard({
-    required this.sight,
+    required this.place,
     this.type = SightType.basic,
     this.remove,
     this.dismissibleEnable = false
@@ -58,7 +56,7 @@ class _SightCardState extends State<SightCard> {
         ),
       ),
       builder: (BuildContext context) {
-        return CardDetailsDialog(sight: widget.sight);
+        return CardDetailsDialog(place: widget.place);
       }
     );
   }
@@ -118,7 +116,7 @@ class _SightCardState extends State<SightCard> {
           splashColor: splashCard,
           onTap: () => _showModalBottomSheet(),
           child: DismissibleCard(
-            sight: widget.sight,
+            place: widget.place,
             type: widget.type,
             enabled: widget.dismissibleEnable,
             child: ClipRRect(
@@ -133,7 +131,7 @@ class _SightCardState extends State<SightCard> {
                           maxHeight: 96.0,
                         ),
                         width: double.infinity,
-                        child: BaseImage(url: widget.sight.url)
+                        child: BaseImage(url: widget.place.urls.first)
                       ),
                       Container(
                         padding: const EdgeInsets.all(16.0),
@@ -142,18 +140,18 @@ class _SightCardState extends State<SightCard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              widget.sight.type,
+                              widget.place.placeType,
                               style: TextStyle(color: white),
                             ),
                             widget.type == SightType.basic ?
                             BaseActionButton(
-                              icon: widget.sight.isFavorite ?
-                              favoriteDarkIconURL : favoriteIconURL,
+                             icon: '',//widget.place.isFavorite ?
+                             //favoriteDarkIconURL: '',//favoriteIconURL,
                               action: () {
-                                if (!widget.sight.isFavorite) {
-                                  context.read<Data>()
-                                    .addToWishes(widget.sight);
-                                }
+                                // if (!widget.place.isFavorite) {
+                                //   context.read<Data>()
+                                //     .addToWishes(widget.place);
+                                // }
                               }
                             ) : widget.type == SightType.plan ? Row(
                               children: [
@@ -168,7 +166,7 @@ class _SightCardState extends State<SightCard> {
                                   icon: removeIconURL,
                                   action: () {
                                     context.read<Data>()
-                                      .removeFromListWishes(widget.sight.name);
+                                      .removeFromListWishes(widget.place.name);
                                   }
                                 ),
                               ],
@@ -183,7 +181,7 @@ class _SightCardState extends State<SightCard> {
                                   icon: removeIconURL,
                                   action: () {
                                     context.read<Data>()
-                                      .removeFromListVisited(widget.sight.name);
+                                      .removeFromListVisited(widget.place.name);
                                   }
                                 ),
                               ],
@@ -206,37 +204,38 @@ class _SightCardState extends State<SightCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 2.0),
-                          child: Text(
-                            widget.sight.name,
-                            maxLines: 2,
-                            style: Theme.of(context).textTheme.subtitle1
-                          ),
-                        ),
-                        widget.type == SightType.plan && widget.sight.date.isNotEmpty  ?
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: Text(
-                            '${SightCard.planCardText} ${widget.sight.date}',
-                            style: Theme.of(context).
-                            textTheme.bodyText2!.copyWith(color: green),
-                          ),
-                        ) : widget.type == SightType.visited && widget.sight.date.isNotEmpty ?
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: Text(
-                            '${SightCard.visitedCardText} ${widget.sight.date}',
-                            style: Theme.of(context).
-                            textTheme.bodyText2,
-                          ),
-                        ) : SizedBox.shrink(),
-                        Text(
-                          widget.sight.details,
-                          style: Theme.of(context).textTheme.bodyText2,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        // TODO Change with place
+                        // Padding(
+                        //   padding: const EdgeInsets.only(bottom: 2.0),
+                        //   child: Text(
+                        //     widget.place.name,
+                        //     maxLines: 2,
+                        //     style: Theme.of(context).textTheme.subtitle1
+                        //   ),
+                        // ),
+                        // widget.type == SightType.plan && widget.place.isNotEmpty  ?
+                        // Padding(
+                        //   padding: const EdgeInsets.only(bottom: 16.0),
+                        //   child: Text(
+                        //     '${SightCard.planCardText} ${widget.place.date}',
+                        //     style: Theme.of(context).
+                        //     textTheme.bodyText2!.copyWith(color: green),
+                        //   ),
+                        // ) : widget.type == SightType.visited && widget.sight.date.isNotEmpty ?
+                        // Padding(
+                        //   padding: const EdgeInsets.only(bottom: 16.0),
+                        //   child: Text(
+                        //     '${SightCard.visitedCardText} ${widget.sight.date}',
+                        //     style: Theme.of(context).
+                        //     textTheme.bodyText2,
+                        //   ),
+                        // ) : SizedBox.shrink(),
+                        // Text(
+                        //   widget.sight.details,
+                        //   style: Theme.of(context).textTheme.bodyText2,
+                        //   maxLines: 1,
+                        //   overflow: TextOverflow.ellipsis,
+                        // ),
                       ],
                     ),
                   ),

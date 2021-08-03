@@ -6,7 +6,6 @@ import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/screens/add_sight_screen.dart';
-import 'package:places/ui/utils/sizes_utils.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/common/bottom_navigation_bar_widget.dart';
 import 'package:places/ui/widgets/common/search_bar.dart';
@@ -114,7 +113,7 @@ class _SightListScreenState extends State<SightListScreen> {
                     mainAxisExtent: 200.0,
                   ),
                 itemBuilder: (BuildContext context, int index) {
-                  return SightCard(sight: context.watch<Data>().data[index]);
+                  return SightCard(place: context.watch<Data>().data[index]);
                 },
               ),
               Positioned(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/state/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/screens/sight_details.dart';
 import 'package:places/ui/utils/text_utils.dart';
 
 class SearchHistorySuggestionItemWidget extends StatelessWidget {
 
-  final Sight item;
+  final Place item;
 
   const SearchHistorySuggestionItemWidget({
     required this.item
@@ -19,7 +19,7 @@ class SearchHistorySuggestionItemWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => SightDetails(
-            sight: item,
+            place: item,
           )),
         );
       },
@@ -34,7 +34,7 @@ class SearchHistorySuggestionItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
                   image: NetworkImage(
-                    item.url
+                    item.urls.first
                   ),
                   fit: BoxFit.cover
                 ),
@@ -56,7 +56,7 @@ class SearchHistorySuggestionItemWidget extends StatelessWidget {
                   ),
                   SizedBox(height: 8.0),
                   Text(
-                    capitalizeFirst(item.type),
+                    capitalizeFirst(item.placeType),
                     style: TextStyle(
                       fontSize: 14.0,
                       color: lightGrey2

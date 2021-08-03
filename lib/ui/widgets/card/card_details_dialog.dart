@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/state/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/screens/sight_details.dart';
 
 class CardDetailsDialog extends StatelessWidget {
-  final Sight sight;
+  final Place place;
 
   const CardDetailsDialog({
-    required this.sight
+    required this.place
   });
 
   @override
@@ -28,7 +28,7 @@ class CardDetailsDialog extends StatelessWidget {
                   topLeft: Radius.circular(16.0),
                 ),
                 child: SightDetails(
-                  sight: sight,
+                  place: place,
                 ),
               );
             }

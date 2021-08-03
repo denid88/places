@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/screens/sight_details.dart';
 import 'package:places/ui/widgets/filter/search_history_empty_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:places/domain/state/data.dart';
 import 'package:places/domain/state/history.dart';
-import 'package:places/domain/state/sight.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -16,7 +16,6 @@ import 'package:places/ui/widgets/common/search_bar.dart';
 import 'package:places/ui/widgets/filter/search_history_not_found_widget.dart';
 import 'package:places/ui/widgets/filter/search_history_suggestion_widget.dart';
 import 'package:places/ui/widgets/filter/search_history_widget.dart';
-
 
 class SightSearchScreen extends StatefulWidget {
   @override
@@ -30,8 +29,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   FocusNode _focusNode = FocusNode();
   TextEditingController _searchController = TextEditingController();
 
-  List<Sight> _filteredList = [];
-  List<Sight> _suggestionList = [];
+  List<Place> _filteredList = [];
+  List<Place> _suggestionList = [];
 
   bool subtractEnabled = false;
   bool suffixFilterEnabled = true;
@@ -120,7 +119,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SightDetails(sight: foundSight),
+                      builder: (context) => SightDetails(place: foundSight),
                     ),
                   );
                   setState(() {

@@ -1,52 +1,84 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:places/domain/state/sight.dart';
-import 'package:places/mocks.dart';
+import 'package:places/data/interactor/place_interactor_impl.dart';
+import 'package:places/data/model/place.dart';
+import 'package:places/domain/entities/coords.dart';
 import 'package:places/ui/res/enums.dart';
+import 'package:places/ui/utils/geo_utils.dart';
 
 class Data extends ChangeNotifier {
-  List<Sight> _data = mocks;
 
-  List<Sight> _favorites = [];
+  final PlaceInteractorImpl placeInteractor;
 
-  List<Sight> _visited = mocks.where((s) => s.isVisited).toList();
+  Data({required this.placeInteractor});
 
-  List<Sight> get data => _data;
+  List<Place> _data = [];
 
-  List<Sight> get favorites => _favorites;
+  List<Place> _favorites = [];
 
-  List<Sight> get visited => _visited;
+  List<Place> _visited = [];
 
-  void add(Sight sight) {
+  List<Place> get data => _data;
+
+  List<Place> get favorites => _favorites;
+
+  List<Place> get visited => _visited;
+
+  void fetchData() {
+    final Coords currentGeo = Coords(
+      lat: 48.8478039,
+      lng: 37.5525647
+    );
+
+    final Coords nearCityGeo = Coords(lat: 59.9399139, lng: 29.5342723);
+    final double distance = distanceInKmBetweenEarthCoordinates(
+        currentGeo.lat, currentGeo.lng, nearCityGeo.lat, nearCityGeo.lng);
+
+    print(distance);
+
+    final data = placeInteractor.getPlaces(distance, '');
+    data.then((result) {
+      _data = result;
+    }).catchError((e) {
+      if (e is DioError) {
+        throw Exception(e.message);
+      }
+      throw Exception(e);
+    });
+    notifyListeners();
+  }
+
+  void add(Place sight) {
     _data.add(sight);
     notifyListeners();
   }
 
-  void addToWishes(Sight sight) {
-     _data = _data.map((s) => s.name == sight.name ?
-        s.copyWith(isFavorite: true) : s).toList();
-     _favorites.add(sight);
+  void addToWishes(Place sight) {
+     // _data = _data.map((s) => s.name == sight.name ?
+     //    s.copyWith(isFavorite: true) : s).toList();
+     // _favorites.add(sight);
       notifyListeners();
   }
 
   void removeFromListWishes(String name) {
-    _data = _data.map((s) => s.name == name ?
-    s.copyWith(isFavorite: false) : s).toList();
-    _favorites.removeWhere((s) => s.name == name);
+    // _data = _data.map((s) => s.name == name ?
+    // s.copyWith(isFavorite: false) : s).toList();
+    // _favorites.removeWhere((s) => s.name == name);
     notifyListeners();
   }
 
-  void addToVisited(Sight sight) {
-    _data = _data.map((s) => s.name == sight.name ?
-      s.copyWith(isVisited: true) : s).toList();
-    _visited.add(sight);
+  void addToVisited(Place sight) {
+    // _data = _data.map((s) => s.name == sight.name ?
+    //   s.copyWith(isVisited: true) : s).toList();
+    // _visited.add(sight);
       notifyListeners();
   }
 
   void removeFromListVisited(String name) {
-    _data = _data.map((s) => s.name == name ?
-      s.copyWith(isVisited: false) : s).toList();
-    _visited.removeWhere((s) => s.name == name);
+    // _data = _data.map((s) => s.name == name ?
+    //   s.copyWith(isVisited: false) : s).toList();
+    // _visited.removeWhere((s) => s.name == name);
     notifyListeners();
   }
 

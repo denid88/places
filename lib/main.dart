@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/place_interactor_impl.dart';
-import 'package:places/data/respository/place_repository_impl.dart';
-import 'package:places/data/utils/api_client.dart';
 import 'package:places/domain/state/data.dart';
 import 'package:places/domain/state/history.dart';
 import 'package:places/domain/state/onboard.dart';
@@ -12,8 +9,11 @@ import 'package:places/ui/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:places/domain/state/theme.dart';
 
+import 'data/interactor/place_interactor_impl.dart';
+import 'data/respository/place_repository_impl.dart';
+import 'data/utils/api_client.dart';
+
 void main() async {
-  //await dotenv.load(fileName: '.env');
   runApp(
     MultiProvider(
       providers: [
@@ -21,7 +21,13 @@ void main() async {
           create: (context) => ThemeModel(),
         ),
         ChangeNotifierProvider(
-          create: (context) => Data(),
+          create: (context) => Data(
+            placeInteractor: PlaceInteractorImpl(
+              placeRepository: PlaceRepositoryImpl(
+                apiClient: ApiClient(dioClient: Dio())
+              )
+            )
+          )..fetchData(),
         ),
         ChangeNotifierProvider(
           create: (context) => History(),
@@ -41,28 +47,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
-  final PlaceInteractorImpl _placeInteractor = PlaceInteractorImpl(
-    placeRepository: PlaceRepositoryImpl(apiClient: ApiClient(dioClient: Dio()))
-  );
-
-  @override
-  void initState() {
-    final response = _placeInteractor.getPlaces(3, '');
-    response.then((data) {
-      print(data);
-    })
-    .catchError((e) {
-      print('Exception');
-
-      if (e is DioError) {
-        print(e.message);
-      }
-
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

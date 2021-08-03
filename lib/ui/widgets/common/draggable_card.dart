@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/domain/state/data.dart';
-import 'package:places/domain/state/sight.dart';
 import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/widgets/common/sight_card.dart';
 import 'package:provider/provider.dart';
 
 class DraggableCard extends StatefulWidget {
 
-  final Sight sight;
+  final Place place;
   final SightType type;
   final bool dismissibleEnable;
 
   const DraggableCard({
-    required this.sight,
+    required this.place,
     required this.type,
     this.dismissibleEnable = false
   });
@@ -36,12 +36,12 @@ class _DraggableCardState extends State<DraggableCard> {
         _startPosition = details.globalPosition.dy;
       },
       child: LongPressDraggable(
-        key: ValueKey(widget.sight.name),
-        data: widget.sight.name,
+        key: ValueKey(widget.place.name),
+        data: widget.place.name,
         onDragStarted: () {
           setState(() {
             _cardDirection = CardDirection.none;
-            _selectedCard = widget.sight.name;
+            _selectedCard = widget.place.name;
             _isDrag = true;
           });
         },
@@ -77,13 +77,13 @@ class _DraggableCardState extends State<DraggableCard> {
             maxWidth: MediaQuery.of(context).size.width
           ),
           child: SightCard(
-            sight: widget.sight,
+            place: widget.place,
             type: widget.type,
           ),
         ),
         child: _isDrag ?
         SizedBox.shrink() : SightCard(
-          sight: widget.sight,
+          place: widget.place,
           type: widget.type,
           dismissibleEnable: widget.dismissibleEnable,
         ),

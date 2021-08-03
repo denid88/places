@@ -9,45 +9,45 @@ class PlaceInteractorImpl extends PlaceInteractor {
   PlaceInteractorImpl({required this.placeRepository});
 
   @override
-  void addNewPlace(Place place) {
+  Future<void> addNewPlace(Place place) async {
     // TODO: implement addNewPlace
   }
 
   @override
-  void addToFavorites(Place place) {
+  Future<void> addToFavorites(Place place) async {
     // TODO: implement addToFavorites
   }
 
   @override
-  void addToVisitingPlaces(place) {
+  Future<void> addToVisitingPlaces(place) async {
     // TODO: implement addToVisitingPlaces
   }
 
   @override
-  List<Place> getFavoritesPlaces() {
+  Future<List<Place>> getFavoritesPlaces() async {
     // TODO: implement getFavoritesPlaces
     throw UnimplementedError();
   }
 
   @override
-  Place getPlaceDetails(int id) {
+  Future<Place> getPlaceDetails(int id) async {
     // TODO: implement getPlaceDetails
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Place>> getPlaces(int radius, String category) async {
+  Future<List<Place>> getPlaces(double radius, String category) async {
     return placeRepository.getPlaces(radius, category);
   }
 
   @override
-  List<Place> getVisitPlaces() {
+  Future<List<Place>> getVisitPlaces() async {
     // TODO: implement getVisitPlaces
     throw UnimplementedError();
   }
 
   @override
-  void removeFromFavorites(Place place) {
+  Future<void> removeFromFavorites(Place place) async {
     // TODO: implement removeFromFavorites
   }
 }

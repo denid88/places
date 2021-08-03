@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:places/domain/state/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/styles.dart';
@@ -12,10 +11,10 @@ import 'package:places/ui/widgets/common/base_image.dart';
 
 class SightDetails extends StatefulWidget {
 
-  final Sight sight;
+  final Place place;
 
   SightDetails({
-    required this.sight
+    required this.place
   });
 
   @override
@@ -33,7 +32,7 @@ class _SightDetailsState extends State<SightDetails> {
   void _initAutoPageChange() {
     Timer.periodic(Duration(seconds: 5), (timer) {
 
-      if (_currentIndexIndicator < widget.sight.gallery.length - 1 && _scrollController.hasClients) {
+      if (_currentIndexIndicator < widget.place.urls.length - 1 && _scrollController.hasClients) {
         _pageController.nextPage(
           duration: defaultDuration, curve: Curves.ease
         );
@@ -77,8 +76,8 @@ class _SightDetailsState extends State<SightDetails> {
                     ),
                     child: Container(
                       width: double.infinity,
-                      child: widget.sight.gallery.isEmpty ?
-                      BaseImage(url: widget.sight.url) :
+                      child: widget.place.urls.isEmpty ?
+                      BaseImage(url: widget.place.urls.first) :
                       Stack(
                         children: [
                           PageView.builder(
@@ -89,9 +88,9 @@ class _SightDetailsState extends State<SightDetails> {
                               });
                             },
                             physics: AlwaysScrollableScrollPhysics(),
-                            itemCount: widget.sight.gallery.length,
+                            itemCount: widget.place.urls.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return BaseImage(url: widget.sight.gallery[index]);
+                              return BaseImage(url: widget.place.urls[index]);
                             }
                           ),
                           Positioned(
@@ -101,7 +100,7 @@ class _SightDetailsState extends State<SightDetails> {
                               width: MediaQuery.of(context).size.width,
                               height: 8.0,
                               child: Row(
-                                children: List.generate(widget.sight.gallery.length,
+                                children: List.generate(widget.place.urls.length,
                                     (index) => Expanded(
                                     child: GestureDetector(
                                       onTap: () {
@@ -143,14 +142,14 @@ class _SightDetailsState extends State<SightDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.sight.name,
+                    widget.place.name,
                     style: Theme.of(context).textTheme.headline2
                   ),
                   SizedBox(height: 2.0),
                   Row(
                     children: [
                       Text(
-                        widget.sight.type,
+                        widget.place.placeType,
                         style: Theme.of(context).textTheme.headline3,
                       ),
                       SizedBox(width: 16.0),
@@ -162,7 +161,7 @@ class _SightDetailsState extends State<SightDetails> {
                   ),
                   SizedBox(height: 24.0),
                   Text(
-                    widget.sight.details,
+                    widget.place.description,
                     style: Theme.of(context).textTheme.bodyText1
                   ),
                   BaseElevatedButton(

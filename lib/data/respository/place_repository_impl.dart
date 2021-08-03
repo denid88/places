@@ -20,9 +20,26 @@ class PlaceRepositoryImpl implements PlaceRepository {
   }
 
   @override
-  Future<List<Place>> getPlaces(int radius, String category) async {
-    final Response response = await apiClient.dio.post(placeUrl);
-    return response.data.map((p) => Place.fromJson(p)).toList();
+  Future<List<Place>> getPlaces(double radius, String category) async {
+    print('radius');
+    print(radius);
+    final Response response = await apiClient.dio.post(
+      placeUrl,
+      data: jsonEncode({
+        "lat": 48.8478039,
+        "lng": 37.5525647,
+        "radius": 10000.0,
+        "typeFilter": [
+          "парк",
+          "водоем",
+          "храм"
+        ],
+        "nameFilter": ""
+
+      })
+    );
+    print(response.data);
+    return List.of(response.data.map<Place>((p) => Place.fromJson(p)));
   }
 
   @override

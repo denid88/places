@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:places/domain/state/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
@@ -204,17 +203,17 @@ class _AddSightScreenState extends State<AddSightScreen> {
               topOffset: 8.0,
               textIsUppercase: true,
               action: _disabledButton ? null : () {
-                final newSight = Sight(
-                  name: _nameController.text,
-                  lat: double.parse(_latitudeController.text),
-                  lng: double.parse(_longitudeController.text),
-                  url: 'https://wallpapercave.com/wp/wp4059147.jpg',
-                  gallery: [],
-                  details: _descriptionController.text,
-                  type: _selectedCategory,
-                  date: '${DateTime.now()}'
-                );
-                Navigator.of(context).pop(newSight);
+                // final newSight = Sight(
+                //   name: _nameController.text,
+                //   lat: double.parse(_latitudeController.text),
+                //   lng: double.parse(_longitudeController.text),
+                //   url: 'https://wallpapercave.com/wp/wp4059147.jpg',
+                //   gallery: [],
+                //   details: _descriptionController.text,
+                //   type: _selectedCategory,
+                //   date: '${DateTime.now()}'
+                // );
+                //Navigator.of(context).pop(newSight);
               },
               text: 'Cоздать'
             )

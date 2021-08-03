@@ -1,12 +1,12 @@
 import 'package:places/data/model/place.dart';
 
 abstract class PlaceInteractor {
-  Future<List<Place>> getPlaces(int radius, String category);
-  Place getPlaceDetails(int id);
-  List<Place> getFavoritesPlaces();
-  void addToFavorites(Place place);
-  void removeFromFavorites(Place place);
-  List<Place> getVisitPlaces();
-  void addToVisitingPlaces(place);
-  void addNewPlace(Place place);
+  Future<List<Place>> getPlaces(double radius, String category);
+  Future<Place> getPlaceDetails(int id);
+  Future<List<Place>> getFavoritesPlaces();
+  Future<void> addToFavorites(Place place);
+  Future<void> removeFromFavorites(Place place);
+  Future<List<Place>> getVisitPlaces();
+  Future<void> addToVisitingPlaces(place);
+  Future<void> addNewPlace(Place place);
 }
