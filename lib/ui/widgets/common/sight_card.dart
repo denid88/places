@@ -43,22 +43,29 @@ class _SightCardState extends State<SightCard> {
   late TimeOfDay? _selectedMaterialTime;
   late DateTime? _selectedCupertinoDateTime;
 
-  void _showModalBottomSheet() {
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      isDismissible: true,
-      enableDrag: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(16.0),
-          topLeft: Radius.circular(16.0),
+  // Сделал здесь только в рамках теоретической задачи,
+  // так в этом нет смысла все данные по карточки забираются с /filtered_places
+  // но этот кейс если бы например по роуту details были б дополнительные данные
+
+  void _showModalBottomSheet(int id) async {
+    final place = await context.read<Data>().getPlaceById(id);
+    if (place != null) {
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        isDismissible: true,
+        enableDrag: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(16.0),
+            topLeft: Radius.circular(16.0),
+          ),
         ),
-      ),
-      builder: (BuildContext context) {
-        return CardDetailsDialog(place: widget.place);
-      }
-    );
+        builder: (BuildContext context) {
+          return CardDetailsDialog(place: place);
+        }
+      );
+    }
   }
 
   void _showDateMaterialPicker() async {
@@ -114,7 +121,7 @@ class _SightCardState extends State<SightCard> {
         child: InkWell(
           borderRadius: cardBorderRadius,
           splashColor: splashCard,
-          onTap: () => _showModalBottomSheet(),
+          onTap: () => _showModalBottomSheet(widget.place.id),
           child: DismissibleCard(
             place: widget.place,
             type: widget.type,

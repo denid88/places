@@ -13,20 +13,26 @@ class PlaceRepositoryImpl implements PlaceRepository {
 
   PlaceRepositoryImpl({required this.apiClient});
 
-  static String placeUrl = 'filtered_places';
+  static String placesUrl = 'filtered_places';
+  static String placeUrl = 'place';
+
   static String favoritesKey = 'favoritePlaces';
   static String visitingKey = 'visitingPlaces';
 
   @override
-  Future<Place> createPlace() async {
-    // TODO: implement createPlace
-    throw UnimplementedError();
+  Future<Place> createPlace(Place place) async {
+    final Response response = await apiClient.dio.post(
+      placeUrl,
+      data: place.toJson()
+    );
+    print(response);
+    return Place.fromJson(response.data);
   }
 
   @override
   Future<List<Place>> getPlaces(double radius, String category) async {
     final Response response = await apiClient.dio.post(
-      placeUrl,
+      placesUrl,
       data: jsonEncode({
         "lat": 48.8478039,
         "lng": 37.5525647,
@@ -37,7 +43,6 @@ class PlaceRepositoryImpl implements PlaceRepository {
           "храм"
         ],
         "nameFilter": ""
-
       })
     );
     print(response);
@@ -46,8 +51,8 @@ class PlaceRepositoryImpl implements PlaceRepository {
 
   @override
   Future<Place> getPlaceById(int id) async {
-    // TODO: implement getPlaceById
-    throw UnimplementedError();
+    final Response response = await apiClient.dio.get('$placeUrl/$id');
+    return Place.fromJson(response.data);
   }
 
   @override

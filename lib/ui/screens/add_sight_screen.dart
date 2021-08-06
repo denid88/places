@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/data/model/place.dart';
+import 'package:places/domain/state/data.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
@@ -7,6 +9,7 @@ import 'package:places/ui/widgets/button/base_text_button.dart';
 import 'package:places/ui/widgets/input/base_input.dart';
 import 'package:places/ui/widgets/input/dropdown_add_sight_input.dart';
 import 'package:places/ui/widgets/input/images_add_sight.dart';
+import 'package:provider/provider.dart';
 
 import 'add_category_sight_screen.dart';
 
@@ -34,6 +37,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
   String _defaultDropdownHint = 'Не выбрано';
 
   void checkedButton() {
+    print('checkedButton');
     if (_nameController.text.isNotEmpty &&
         _latitudeController.text.isNotEmpty &&
         _longitudeController.text.isNotEmpty &&
@@ -67,7 +71,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   ),
                   child: BaseTextButton(
                     text: 'Отмена',
-                    width: 66.0,
+                    width: 70.0,
                     color: lightGrey2,
                     action: () {
                       Navigator.of(context).pop();
@@ -203,17 +207,17 @@ class _AddSightScreenState extends State<AddSightScreen> {
               topOffset: 8.0,
               textIsUppercase: true,
               action: _disabledButton ? null : () {
-                // final newSight = Sight(
-                //   name: _nameController.text,
-                //   lat: double.parse(_latitudeController.text),
-                //   lng: double.parse(_longitudeController.text),
-                //   url: 'https://wallpapercave.com/wp/wp4059147.jpg',
-                //   gallery: [],
-                //   details: _descriptionController.text,
-                //   type: _selectedCategory,
-                //   date: '${DateTime.now()}'
-                // );
-                //Navigator.of(context).pop(newSight);
+                final newPlace = Place(
+                  name: _nameController.text,
+                  lat: double.parse(_latitudeController.text),
+                  lng: double.parse(_longitudeController.text),
+                  urls: ['https://wallpapercave.com/wp/wp4059147.jpg'],
+                  placeType: 'other',
+                  description: _descriptionController.text,
+                  id: 333
+                );
+                context.read<Data>().addPlace(newPlace);
+                Navigator.of(context).pop();
               },
               text: 'Cоздать'
             )

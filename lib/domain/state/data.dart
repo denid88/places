@@ -30,6 +30,15 @@ class Data extends ChangeNotifier {
     return foundList.contains(place.id);
   }
 
+  Future<Place?> getPlaceById(int id) async {
+    try {
+      final place = await placeInteractor.getPlaceDetails(id);
+      return place;
+    } catch (e) {
+      print('Failed place details: $e');
+    }
+  }
+
   void fetchData() async {
     final Coords currentGeo = Coords(
       lat: 48.8478039,
@@ -43,6 +52,7 @@ class Data extends ChangeNotifier {
     final data = placeInteractor.getPlaces(distance, '');
 
     data.then((result) {
+      result.forEach((element) {print(element.id);});
       if (favoritePlaces != null) {
         _favorites = result.where((p) =>
           favoritePlaces.contains(p.id.toString())).toList();
@@ -64,9 +74,17 @@ class Data extends ChangeNotifier {
     });
   }
 
-  void add(Place sight) {
-    _data.add(sight);
-    notifyListeners();
+  void addPlace(Place place) {
+    try {
+      placeInteractor.addNewPlace(place)
+        .then((_) {
+          _data.add(place);
+          notifyListeners();
+        })
+        .catchError((e) { print('Error in load place $e'); });
+    } catch (e) {
+      print('Failed in load new place $e');
+    }
   }
 
   void addToWishes(Place place) {

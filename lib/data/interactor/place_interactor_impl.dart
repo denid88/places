@@ -10,7 +10,7 @@ class PlaceInteractorImpl extends PlaceInteractor {
 
   @override
   Future<void> addNewPlace(Place place) async {
-    // TODO: implement addNewPlace
+    await placeRepository.createPlace(place);
   }
 
   @override

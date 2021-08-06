@@ -1,7 +1,7 @@
 import 'package:places/data/model/place.dart';
 
 abstract class PlaceRepository {
-  Future<Place> createPlace();
+  Future<Place> createPlace(Place place);
   Future<List<Place>> getPlaces(double radius, String category);
   Future<Place> getPlaceById(int id);
   Future updatePlace(int id);

@@ -122,15 +122,12 @@ class _SightListScreenState extends State<SightListScreen> {
                 child: Center(
                   child: BaseElevatedButton(
                     action: () async {
-                      final newSight = await Navigator.push(
+                      await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => AddSightScreen(),
                         ),
                       );
-                      if (newSight != null) {
-                        context.read<Data>().add(newSight);
-                      }
                     },
                     text: 'новое место',
                     textIsUppercase: true,
