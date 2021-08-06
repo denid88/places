@@ -15,7 +15,7 @@ class PlaceInteractorImpl extends PlaceInteractor {
 
   @override
   Future<void> addToFavorites(Place place) async {
-    // TODO: implement addToFavorites
+    placeRepository.addToFavorites(place.id);
   }
 
   @override
@@ -24,15 +24,13 @@ class PlaceInteractorImpl extends PlaceInteractor {
   }
 
   @override
-  Future<List<Place>> getFavoritesPlaces() async {
-    // TODO: implement getFavoritesPlaces
-    throw UnimplementedError();
+  Future<List<String>?> getFavoritePlaces() async {
+    return placeRepository.getFavoritePlaces();
   }
 
   @override
   Future<Place> getPlaceDetails(int id) async {
-    // TODO: implement getPlaceDetails
-    throw UnimplementedError();
+    return placeRepository.getPlaceById(id);
   }
 
   @override

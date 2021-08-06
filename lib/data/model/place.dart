@@ -6,16 +6,40 @@ class Place {
   final String placeType;
   final String description;
   final List urls;
+  bool isFavorite;
   
-  const Place({
+  Place({
     required this.id,
     required this.lat,
     required this.lng,
     required this.name,
     required this.placeType,
     required this.description,
-    required this.urls
+    required this.urls,
+    this.isFavorite = false
   });
+
+  Place copyWith({
+    int? id,
+    double? lat,
+    double? lng,
+    String? name,
+    String? placeType,
+    String? description,
+    List? urls,
+    bool? isFavorite
+  }) {
+    return Place(
+      id: id ?? this.id,
+      lat: lat ?? this.lat,
+      lng: lng ?? this.lng,
+      name: name ?? this.name,
+      placeType: placeType ?? this.placeType,
+      description: description ?? this.description,
+      urls: urls ?? this.urls,
+      isFavorite: isFavorite ?? this.isFavorite
+    );
+  }
 
   factory Place.fromJson(Map<String, dynamic> json) {
     final int id = json['id'];
@@ -32,7 +56,8 @@ class Place {
       name: name,
       placeType: placeType,
       description: description,
-      urls: urls
+      urls: urls,
+      isFavorite: false
     );
   }
 

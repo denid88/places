@@ -8,6 +8,7 @@ import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:places/domain/state/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/interactor/place_interactor_impl.dart';
 import 'data/respository/place_repository_impl.dart';
@@ -24,7 +25,7 @@ void main() async {
           create: (context) => Data(
             placeInteractor: PlaceInteractorImpl(
               placeRepository: PlaceRepositoryImpl(
-                apiClient: ApiClient(dioClient: Dio())
+                apiClient: ApiClient(dioClient: Dio()),
               )
             )
           )..fetchData(),

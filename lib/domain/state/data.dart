@@ -25,7 +25,7 @@ class Data extends ChangeNotifier {
 
   List<Place> get visited => _visited;
 
-  void fetchData() {
+  void fetchData() async {
     final Coords currentGeo = Coords(
       lat: 48.8478039,
       lng: 37.5525647
@@ -34,19 +34,29 @@ class Data extends ChangeNotifier {
     final Coords nearCityGeo = Coords(lat: 59.9399139, lng: 29.5342723);
     final double distance = distanceInKmBetweenEarthCoordinates(
         currentGeo.lat, currentGeo.lng, nearCityGeo.lat, nearCityGeo.lng);
-
-    print(distance);
-
+    final favoritePlaces = await placeInteractor.getFavoritePlaces();
     final data = placeInteractor.getPlaces(distance, '');
+
     data.then((result) {
-      _data = result;
+      if (favoritePlaces != null) {
+        _favorites = result.where((p) =>
+          favoritePlaces.contains(p.id.toString())).toList();
+      }
+
+      _data = favoritePlaces == null ? result : List.of(result.map((p) {
+        if (favoritePlaces.contains(p.id.toString())) {
+          p.isFavorite = true;
+        }
+        return p;
+      }));
+
+      notifyListeners();
     }).catchError((e) {
       if (e is DioError) {
         throw Exception(e.message);
       }
       throw Exception(e);
     });
-    notifyListeners();
   }
 
   void add(Place sight) {
@@ -54,17 +64,27 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addToWishes(Place sight) {
-     // _data = _data.map((s) => s.name == sight.name ?
-     //    s.copyWith(isFavorite: true) : s).toList();
-     // _favorites.add(sight);
-      notifyListeners();
+  void addToWishes(Place place) {
+
+     try {
+       placeInteractor.addToFavorites(place)
+         .then((_) {
+           _data = List.of(_data.map((p) => p.name == place.name ?
+              p.copyWith(isFavorite: true) : p));
+           _favorites.add(place);
+           notifyListeners();
+         })
+         .catchError((e) { print('Error in add to favorite $e'); });
+
+     } catch (e) {
+        print('Something went wrong in add to favorite $e');
+     }
   }
 
   void removeFromListWishes(String name) {
-    // _data = _data.map((s) => s.name == name ?
-    // s.copyWith(isFavorite: false) : s).toList();
-    // _favorites.removeWhere((s) => s.name == name);
+    _data = _data.map((s) => s.name == name ?
+    s.copyWith(isFavorite: false) : s).toList();
+    _favorites.removeWhere((s) => s.name == name);
     notifyListeners();
   }
 

@@ -145,14 +145,14 @@ class _SightCardState extends State<SightCard> {
                             ),
                             widget.type == SightType.basic ?
                             BaseActionButton(
-                             icon: '',//widget.place.isFavorite ?
-                             //favoriteDarkIconURL: '',//favoriteIconURL,
+                             icon: widget.place.isFavorite ?
+                             favoriteDarkIconURL: favoriteIconURL,
                               action: () {
-                                // if (!widget.place.isFavorite) {
-                                //   context.read<Data>()
-                                //     .addToWishes(widget.place);
-                                // }
-                              }
+                                if (!widget.place.isFavorite) {
+                                  context.read<Data>()
+                                    .addToWishes(widget.place);
+                                }
+                              },
                             ) : widget.type == SightType.plan ? Row(
                               children: [
                                 BaseActionButton(
@@ -205,14 +205,14 @@ class _SightCardState extends State<SightCard> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // TODO Change with place
-                        // Padding(
-                        //   padding: const EdgeInsets.only(bottom: 2.0),
-                        //   child: Text(
-                        //     widget.place.name,
-                        //     maxLines: 2,
-                        //     style: Theme.of(context).textTheme.subtitle1
-                        //   ),
-                        // ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 2.0),
+                          child: Text(
+                            widget.place.name,
+                            maxLines: 2,
+                            style: Theme.of(context).textTheme.subtitle1
+                          ),
+                        ),
                         // widget.type == SightType.plan && widget.place.isNotEmpty  ?
                         // Padding(
                         //   padding: const EdgeInsets.only(bottom: 16.0),
@@ -225,17 +225,17 @@ class _SightCardState extends State<SightCard> {
                         // Padding(
                         //   padding: const EdgeInsets.only(bottom: 16.0),
                         //   child: Text(
-                        //     '${SightCard.visitedCardText} ${widget.sight.date}',
+                        //     '${SightCard.visitedCardText} ${widget.place}',
                         //     style: Theme.of(context).
                         //     textTheme.bodyText2,
                         //   ),
                         // ) : SizedBox.shrink(),
-                        // Text(
-                        //   widget.sight.details,
-                        //   style: Theme.of(context).textTheme.bodyText2,
-                        //   maxLines: 1,
-                        //   overflow: TextOverflow.ellipsis,
-                        // ),
+                        Text(
+                          widget.place.description,
+                          style: Theme.of(context).textTheme.bodyText2,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
                     ),
                   ),

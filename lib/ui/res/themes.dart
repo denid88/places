@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/main.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/res/colors.dart';
@@ -8,16 +7,16 @@ ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: white,
   backgroundColor: AppColors.red,
   brightness: Brightness.light,
-  // textTheme: TextTheme(
-  //   headline1: ltTextBold32,
-  //   headline2: ltTextBold24,
-  //   headline3: ltTextMedium18,
-  //   headline4: ltTextBold14,
-  //   subtitle1: ltTextMedium16,
-  //   subtitle2: ltTextMedium14,
-  //   bodyText1: ltTextRegular16,
-  //   bodyText2: ltTextRegular14
-  // ),
+  textTheme: TextTheme(
+    headline1: ltTextBold32,
+    headline2: ltTextBold24,
+    headline3: ltTextMedium18,
+    headline4: ltTextBold14,
+    subtitle1: ltTextMedium16,
+    subtitle2: ltTextMedium14,
+    bodyText1: ltTextRegular16,
+    bodyText2: ltTextRegular14
+  ),
   accentColor: green,
   dividerColor: hr,
   appBarTheme: AppBarTheme(
