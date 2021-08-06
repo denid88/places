@@ -25,6 +25,11 @@ class Data extends ChangeNotifier {
 
   List<Place> get visited => _visited;
 
+  bool isFavorite(Place place) {
+    final foundList = favorites.map((v) => v.id);
+    return foundList.contains(place.id);
+  }
+
   void fetchData() async {
     final Coords currentGeo = Coords(
       lat: 48.8478039,
@@ -33,7 +38,7 @@ class Data extends ChangeNotifier {
 
     final Coords nearCityGeo = Coords(lat: 59.9399139, lng: 29.5342723);
     final double distance = distanceInKmBetweenEarthCoordinates(
-        currentGeo.lat, currentGeo.lng, nearCityGeo.lat, nearCityGeo.lng);
+      currentGeo.lat, currentGeo.lng, nearCityGeo.lat, nearCityGeo.lng);
     final favoritePlaces = await placeInteractor.getFavoritePlaces();
     final data = placeInteractor.getPlaces(distance, '');
 
@@ -65,11 +70,10 @@ class Data extends ChangeNotifier {
   }
 
   void addToWishes(Place place) {
-
      try {
        placeInteractor.addToFavorites(place)
          .then((_) {
-           _data = List.of(_data.map((p) => p.name == place.name ?
+           _data = List.of(_data.map((p) => p.id == place.id ?
               p.copyWith(isFavorite: true) : p));
            _favorites.add(place);
            notifyListeners();
@@ -81,25 +85,49 @@ class Data extends ChangeNotifier {
      }
   }
 
-  void removeFromListWishes(String name) {
-    _data = _data.map((s) => s.name == name ?
-    s.copyWith(isFavorite: false) : s).toList();
-    _favorites.removeWhere((s) => s.name == name);
-    notifyListeners();
+  void removeFromListWishes(int id) {
+    try {
+      placeInteractor.removeFromFavorites(id)
+        .then((value) {
+          _data = _data.map((s) => s.id == id ?
+          s.copyWith(isFavorite: false) : s).toList();
+          _favorites.removeWhere((s) => s.id == id);
+          notifyListeners();
+        })
+        .catchError((e) { print('Failed remove favorite place: $e'); });
+    } catch (e) {
+      print('Something went wrong in remove from favorite $e');
+    }
   }
 
-  void addToVisited(Place sight) {
-    // _data = _data.map((s) => s.name == sight.name ?
-    //   s.copyWith(isVisited: true) : s).toList();
-    // _visited.add(sight);
-      notifyListeners();
+  void addToVisited(Place place) {
+    try {
+      placeInteractor.addToVisitingPlaces(place)
+        .then((_) {
+          _data = List.of(_data.map((p) => p.id == place.id ?
+            p.copyWith(isVisited: true) : p));
+          _visited.add(place);
+          notifyListeners();
+        })
+        .catchError((e) { print('Failed add to favorite place: $e'); });
+    } catch (e) {
+      print('Something went wrong in add to visiting $e');
+    }
   }
 
-  void removeFromListVisited(String name) {
-    // _data = _data.map((s) => s.name == name ?
-    //   s.copyWith(isVisited: false) : s).toList();
-    // _visited.removeWhere((s) => s.name == name);
-    notifyListeners();
+  void removeFromListVisited(int id) {
+    try {
+      placeInteractor.removeFromVisiting(id)
+        .then((value) {
+          _data = _data.map((p) => p.id == id ?
+            p.copyWith(isVisited: false) : p).toList();
+          _visited.removeWhere((p) => p.id == id);
+          notifyListeners();
+        })
+        .catchError((e) { print('Failed remove visiting place: $e'); });
+    } catch (e) {
+      print('Something went wrong in remove from favorite $e');
+    }
   }
 
   void orderSightFavorite(String name, CardDirection direction) {

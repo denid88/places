@@ -15,6 +15,7 @@ class PlaceRepositoryImpl implements PlaceRepository {
 
   static String placeUrl = 'filtered_places';
   static String favoritesKey = 'favoritePlaces';
+  static String visitingKey = 'visitingPlaces';
 
   @override
   Future<Place> createPlace() async {
@@ -80,5 +81,40 @@ class PlaceRepositoryImpl implements PlaceRepository {
   Future<List<String>?> getFavoritePlaces() async {
     final SharedPreferences prefs = await _prefs;
     return prefs.getStringList(favoritesKey);
+  }
+
+  @override
+  Future<void> removeFromFavorites(int id) async {
+    final SharedPreferences prefs = await _prefs;
+    final favoritePlaces = prefs.getStringList(favoritesKey);
+    favoritePlaces!.remove(id.toString());
+    await prefs.setStringList(favoritesKey, favoritePlaces);
+  }
+
+  @override
+  Future<void> addToVisitingPlaces(int id) async {
+    final SharedPreferences prefs = await _prefs;
+    final visitingPlaces = prefs.getStringList(visitingKey);
+    if (visitingPlaces == null) {
+      await prefs.setStringList(visitingKey, [id.toString()]);
+    } else {
+      visitingPlaces.add(id.toString());
+      final updatedFavoritePlaces = visitingPlaces.toSet().toList();
+      await prefs.setStringList(visitingKey, updatedFavoritePlaces);
+    }
+  }
+
+  @override
+  Future<void> removeFromVisiting(int id) async {
+    final SharedPreferences prefs = await _prefs;
+    final visitingPlaces = prefs.getStringList(visitingKey);
+    visitingPlaces!.remove(id.toString());
+    await prefs.setStringList(visitingKey, visitingPlaces);
+  }
+
+  @override
+  Future<List<String>?> getVisitingPlaces() async {
+    final SharedPreferences prefs = await _prefs;
+    return prefs.getStringList(visitingKey);
   }
 }

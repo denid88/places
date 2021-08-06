@@ -7,6 +7,7 @@ class Place {
   final String description;
   final List urls;
   bool isFavorite;
+  bool isVisited;
   
   Place({
     required this.id,
@@ -16,7 +17,8 @@ class Place {
     required this.placeType,
     required this.description,
     required this.urls,
-    this.isFavorite = false
+    this.isFavorite = false,
+    this.isVisited = false
   });
 
   Place copyWith({
@@ -27,7 +29,8 @@ class Place {
     String? placeType,
     String? description,
     List? urls,
-    bool? isFavorite
+    bool? isFavorite,
+    bool? isVisited
   }) {
     return Place(
       id: id ?? this.id,
@@ -37,7 +40,8 @@ class Place {
       placeType: placeType ?? this.placeType,
       description: description ?? this.description,
       urls: urls ?? this.urls,
-      isFavorite: isFavorite ?? this.isFavorite
+      isFavorite: isFavorite ?? this.isFavorite,
+      isVisited: isVisited ?? this.isVisited
     );
   }
 
@@ -57,7 +61,8 @@ class Place {
       placeType: placeType,
       description: description,
       urls: urls,
-      isFavorite: false
+      isFavorite: false,
+      isVisited: false
     );
   }
 

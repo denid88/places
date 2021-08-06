@@ -128,7 +128,7 @@ class _SightCardState extends State<SightCard> {
                     children: [
                       Container(
                         constraints: BoxConstraints(
-                          maxHeight: 96.0,
+                          maxHeight: 94.0,
                         ),
                         width: double.infinity,
                         child: BaseImage(url: widget.place.urls.first)
@@ -166,7 +166,7 @@ class _SightCardState extends State<SightCard> {
                                   icon: removeIconURL,
                                   action: () {
                                     context.read<Data>()
-                                      .removeFromListWishes(widget.place.name);
+                                      .removeFromListWishes(widget.place.id);
                                   }
                                 ),
                               ],
@@ -181,7 +181,7 @@ class _SightCardState extends State<SightCard> {
                                   icon: removeIconURL,
                                   action: () {
                                     context.read<Data>()
-                                      .removeFromListVisited(widget.place.name);
+                                      .removeFromListVisited(widget.place.id);
                                   }
                                 ),
                               ],

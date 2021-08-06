@@ -5,8 +5,9 @@ abstract class PlaceInteractor {
   Future<Place> getPlaceDetails(int id);
   Future<List<String>?> getFavoritePlaces();
   Future<void> addToFavorites(Place place);
-  Future<void> removeFromFavorites(Place place);
-  Future<List<Place>> getVisitPlaces();
-  Future<void> addToVisitingPlaces(place);
+  Future<void> removeFromFavorites(int id);
+  Future<List<String>?> getVisitPlaces();
+  Future<void> addToVisitingPlaces(Place place);
+  Future<void> removeFromVisiting(int id);
   Future<void> addNewPlace(Place place);
 }

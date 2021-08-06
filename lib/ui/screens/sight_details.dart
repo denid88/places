@@ -2,12 +2,15 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
+import 'package:places/domain/state/data.dart';
+import 'package:provider/provider.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/styles.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/button/base_text_button.dart';
 import 'package:places/ui/widgets/common/base_image.dart';
+import 'package:collection/collection.dart';
 
 class SightDetails extends StatefulWidget {
 
@@ -189,7 +192,10 @@ class _SightDetailsState extends State<SightDetails> {
                       ),
                       Expanded(
                         child: BaseTextButton(
-                          action: () { print('Добавлено в избранное'); },
+                          disabled: context.watch<Data>()
+                            .isFavorite(widget.place),
+                          action: () => context.read<Data>()
+                            .addToWishes(widget.place),
                           text: 'В Избранное',
                           icon: favoriteIconURL,
                         ),

@@ -40,7 +40,7 @@ class CardDetailsDialog extends StatelessWidget {
             width: 40.0,
             height: 4.0,
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).dialogBackgroundColor,
               borderRadius: BorderRadius.circular(8.0)
             ),
           ),

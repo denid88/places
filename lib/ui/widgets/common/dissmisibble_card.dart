@@ -41,10 +41,10 @@ class _DismissibleCardState extends State<DismissibleCard> {
 
           if (widget.type == SightType.plan) {
             context.read<Data>()
-              .removeFromListWishes(widget.place.name);
+              .removeFromListWishes(widget.place.id);
           } else if (widget.type == SightType.visited) {
             context.read<Data>()
-              .removeFromListVisited(widget.place.name);
+              .removeFromListVisited(widget.place.id);
           }
         }
       },

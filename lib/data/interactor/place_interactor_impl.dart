@@ -19,11 +19,6 @@ class PlaceInteractorImpl extends PlaceInteractor {
   }
 
   @override
-  Future<void> addToVisitingPlaces(place) async {
-    // TODO: implement addToVisitingPlaces
-  }
-
-  @override
   Future<List<String>?> getFavoritePlaces() async {
     return placeRepository.getFavoritePlaces();
   }
@@ -39,13 +34,22 @@ class PlaceInteractorImpl extends PlaceInteractor {
   }
 
   @override
-  Future<List<Place>> getVisitPlaces() async {
-    // TODO: implement getVisitPlaces
-    throw UnimplementedError();
+  Future<List<String>?> getVisitPlaces() async {
+    return placeRepository.getVisitingPlaces();
   }
 
   @override
-  Future<void> removeFromFavorites(Place place) async {
-    // TODO: implement removeFromFavorites
+  Future<void> removeFromFavorites(int id) async {
+    placeRepository.removeFromFavorites(id);
+  }
+
+  @override
+  Future<void> addToVisitingPlaces(Place place) async {
+    placeRepository.addToVisitingPlaces(place.id);
+  }
+
+  @override
+  Future<void> removeFromVisiting(int id) async {
+    placeRepository.removeFromVisiting(id);
   }
 }

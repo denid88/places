@@ -7,5 +7,9 @@ abstract class PlaceRepository {
   Future updatePlace(int id);
   Future deletePlace(int id);
   Future<void> addToFavorites(int id);
+  Future<void> removeFromFavorites(int id);
   Future<List<String>?> getFavoritePlaces();
+  Future<void> addToVisitingPlaces(int id);
+  Future<void> removeFromVisiting(int id);
+  Future<List<String>?> getVisitingPlaces();
 }
