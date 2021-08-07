@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/domain/state/data.dart';
+import 'package:places/ui/utils/text_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
@@ -152,7 +153,7 @@ class _SightDetailsState extends State<SightDetails> {
                   Row(
                     children: [
                       Text(
-                        widget.place.placeType,
+                        convertToResponseValue(widget.place.placeType),
                         style: Theme.of(context).textTheme.headline3,
                       ),
                       SizedBox(width: 16.0),

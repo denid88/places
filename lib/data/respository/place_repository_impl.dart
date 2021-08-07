@@ -38,14 +38,19 @@ class PlaceRepositoryImpl implements PlaceRepository {
         "lng": 37.5525647,
         "radius": 1000000000000.0,
         "typeFilter": [
-          "парк",
-          "водоем",
-          "храм"
+          "temple",
+          "monument",
+          "park",
+          "theatre",
+          "museum",
+          "hotel",
+          "restaurant",
+          "cafe",
+          "other"
         ],
         "nameFilter": ""
       })
     );
-    print(response);
     return List.of(response.data.map<Place>((p) => Place.fromJson(p)));
   }
 

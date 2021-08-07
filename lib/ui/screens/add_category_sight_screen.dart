@@ -14,13 +14,15 @@ class _AddCategorySightScreenState extends State<AddCategorySightScreen> {
 
   static const String _title = 'Категория';
   static const List<Categories> _categories = [
-    Categories.lake,
-    Categories.church,
-    Categories.mountain,
-    Categories.restaurant,
-    Categories.hotel,
+    Categories.temple,
+    Categories.monument,
     Categories.park,
-    Categories.cafe
+    Categories.theatre,
+    Categories.museum,
+    Categories.hotel,
+    Categories.restaurant,
+    Categories.cafe,
+    Categories.other
   ];
 
   Categories? checked;

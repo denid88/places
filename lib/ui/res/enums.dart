@@ -1,4 +1,4 @@
-enum Categories { lake, church, mountain, restaurant, hotel, park, cafe }
+enum Categories { temple, monument, park, theatre, museum, hotel, restaurant, cafe, other }
 
 enum SightType { basic, plan, visited }
 

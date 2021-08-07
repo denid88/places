@@ -28,7 +28,8 @@ class OnBoardingStep extends StatelessWidget {
           children: [
             SvgPicture.asset(
               image,
-              color: lowBlack,
+              color: Theme.of(context).brightness == Brightness.light ?
+                lowBlack : white,
             ),
             SizedBox(height: 40.0),
             Container(
@@ -37,7 +38,8 @@ class OnBoardingStep extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontSize: 24.0,
-                  color: lowBlack,
+                  color: Theme.of(context).brightness == Brightness.light ?
+                    lowBlack : white,
                   fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,

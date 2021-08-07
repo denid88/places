@@ -7,6 +7,7 @@ import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/enums.dart';
 import 'package:places/ui/res/styles.dart';
+import 'package:places/ui/utils/text_utils.dart';
 import 'package:places/ui/widgets/button/base_action_button.dart';
 import 'package:places/ui/widgets/card/card_details_dialog.dart';
 import 'package:places/ui/widgets/common/dissmisibble_card.dart';
@@ -147,7 +148,7 @@ class _SightCardState extends State<SightCard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              widget.place.placeType,
+                              convertToResponseValue(widget.place.placeType),
                               style: TextStyle(color: white),
                             ),
                             widget.type == SightType.basic ?

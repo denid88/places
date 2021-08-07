@@ -113,6 +113,8 @@ class _SightListScreenState extends State<SightListScreen> {
                     mainAxisExtent: 200.0,
                   ),
                 itemBuilder: (BuildContext context, int index) {
+                  print(context.watch<Data>().data[index].name);
+
                   return SightCard(place: context.watch<Data>().data[index]);
                 },
               ),

@@ -4,6 +4,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/domain/state/data.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/utils/text_utils.dart';
 import 'package:places/ui/widgets/button/base_elevated_button.dart';
 import 'package:places/ui/widgets/button/base_text_button.dart';
 import 'package:places/ui/widgets/input/base_input.dart';
@@ -212,7 +213,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   lat: double.parse(_latitudeController.text),
                   lng: double.parse(_longitudeController.text),
                   urls: ['https://wallpapercave.com/wp/wp4059147.jpg'],
-                  placeType: 'other',
+                  placeType: convertToRequestValue(_selectedCategory),
                   description: _descriptionController.text,
                   id: 333
                 );
